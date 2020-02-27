@@ -27,7 +27,14 @@ const config: IConfig = {
 const engine = new Engine(config);
 
 export const App = (props: {}) => {
-  const [data, setData] = React.useState<IData>({ playing: false, ellapsedTime: 0, cars: [], trafficLightColor: 'green', trafficLightGreenEllapsedTime: 0, trafficLightRedEllapsedTime: 0 });
+  const [data, setData] = React.useState<IData>({
+    playing: false,
+    ellapsedTime: 0,
+    cars: [],
+    trafficLightColor: 'green',
+    trafficLightGreenEllapsedTime: 0,
+    trafficLightRedEllapsedTime: 0
+  });
 
   React.useEffect(() => {
     const refresh = (data: IData) => {

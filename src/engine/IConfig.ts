@@ -12,15 +12,15 @@ export interface IConfig {
   // Car max speed in meters/seconds
   carMaxSpeed: number;
   // Car acceleration in meters/seconds²
-  carAcceleration: number
+  carAcceleration: number;
   // Car deceleration in meters/seconds²
-  carDeceleration: number
+  carDeceleration: number;
   // Stop distance between two cars
   stopDistance: number;
   // Add car delay in milliseconds
   addCarDelay: 1000;
   // Traffic light position in meters
-  trafficLightPosition: number
+  trafficLightPosition: number;
   // Time factor
   timeFactor: number;
 }

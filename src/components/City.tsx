@@ -6,15 +6,11 @@ export const City = (props: {}) => {
 
   React.useEffect(() => {
     var imageElement = new Image();
-    imageElement.onload = () => { setImage(imageElement) };
+    imageElement.onload = () => {
+      setImage(imageElement);
+    };
     imageElement.src = require('../assets/city.png').default;
   }, []); // ✅ OK - This effect never re-runs
 
-  return (
-    <KonvaImage
-      x={0}
-      y={0}
-      image={image}
-    />
-  );
+  return <KonvaImage x={0} y={0} image={image} />;
 };

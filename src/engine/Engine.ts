@@ -127,21 +127,27 @@ export class Engine {
           if (carDist <= this.config.carWidth + car.speed * diffTime + this.config.stopDistance) {
             car.speed = 0;
             car.pos = frontCar.pos - this.config.carWidth - this.config.stopDistance;
-          } else if (carDist <= 3 * this.config.carWidth + car.speed * diffTime) { // TODO Check by speed
-            car.speed -= this.config.carDeceleration * diffTime
+          } else if (carDist <= 3 * this.config.carWidth + car.speed * diffTime) {
+            // TODO Check by speed
+            car.speed -= this.config.carDeceleration * diffTime;
           }
         }
         // Red traffic light
         let stoppedInRedTrafficLight = false;
         if (oldSpeed === car.speed) {
           const trafficLightDist = this.config.trafficLightPosition - car.pos;
-          if (this.trafficLightColor === 'red' && trafficLightDist >= -car.speed * diffTime && trafficLightDist <= 3 * this.config.carWidth) {
+          if (
+            this.trafficLightColor === 'red' &&
+            trafficLightDist >= -car.speed * diffTime &&
+            trafficLightDist <= 3 * this.config.carWidth
+          ) {
             if (trafficLightDist <= car.speed * diffTime) {
               car.speed = 0;
               car.pos = this.config.trafficLightPosition;
               stoppedInRedTrafficLight = true;
-            } else if (trafficLightDist <= 3 * this.config.carWidth + car.speed * diffTime) { // TODO Check by speed
-              car.speed -= this.config.carDeceleration * diffTime
+            } else if (trafficLightDist <= 3 * this.config.carWidth + car.speed * diffTime) {
+              // TODO Check by speed
+              car.speed -= this.config.carDeceleration * diffTime;
             }
           }
         }
@@ -151,7 +157,7 @@ export class Engine {
         // Acceleration
         if (oldSpeed === car.speed && stoppedInRedTrafficLight === false) {
           if (carDist > this.config.carWidth + 2 * this.config.stopDistance) {
-            car.speed += this.config.carAcceleration * diffTime
+            car.speed += this.config.carAcceleration * diffTime;
           }
         }
         if (car.speed > this.config.carMaxSpeed) {
@@ -162,7 +168,11 @@ export class Engine {
       }
 
       // Add car ?
-      if (this.config.timeFactor * (this.nextTime - this.lastAddCarTime) >= this.config.addCarDelay && (this.cars.length === 0 || this.cars[this.cars.length - 1].pos > this.config.carWidth + this.config.stopDistance)) {
+      if (
+        this.config.timeFactor * (this.nextTime - this.lastAddCarTime) >= this.config.addCarDelay &&
+        (this.cars.length === 0 ||
+          this.cars[this.cars.length - 1].pos > this.config.carWidth + this.config.stopDistance)
+      ) {
         this.addCar();
         this.lastAddCarTime = this.nextTime;
       }
