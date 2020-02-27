@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Engine, IEngineProps } from '../engine/engine';
+import { Engine } from '../engine/engine';
+import { IConfig } from '../engine/IConfig';
 
 let engine: Engine = null;
 
-export function useEngine(props: IEngineProps): Engine {
+export function useEngine(conf: IConfig): Engine {
   if (engine == null) {
-    engine = new Engine(props);
+    engine = new Engine(conf);
   }
   return engine;
 }

@@ -1,30 +1,33 @@
 import { ICar } from './ICar';
 import { IData } from './IData';
+import { IConfig } from './IConfig';
+
+let globalId = 1;
 
 export type EngineSubscriber = (data: IData) => void;
 
-export interface IEngineProps {
-  // Route length in meters;
-  len: number;
-}
-
 export class Engine {
-  private props: IEngineProps;
-
-  private intervalId: number;
+  private conf: IConfig;
 
   private cars: ICar[] = [];
 
   private subscribers: EngineSubscriber[] = [];
 
-  private previousTime: number;
+  private ellapsedTime: number = 0;
 
-  private nextTime: number;
+  private startTime: number = 0;
 
-  private lastAddCarTime: number;
+  private stopTime: number = 0;
 
-  constructor(props: { len: number }) {
-    this.props = props;
+  private previousTime: number = 0;
+
+  private nextTime: number = 0;
+
+  private lastAddCarTime: number = 0;
+
+  constructor(conf: IConfig) {
+    this.conf = conf;
+    setInterval(this.cycle, this.conf.refresh);
   }
 
   public on(subscriber: EngineSubscriber) {
@@ -38,58 +41,67 @@ export class Engine {
     }
   }
 
-  public start(refresh: number) {
-    this.previousTime = 0;
-    this.nextTime = 0;
-    this.lastAddCarTime = 0;
-    this.intervalId = setInterval(this.cycle, refresh);
+  public start() {
+    this.startTime = Date.now();
+    const stopDelay = this.stopTime > 0 ? this.startTime - this.stopTime : 0;
+    this.lastAddCarTime += stopDelay;
+    this.stopTime = 0;
     this.notify();
   }
 
   public stop() {
-    this.previousTime = 0;
-    this.nextTime = 0;
-    this.lastAddCarTime = 0;
-    if (this.intervalId != null) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
+    this.stopTime = Date.now();
+    this.startTime = 0;
     this.notify();
   }
 
   private cycle = () => {
     this.previousTime = this.nextTime;
     this.nextTime = Date.now();
+
     if (this.previousTime === 0) {
       return;
     }
+
     if (this.lastAddCarTime === 0) {
       this.lastAddCarTime = this.nextTime;
     }
-    const ellapsed = this.nextTime - this.previousTime;
-    // Move cars
-    this.cars.forEach((car: ICar) => (car.pos += (car.speed * ellapsed) / 1000));
-    // Add car ?
-    if (this.nextTime - this.lastAddCarTime >= 2000) {
-      this.addCar();
-      this.lastAddCarTime = this.nextTime;
+    
+    if (this.startTime > 0) {
+      const diffTime = this.conf.timeFactor * (this.nextTime - this.previousTime) / 1000.0;
+
+      this.ellapsedTime += diffTime; 
+
+      // Move cars
+      this.cars.forEach((car: ICar) => (car.pos += car.speed * diffTime));
+
+      // Add car ?
+      if (this.conf.timeFactor * (this.nextTime - this.lastAddCarTime) >= this.conf.addCarDelay) {
+        this.addCar();
+        this.lastAddCarTime = this.nextTime;
+      }
+
+      // Remove old car
+      this.cars = this.cars.filter((car: ICar) => (car.pos < this.conf.windowWidth * this.conf.resolution + this.conf.carWidth));
+      
+      // Notify
+      this.notify();
     }
-    // Remove old car
-    this.cars = this.cars.filter((car: ICar) => car.pos < this.props.len);
-    this.notify();
   };
 
   private addCar() {
     this.cars.push({
+      id: globalId++,
       pos: 0,
-      speed: 60 * 60
+      speed: this.conf.carMaxSpeed
     });
   }
 
   private notify() {
     for (const subscriber of this.subscribers) {
       subscriber({
-        started: this.intervalId != null,
+        started: this.startTime > 0,
+        ellapsedTime: this.ellapsedTime,
         cars: this.cars
       });
     }

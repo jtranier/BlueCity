@@ -1,20 +1,26 @@
 import * as React from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva';
-import { Car } from './components/Car';
 import { useEngine } from './hooks/useEngine';
 import { IData } from './engine/IData';
 import { Route } from './components/Route';
+import { IConfig } from './engine/IConfig';
 
-// Pixel resolution in meters
-const resolution = 10;
-
-const width = window.innerWidth - 20;
-
-const height = window.innerHeight - 20;
+const conf: IConfig = {
+  refresh: 20,
+  resolution: 0.4,
+  windowWidth: 980,
+  windowHeight: 540,
+  carWidth: 4.0,
+  carHeight: 2.8,
+  carMaxSpeed: 15.0,
+  addCarDelay: 1000,
+  timeFactor: 2,
+  routePosition: 274
+}
 
 export const App = (props: {}) => {
-  const engine = useEngine({ len: window.innerWidth * resolution });
-  const [data, setData] = React.useState<IData>({ started: false });
+  const engine = useEngine(conf);
+  const [data, setData] = React.useState<IData>({ started: false, ellapsedTime: 0, cars: [] });
 
   React.useEffect(() => {
     const refresh = (data: IData) => {
@@ -27,17 +33,17 @@ export const App = (props: {}) => {
     if (data.started) {
       engine.stop();
     } else {
-      engine.start(20);
+      engine.start();
     }
   };
 
   return (
-    <Stage width={width} height={height}>
+    <Stage width={conf.windowWidth} height={conf.windowHeight}>
       <Layer>
-        <Route data={data} resolution={resolution} y={height - 100} />
+        <Route data={data} conf={conf} />
         <Rect
-          x={width - 60}
-          y={height - 60}
+          x={conf.windowWidth - 60}
+          y={conf.windowHeight - 60}
           width={20}
           height={20}
           fill={data.started ? 'red' : 'grey'}
