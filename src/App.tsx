@@ -34,7 +34,7 @@ export const App = (props: {}) => {
   console.log(engine, config);
   return (
     <Stage width={980} height={540}>
-      <appContext.Provider value={{ engine, config, data }} >
+      <appContext.Provider value={{ engine, config, data }}>
         <Layer>
           <Route />
           <Control />

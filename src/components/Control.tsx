@@ -19,27 +19,9 @@ export const Control = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect
-        x={500}
-        y={400}
-        width={20}
-        height={20}
-        fill="black"
-        onClick={handleStartClick}
-      />
-      <Rect
-        x={500}
-        y={500}
-        width={20}
-        height={20}
-        fill="gray"
-        onClick={handlePauseClick}
-      />
-      <Text
-        x={50}
-        y={500}
-        text={((Math.round(data.ellapsedTime * 10)) / 10).toString()}
-      />
+      <Rect x={500} y={400} width={20} height={20} fill="black" onClick={handleStartClick} />
+      <Rect x={500} y={500} width={20} height={20} fill="gray" onClick={handlePauseClick} />
+      <Text x={50} y={500} text={(Math.round(data.ellapsedTime * 10) / 10).toString()} />
     </React.Fragment>
   );
 };

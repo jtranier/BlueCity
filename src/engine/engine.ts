@@ -84,9 +84,7 @@ export class Engine {
       }
 
       // Remove old car
-      this.cars = this.cars.filter(
-        (car: ICar) => car.pos < this.config.routeLen + this.config.carWidth
-      );
+      this.cars = this.cars.filter((car: ICar) => car.pos < this.config.routeLen + this.config.carWidth);
 
       // Notify
       this.notify();
