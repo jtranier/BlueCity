@@ -66,11 +66,11 @@ export class Engine {
     if (this.lastAddCarTime === 0) {
       this.lastAddCarTime = this.nextTime;
     }
-    
-    if (this.startTime > 0) {
-      const diffTime = this.conf.timeFactor * (this.nextTime - this.previousTime) / 1000.0;
 
-      this.ellapsedTime += diffTime; 
+    if (this.startTime > 0) {
+      const diffTime = (this.conf.timeFactor * (this.nextTime - this.previousTime)) / 1000.0;
+
+      this.ellapsedTime += diffTime;
 
       // Move cars
       this.cars.forEach((car: ICar) => (car.pos += car.speed * diffTime));
@@ -82,8 +82,10 @@ export class Engine {
       }
 
       // Remove old car
-      this.cars = this.cars.filter((car: ICar) => (car.pos < this.conf.windowWidth * this.conf.resolution + this.conf.carWidth));
-      
+      this.cars = this.cars.filter(
+        (car: ICar) => car.pos < this.conf.windowWidth * this.conf.resolution + this.conf.carWidth
+      );
+
       // Notify
       this.notify();
     }

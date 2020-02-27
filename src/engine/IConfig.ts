@@ -1,6 +1,6 @@
 export interface IConfig {
   // Engine refresh in milliseconds
-  refresh: number
+  refresh: number;
   // Pixel resolution in meters
   resolution: number;
   // Window width

@@ -16,7 +16,7 @@ const conf: IConfig = {
   addCarDelay: 1000,
   timeFactor: 2,
   routePosition: 274
-}
+};
 
 export const App = (props: {}) => {
   const engine = useEngine(conf);
