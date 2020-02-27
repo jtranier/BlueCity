@@ -23,7 +23,10 @@ module.exports = {
     }, {
       test: /\.css?$/,
       use: ['style-loader', 'css-loader']
-    }]
+    }, {
+      test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      use: ['file-loader']
+    },]
   },
   plugins: [
     new HtmlWebpackPlugin({

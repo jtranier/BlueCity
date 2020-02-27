@@ -16,7 +16,7 @@ export const Route = (props: {}) => {
         <Car
           key={car.id}
           x={car.pos / config.resolution}
-          y={config.routePosition}
+          y={274}
           width={config.carWidth / config.resolution}
           height={config.carHeight / config.resolution}
         />

@@ -4,25 +4,30 @@ import { IData } from './engine/IData';
 import { Route } from './components/Route';
 import { IConfig } from './engine/IConfig';
 import { Control } from './components/Control';
-import { Engine } from './engine/engine';
+import { Engine } from './engine/Engine';
 import { appContext } from './AppContext';
+import { TrafficLight } from './components/TrafficLight';
+import { City } from './components/City';
 
 const config: IConfig = {
-  refresh: 20,
+  refresh: 50,
   resolution: 0.4,
   routeLen: 0.4 * 980,
   carWidth: 4.0,
   carHeight: 2.8,
   carMaxSpeed: 15.0,
+  carAcceleration: 8,
+  carDeceleration: 10,
+  stopDistance: 1.0,
   addCarDelay: 1000,
-  timeFactor: 2,
-  routePosition: 274
+  trafficLightPosition: 280,
+  timeFactor: 2
 };
 
 const engine = new Engine(config);
 
 export const App = (props: {}) => {
-  const [data, setData] = React.useState<IData>({ playing: false, ellapsedTime: 0, cars: [] });
+  const [data, setData] = React.useState<IData>({ playing: false, ellapsedTime: 0, cars: [], trafficLightColor: 'green', trafficLightGreenEllapsedTime: 0, trafficLightRedEllapsedTime: 0 });
 
   React.useEffect(() => {
     const refresh = (data: IData) => {
@@ -31,12 +36,13 @@ export const App = (props: {}) => {
     engine.on(refresh);
   }, []); // ✅ OK - This effect never re-runs
 
-  console.log(engine, config);
   return (
     <Stage width={980} height={540}>
       <appContext.Provider value={{ engine, config, data }}>
         <Layer>
+          <City />
           <Route />
+          <TrafficLight />
           <Control />
         </Layer>
       </appContext.Provider>

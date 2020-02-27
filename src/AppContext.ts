@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Engine } from './engine/engine';
+import { Engine } from './engine/Engine';
 import { IConfig } from './engine/IConfig';
 import { IData } from './engine/IData';
 
