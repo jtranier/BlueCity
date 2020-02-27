@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Stage, Layer, Rect, Text } from 'react-konva';
-import Konva from 'konva';
+import { Rect } from 'react-konva';
 
 export const Car = (props: { x: number; y: number; width: number; height: number }) => {
   return (

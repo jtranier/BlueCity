@@ -1,22 +1,24 @@
 import * as React from 'react';
-import { IData } from '../engine/IData';
 import { Car } from './Car';
-import { IConfig } from '../engine/IConfig';
+import { useConfig } from '../hooks/useConfig';
+import { useData } from '../hooks/useData';
 
-export const Route = (props: { data: IData; conf: IConfig }) => {
-  if (props.data == null) {
+export const Route = (props: {}) => {
+  const config = useConfig();
+  const data = useData();
+  if (data == null) {
     return null;
   }
   const cars = [];
-  if (props.data.cars != null) {
-    for (const car of props.data.cars) {
+  if (data.cars != null) {
+    for (const car of data.cars) {
       cars.push(
         <Car
           key={car.id}
-          x={car.pos / props.conf.resolution}
-          y={props.conf.routePosition}
-          width={props.conf.carWidth / props.conf.resolution}
-          height={props.conf.carHeight / props.conf.resolution}
+          x={car.pos / config.resolution}
+          y={config.routePosition}
+          width={config.carWidth / config.resolution}
+          height={config.carHeight / config.resolution}
         />
       );
     }

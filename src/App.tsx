@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva';
-import { useEngine } from './hooks/useEngine';
 import { IData } from './engine/IData';
 import { Route } from './components/Route';
 import { IConfig } from './engine/IConfig';
+import { Control } from './components/Control';
+import { Engine } from './engine/engine';
+import { appContext } from './AppContext';
 
-const conf: IConfig = {
+const config: IConfig = {
   refresh: 20,
   resolution: 0.4,
-  windowWidth: 980,
-  windowHeight: 540,
+  routeLen: 0.4 * 980,
   carWidth: 4.0,
   carHeight: 2.8,
   carMaxSpeed: 15.0,
@@ -18,9 +19,10 @@ const conf: IConfig = {
   routePosition: 274
 };
 
+const engine = new Engine(config);
+
 export const App = (props: {}) => {
-  const engine = useEngine(conf);
-  const [data, setData] = React.useState<IData>({ started: false, ellapsedTime: 0, cars: [] });
+  const [data, setData] = React.useState<IData>({ playing: false, ellapsedTime: 0, cars: [] });
 
   React.useEffect(() => {
     const refresh = (data: IData) => {
@@ -29,28 +31,15 @@ export const App = (props: {}) => {
     engine.on(refresh);
   }, []); // ✅ OK - This effect never re-runs
 
-  const handleClick = () => {
-    if (data.started) {
-      engine.stop();
-    } else {
-      engine.start();
-    }
-  };
-
+  console.log(engine, config);
   return (
-    <Stage width={conf.windowWidth} height={conf.windowHeight}>
-      <Layer>
-        <Route data={data} conf={conf} />
-        <Rect
-          x={conf.windowWidth - 60}
-          y={conf.windowHeight - 60}
-          width={20}
-          height={20}
-          fill={data.started ? 'red' : 'grey'}
-          shadowBlur={5}
-          onClick={handleClick}
-        />
-      </Layer>
+    <Stage width={980} height={540}>
+      <appContext.Provider value={{ engine, config, data }} >
+        <Layer>
+          <Route />
+          <Control />
+        </Layer>
+      </appContext.Provider>
     </Stage>
   );
 };

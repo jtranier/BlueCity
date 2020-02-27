@@ -3,10 +3,8 @@ export interface IConfig {
   refresh: number;
   // Pixel resolution in meters
   resolution: number;
-  // Window width
-  windowWidth: number;
-  // Window height
-  windowHeight: number;
+  // Route len in meters
+  routeLen: number;
   // Car width in meters
   carWidth: number;
   // Car height in meters

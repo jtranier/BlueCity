@@ -1,12 +1,9 @@
 import * as React from 'react';
+import { appContext } from '../AppContext';
 import { Engine } from '../engine/engine';
-import { IConfig } from '../engine/IConfig';
 
-let engine: Engine = null;
-
-export function useEngine(conf: IConfig): Engine {
-  if (engine == null) {
-    engine = new Engine(conf);
-  }
-  return engine;
+export function useEngine(): Engine {
+  const context = React.useContext(appContext);
+  console.log(context);
+  return context.engine;
 }
