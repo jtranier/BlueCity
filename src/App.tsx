@@ -12,10 +12,9 @@ const width = window.innerWidth - 20;
 
 const height = window.innerHeight - 20;
 
-
 export const App = (props: {}) => {
   const engine = useEngine({ len: window.innerWidth * resolution });
-  const [data, setData] = React.useState<IData>({started: false});
+  const [data, setData] = React.useState<IData>({ started: false });
 
   React.useEffect(() => {
     const refresh = (data: IData) => {

@@ -1,6 +1,6 @@
-import { ICar } from "./ICar";
+import { ICar } from './ICar';
 
 export interface IData {
-    started: boolean;
-    cars?: ICar[];
+  started: boolean;
+  cars?: ICar[];
 }
