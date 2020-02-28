@@ -54,14 +54,16 @@ export const App = (props: {}) => {
     };
     engine.on(refresh);
     // Wait for loaind fonts
-    setTimeout(() => { setFontLoaded(true) }, 500);
+    setTimeout(() => {
+      setFontLoaded(true);
+    }, 500);
   }, []); // ✅ OK - This effect never re-runs
 
   return (
     <React.Fragment>
       <GlobalStyle />
       {fontLoaded && (
-        <Stage width={980} height={540} >
+        <Stage width={980} height={540}>
           <appContext.Provider value={{ engine, config, data }}>
             <Layer>
               <City />
