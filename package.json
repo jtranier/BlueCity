@@ -34,7 +34,6 @@
     "@types/react": "^16.9.15",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.0",
-    "arraybuffer-loader": "^1.0.8",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.1",
@@ -58,7 +57,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-konva": "^16.12.0-0",
-    "use-image": "^1.0.5"
+    "styled-components": "^5.0.1"
   },
   "engines": {
     "node": ">= 10.10.0",
