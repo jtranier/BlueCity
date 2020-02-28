@@ -124,7 +124,11 @@ export class Engine {
           if (carDist <= this.config.carWidth + car.speed * diffTime + this.config.stopDistance) {
             car.speed = 0;
             car.pos = frontCar.pos - this.config.carWidth - this.config.stopDistance;
-          } else if (carDist <= 4 * car.speed * this.config.carWidth / this.config.carMaxSpeed + car.speed * diffTime && frontCar.speed < car.speed && car.speed > 0.1 * this.config.carMaxSpeed) {
+          } else if (
+            carDist <= (4 * car.speed * this.config.carWidth) / this.config.carMaxSpeed + car.speed * diffTime &&
+            frontCar.speed < car.speed &&
+            car.speed > 0.1 * this.config.carMaxSpeed
+          ) {
             car.speed -= this.config.carDeceleration * diffTime;
           }
         }
@@ -141,7 +145,11 @@ export class Engine {
               car.speed = 0;
               car.pos = this.config.trafficLightPosition;
               stoppedInRedTrafficLight = true;
-            } else if (trafficLightDist <= 4 * car.speed * this.config.carWidth / this.config.carMaxSpeed + car.speed * diffTime && car.speed > 0.1 * this.config.carMaxSpeed) {
+            } else if (
+              trafficLightDist <=
+                (4 * car.speed * this.config.carWidth) / this.config.carMaxSpeed + car.speed * diffTime &&
+              car.speed > 0.1 * this.config.carMaxSpeed
+            ) {
               car.speed -= this.config.carDeceleration * diffTime;
             }
           }
