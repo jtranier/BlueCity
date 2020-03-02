@@ -9,6 +9,10 @@ export const Board = (props: {}) => {
   const config = useConfig();
   const data = useData();
 
+  const handleZeroClick = () => {
+    engine.zero();
+  };
+
   const handleStartClick = () => {
     engine.play();
   };
@@ -27,8 +31,12 @@ export const Board = (props: {}) => {
       <Text x={30} y={330} text="CONTROLE" fontSize={28} fontFamily="digital" />
       <Text x={10} y={400} text="TEMPS :" fontSize={22} fontFamily="digital" />
       <Text x={30} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <React.Fragment>
+        <Rect x={120} y={405} width={30} height={30} fill="#889" cornerRadius={3} onClick={handleZeroClick} />
+        <Text x={122} y={408} text="⏱" fontSize={26} onClick={handleZeroClick} />
+      </React.Fragment>
       <Text
-        x={120}
+        x={160}
         y={400}
         text={(Math.round(data.ellapsedTime * 10) / 10).toString()}
         fontSize={22}

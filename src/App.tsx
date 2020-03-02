@@ -20,6 +20,7 @@ const config: IConfig = {
   carAcceleration: 12,
   carDeceleration: 10,
   stopDistance: 1.0,
+  brakeCarDist: 12,
   addCarDist: 16,
   trafficLightPosition: 280,
   timeFactor: 2
@@ -56,7 +57,7 @@ export const App = (props: {}) => {
     // Wait for loaind fonts
     setTimeout(() => {
       setFontLoaded(true);
-    }, 500);
+    }, 1000);
   }, []); // ✅ OK - This effect never re-runs
 
   return (
