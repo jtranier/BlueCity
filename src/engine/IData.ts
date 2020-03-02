@@ -11,6 +11,8 @@ export interface IData {
   trafficLightGreenEllapsedTime: number;
   // Traffic light Red ellapsed time in seconds
   trafficLightRedEllapsedTime: number;
+  // Traffic light state
+  trafficLightState: 'manual' | 'auto';
   // Cars
   cars: ICar[];
 }

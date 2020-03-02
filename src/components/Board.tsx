@@ -3,6 +3,7 @@ import { Rect, Text } from 'react-konva';
 import { useEngine } from '../hooks/useEngine';
 import { useConfig } from '../hooks/useConfig';
 import { useData } from '../hooks/useData';
+import { TrafficLight } from './TrafficLight';
 
 export const Board = (props: {}) => {
   const engine = useEngine();
@@ -60,7 +61,14 @@ export const Board = (props: {}) => {
       <Text x={10} y={495} text="RECHARGER :" fontSize={22} fontFamily="digital" />
       <Rect x={120} y={500} width={30} height={30} fill="#889" cornerRadius={3} onClick={handleResetClick} />
       <Text x={125} y={503} text="✖" fontSize={28} onClick={handleResetClick} />
-      <Text x={250} y={330} text="FEU" fontSize={28} fontFamily="digital" />
+      <Text x={270} y={330} text="FEU" fontSize={28} fontFamily="digital" />
+      <React.Fragment>
+        <Rect x={264} y={405} width={30} height={30} fill="#889" cornerRadius={3} onClick={handleZeroClick} />
+        <Text x={268} y={408} text="⇋" fontSize={26} onClick={handleZeroClick} />
+      </React.Fragment>
+      <TrafficLight x={240} y={428} />
+
+      
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
     </React.Fragment>

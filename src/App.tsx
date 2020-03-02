@@ -44,7 +44,8 @@ export const App = (props: {}) => {
     cars: [],
     trafficLightColor: 'green',
     trafficLightGreenEllapsedTime: 0,
-    trafficLightRedEllapsedTime: 0
+    trafficLightRedEllapsedTime: 0,
+    trafficLightState: 'manual'
   });
   const [fontLoaded, setFontLoaded] = React.useState<Boolean>(false);
 
@@ -69,8 +70,8 @@ export const App = (props: {}) => {
             <Layer>
               <City />
               <Board />
+              <TrafficLight x={config.trafficLightPosition / config.resolution} y={256} />
               <Route />
-              <TrafficLight />
             </Layer>
           </appContext.Provider>
         </Stage>

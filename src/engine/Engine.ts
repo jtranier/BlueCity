@@ -29,6 +29,8 @@ export class Engine {
 
   private trafficLightRedEllapsedTime: number = 0;
 
+  private trafficLightState: 'manual' | 'auto' = 'manual';
+
   constructor(config: IConfig) {
     this.config = config;
     this.generateCars();
@@ -100,6 +102,26 @@ export class Engine {
       return;
     }
     this.trafficLightColor = 'red';
+    this.trafficLightGreenEllapsedTime = 0;
+    this.trafficLightRedEllapsedTime = 0;
+    this.notify();
+  }
+
+  public manual() {
+    if (this.trafficLightState === 'manual') {
+      return;
+    }
+    this.trafficLightState = 'manual';
+    this.trafficLightGreenEllapsedTime = 0;
+    this.trafficLightRedEllapsedTime = 0;
+    this.notify();
+  }
+
+  public auto() {
+    if (this.trafficLightState === 'auto') {
+      return;
+    }
+    this.trafficLightState = 'auto';
     this.trafficLightGreenEllapsedTime = 0;
     this.trafficLightRedEllapsedTime = 0;
     this.notify();
@@ -220,6 +242,7 @@ export class Engine {
       trafficLightColor: this.trafficLightColor,
       trafficLightGreenEllapsedTime: this.trafficLightGreenEllapsedTime,
       trafficLightRedEllapsedTime: this.trafficLightRedEllapsedTime,
+      trafficLightState: this.trafficLightState,
       cars: this.cars
     });
   }
