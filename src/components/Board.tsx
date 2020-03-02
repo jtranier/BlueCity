@@ -10,18 +10,15 @@ export const Board = (props: {}) => {
   const data = useData();
 
   const handleStartClick = () => {
-    console.log('handleStartClick');
     engine.play();
   };
 
   const handlePauseClick = () => {
-    console.log('handlePauseClick');
     engine.pause();
   };
 
   const handleResetClick = () => {
-    console.log('handleResetClick');
-    // engine.pause();
+    engine.generateCars();
   };
 
   return (

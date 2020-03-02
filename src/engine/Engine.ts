@@ -71,6 +71,13 @@ export class Engine {
     for (let pos = this.config.routeLen - 5; pos >= 0; pos -= this.config.addCarDist) {
       this.addCar(pos);
     }
+    this.ellapsedTime = 0;
+    this.trafficLightGreenEllapsedTime = 0;
+    this.trafficLightRedEllapsedTime = 0;
+    this.trafficLightColor = 'green';
+    this.pauseTime = Date.now();
+    this.playTime = 0;
+    this.notify();
   }
 
   public green() {
