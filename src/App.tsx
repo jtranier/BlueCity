@@ -14,13 +14,13 @@ const config: IConfig = {
   refresh: 50,
   resolution: 0.4,
   routeLen: 0.4 * 980,
-  carWidth: 4.0,
-  carHeight: 2.8,
+  carWidth: 3.6,
+  carHeight: 2.7,
   carMaxSpeed: 15.0,
   carAcceleration: 8,
   carDeceleration: 10,
   stopDistance: 1.0,
-  addCarDist: 20,
+  addCarDist: 16,
   trafficLightPosition: 280,
   timeFactor: 2
 };

@@ -23,8 +23,6 @@ export class Engine {
 
   private nextTime: number = 0;
 
-  private lastAddCarTime: number = 0;
-
   private trafficLightColor: 'green' | 'red' = 'green';
 
   private trafficLightGreenEllapsedTime: number = 0;
@@ -53,7 +51,6 @@ export class Engine {
     }
     this.playTime = Date.now();
     const stopDelay = this.pauseTime > 0 ? this.playTime - this.pauseTime : 0;
-    this.lastAddCarTime += stopDelay;
     this.pauseTime = 0;
     this.notify();
   }
@@ -93,10 +90,6 @@ export class Engine {
 
     if (this.previousTime === 0) {
       return;
-    }
-
-    if (this.lastAddCarTime === 0) {
-      this.lastAddCarTime = this.nextTime;
     }
 
     if (this.playTime > 0) {
@@ -171,9 +164,10 @@ export class Engine {
       }
 
       // Add car ?
-      if (this.cars.length === 0 || this.cars[this.cars.length - 1].pos > this.config.addCarDist) {
-        this.addCar();
-        this.lastAddCarTime = this.nextTime;
+      if (this.cars.length === 0) {
+        this.addCar(0);
+      } else if (this.cars[this.cars.length - 1].pos > this.config.addCarDist) {
+        this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist);
       }
 
       // Remove old car
@@ -184,7 +178,7 @@ export class Engine {
     }
   };
 
-  private addCar() {
+  private addCar(pos: number) {
     this.cars.push({
       id: globalId++,
       pos: 0,
