@@ -171,9 +171,7 @@ export class Engine {
       }
 
       // Add car ?
-      if (
-        this.cars.length === 0 || this.cars[this.cars.length - 1].pos > this.config.addCarDist
-      ) {
+      if (this.cars.length === 0 || this.cars[this.cars.length - 1].pos > this.config.addCarDist) {
         this.addCar();
         this.lastAddCarTime = this.nextTime;
       }
