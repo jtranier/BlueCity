@@ -31,11 +31,13 @@ export class Engine {
 
   constructor(config: IConfig) {
     this.config = config;
+    this.generateCars();
     setInterval(this.cycle, this.config.refresh);
   }
 
   public on(subscriber: EngineSubscriber) {
     this.subscribers.push(subscriber);
+    this.notifySubscriber(subscriber);
   }
 
   public un(subscriber: EngineSubscriber) {
@@ -50,7 +52,6 @@ export class Engine {
       return;
     }
     this.playTime = Date.now();
-    const stopDelay = this.pauseTime > 0 ? this.playTime - this.pauseTime : 0;
     this.pauseTime = 0;
     this.notify();
   }
@@ -62,6 +63,14 @@ export class Engine {
     this.pauseTime = Date.now();
     this.playTime = 0;
     this.notify();
+  }
+
+  public generateCars() {
+    globalId = 1;
+    this.cars = [];
+    for (let pos = this.config.routeLen - 5; pos >= 0; pos -= this.config.addCarDist) {
+      this.addCar(pos);
+    }
   }
 
   public green() {
@@ -118,8 +127,8 @@ export class Engine {
             car.speed = 0;
             car.pos = frontCar.pos - this.config.carWidth - this.config.stopDistance;
           } else if (
-            carDist <= (4 * car.speed * this.config.carWidth) / this.config.carMaxSpeed + car.speed * diffTime &&
-            frontCar.speed < car.speed &&
+            carDist <= (car.speed * this.config.addCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
+            /* frontCar.speed < car.speed && */
             car.speed > 0.1 * this.config.carMaxSpeed
           ) {
             car.speed -= this.config.carDeceleration * diffTime;
@@ -140,7 +149,7 @@ export class Engine {
               stoppedInRedTrafficLight = true;
             } else if (
               trafficLightDist <=
-                (4 * car.speed * this.config.carWidth) / this.config.carMaxSpeed + car.speed * diffTime &&
+                (car.speed * this.config.addCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
               car.speed > 0.1 * this.config.carMaxSpeed
             ) {
               car.speed -= this.config.carDeceleration * diffTime;
@@ -181,21 +190,25 @@ export class Engine {
   private addCar(pos: number) {
     this.cars.push({
       id: globalId++,
-      pos: 0,
+      pos,
       speed: this.config.carMaxSpeed
     });
   }
 
   private notify() {
     for (const subscriber of this.subscribers) {
-      subscriber({
-        playing: this.playTime > 0,
-        ellapsedTime: this.ellapsedTime,
-        trafficLightColor: this.trafficLightColor,
-        trafficLightGreenEllapsedTime: this.trafficLightGreenEllapsedTime,
-        trafficLightRedEllapsedTime: this.trafficLightRedEllapsedTime,
-        cars: this.cars
-      });
+      this.notifySubscriber(subscriber);
     }
+  }
+
+  private notifySubscriber(subscriber: EngineSubscriber) {
+    subscriber({
+      playing: this.playTime > 0,
+      ellapsedTime: this.ellapsedTime,
+      trafficLightColor: this.trafficLightColor,
+      trafficLightGreenEllapsedTime: this.trafficLightGreenEllapsedTime,
+      trafficLightRedEllapsedTime: this.trafficLightRedEllapsedTime,
+      cars: this.cars
+    });
   }
 }

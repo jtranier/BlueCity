@@ -17,7 +17,7 @@ const config: IConfig = {
   carWidth: 3.6,
   carHeight: 2.7,
   carMaxSpeed: 15.0,
-  carAcceleration: 8,
+  carAcceleration: 12,
   carDeceleration: 10,
   stopDistance: 1.0,
   addCarDist: 16,
