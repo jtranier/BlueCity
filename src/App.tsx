@@ -20,7 +20,7 @@ const config: IConfig = {
   carAcceleration: 8,
   carDeceleration: 10,
   stopDistance: 1.0,
-  addCarDelay: 1000,
+  addCarDist: 20,
   trafficLightPosition: 280,
   timeFactor: 2
 };
@@ -30,7 +30,7 @@ const engine = new Engine(config);
 const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family: 'digital';
-  src: url(${require('./assets/digital-7 (mono).ttf').default}) format('truetype');
+  src: url(${require('./assets/digital-7.ttf').default}) format('truetype');
   font-weight: normal;
   font-style: normal;
 }

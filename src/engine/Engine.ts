@@ -172,9 +172,7 @@ export class Engine {
 
       // Add car ?
       if (
-        this.config.timeFactor * (this.nextTime - this.lastAddCarTime) >= this.config.addCarDelay &&
-        (this.cars.length === 0 ||
-          this.cars[this.cars.length - 1].pos > this.config.carWidth + this.config.stopDistance)
+        this.cars.length === 0 || this.cars[this.cars.length - 1].pos > this.config.addCarDist
       ) {
         this.addCar();
         this.lastAddCarTime = this.nextTime;

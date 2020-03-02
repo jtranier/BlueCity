@@ -17,8 +17,8 @@ export interface IConfig {
   carDeceleration: number;
   // Stop distance between two cars
   stopDistance: number;
-  // Add car delay in milliseconds
-  addCarDelay: 1000;
+  // Add car dist in meters
+  addCarDist: number;
   // Traffic light position in meters
   trafficLightPosition: number;
   // Time factor
