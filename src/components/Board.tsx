@@ -68,7 +68,6 @@ export const Board = (props: {}) => {
       </React.Fragment>
       <TrafficLight x={240} y={428} />
 
-      
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
     </React.Fragment>
