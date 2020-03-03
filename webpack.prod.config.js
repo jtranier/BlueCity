@@ -3,19 +3,17 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
+  mode: 'none',
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server',
     path.join(__dirname, '/src/index')
   ],
   output: {
+    path: path.join(__dirname, '/dist'),
     filename: 'bundle.js'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
-  mode: 'development',
   module: {
     rules: [{
       test: /\.tsx?$/,
@@ -32,16 +30,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '/src/index.html')
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true,
-      __DEVTOOLS__: true,
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
+      'process.env':{
+        'NODE_ENV': JSON.stringify('production'),
       }
     }),
   ],
   optimization: {
+    minimize: true,
     splitChunks: {
       chunks: 'all'
     }

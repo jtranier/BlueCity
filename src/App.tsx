@@ -31,7 +31,7 @@ const engine = new Engine(config);
 const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family: 'digital';
-  src: url(${require('./assets/digital-7.ttf').default}) format('truetype');
+  src: url(${require('./assets/digital-7__mono_.ttf').default}) format('truetype');
   font-weight: normal;
   font-style: normal;
 }

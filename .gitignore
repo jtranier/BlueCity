@@ -30,6 +30,7 @@ jspm_packages/
 
 # Static directories
 static/
+dist/
 
 # Configuration
 pilote-admin-root-config.json

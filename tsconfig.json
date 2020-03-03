@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "declaration": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
@@ -13,9 +12,5 @@
       "dom",
       "es2015"
     ]
-  },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ]
+  }
 }
