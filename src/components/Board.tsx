@@ -37,7 +37,17 @@ export const Board = (props: {}) => {
       <Text x={30} y={330} text="CONTROLE" fontSize={28} fontFamily="digital" />
       <Text x={10} y={400} text="TEMPS :" fontSize={22} fontFamily="digital" />
       <Text x={30} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
-      <RectBtn x={120} y={395} width={30} height={30} text="⭯" fontSize={26} textOffsetX={3} textOffsetY={3} onClick={handleZeroClick} />
+      <RectBtn
+        x={120}
+        y={395}
+        width={30}
+        height={30}
+        text="⭯"
+        fontSize={26}
+        textOffsetX={3}
+        textOffsetY={3}
+        onClick={handleZeroClick}
+      />
       <Text
         x={160}
         y={400}
@@ -49,19 +59,59 @@ export const Board = (props: {}) => {
       {data.playing && (
         <React.Fragment>
           <Text x={10} y={455} text="PAUSE :" fontSize={22} fontFamily="digital" />
-          <RectBtn x={120} y={450} width={30} height={30} text="⏸" fontSize={28} textOffsetX={5} textOffsetY={-2} onClick={handlePauseClick} />
+          <RectBtn
+            x={120}
+            y={450}
+            width={30}
+            height={30}
+            text="⏸"
+            fontSize={28}
+            textOffsetX={5}
+            textOffsetY={-2}
+            onClick={handlePauseClick}
+          />
         </React.Fragment>
       )}
       {!data.playing && (
         <React.Fragment>
           <Text x={10} y={455} text="START :" fontSize={22} fontFamily="digital" />
-          <RectBtn x={120} y={450} width={30} height={30} text="▶" fontSize={28} textOffsetX={5} textOffsetY={0} onClick={handleStartClick} />
+          <RectBtn
+            x={120}
+            y={450}
+            width={30}
+            height={30}
+            text="▶"
+            fontSize={28}
+            textOffsetX={5}
+            textOffsetY={0}
+            onClick={handleStartClick}
+          />
         </React.Fragment>
       )}
       <Text x={10} y={495} text="RECHARGER :" fontSize={22} fontFamily="digital" />
-      <RectBtn x={120} y={490} width={30} height={30} text="✖" fontSize={26} textOffsetX={5} textOffsetY={3} onClick={handleResetClick} />
+      <RectBtn
+        x={120}
+        y={490}
+        width={30}
+        height={30}
+        text="✖"
+        fontSize={26}
+        textOffsetX={5}
+        textOffsetY={3}
+        onClick={handleResetClick}
+      />
       <Text x={270} y={330} text="FEU" fontSize={28} fontFamily="digital" />
-      <RectBtn x={264} y={395} width={30} height={30} text="⇋" fontSize={26} textOffsetX={4} textOffsetY={3} onClick={handleChangeTrafficLightState} />
+      <RectBtn
+        x={264}
+        y={395}
+        width={30}
+        height={30}
+        text="⇋"
+        fontSize={26}
+        textOffsetX={4}
+        textOffsetY={3}
+        onClick={handleChangeTrafficLightState}
+      />
       <TrafficLight x={240} y={428} />
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
