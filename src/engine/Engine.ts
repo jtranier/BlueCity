@@ -13,7 +13,7 @@ export class Engine {
 
   private subscribers: EngineSubscriber[] = [];
 
-  private ellapsedTime: number = 0;
+  private elapsedTime: number = 0;
 
   private playTime: number = 0;
 
@@ -25,11 +25,15 @@ export class Engine {
 
   private trafficLightColor: 'green' | 'red' = 'green';
 
-  private trafficLightGreenEllapsedTime: number = 0;
+  private trafficLightGreenElapsedTime: number = 0;
 
-  private trafficLightRedEllapsedTime: number = 0;
+  private trafficLightRedElapsedTime: number = 0;
 
   private trafficLightState: 'manual' | 'auto' = 'manual';
+
+  private trafficLightGreenAutoTime: number = 10.0;
+
+  private trafficLightRedAutoTime: number = 10.0;
 
   constructor(config: IConfig) {
     this.config = config;
@@ -50,7 +54,7 @@ export class Engine {
   }
 
   public zero() {
-    this.ellapsedTime = 0;
+    this.elapsedTime = 0;
     this.notify();
   }
 
@@ -78,9 +82,9 @@ export class Engine {
     for (let pos = this.config.routeLen - 5; pos >= 0; pos -= this.config.addCarDist) {
       this.addCar(pos);
     }
-    this.ellapsedTime = 0;
-    this.trafficLightGreenEllapsedTime = 0;
-    this.trafficLightRedEllapsedTime = 0;
+    this.elapsedTime = 0;
+    this.trafficLightGreenElapsedTime = 0;
+    this.trafficLightRedElapsedTime = 0;
     this.trafficLightColor = 'green';
     this.pauseTime = Date.now();
     this.playTime = 0;
@@ -92,8 +96,8 @@ export class Engine {
       return;
     }
     this.trafficLightColor = 'green';
-    this.trafficLightGreenEllapsedTime = 0;
-    this.trafficLightRedEllapsedTime = 0;
+    this.trafficLightGreenElapsedTime = 0;
+    this.trafficLightRedElapsedTime = 0;
     this.notify();
   }
 
@@ -102,8 +106,8 @@ export class Engine {
       return;
     }
     this.trafficLightColor = 'red';
-    this.trafficLightGreenEllapsedTime = 0;
-    this.trafficLightRedEllapsedTime = 0;
+    this.trafficLightGreenElapsedTime = 0;
+    this.trafficLightRedElapsedTime = 0;
     this.notify();
   }
 
@@ -112,8 +116,8 @@ export class Engine {
       return;
     }
     this.trafficLightState = 'manual';
-    this.trafficLightGreenEllapsedTime = 0;
-    this.trafficLightRedEllapsedTime = 0;
+    this.trafficLightGreenElapsedTime = 0;
+    this.trafficLightRedElapsedTime = 0;
     this.notify();
   }
 
@@ -122,9 +126,13 @@ export class Engine {
       return;
     }
     this.trafficLightState = 'auto';
-    this.trafficLightGreenEllapsedTime = 0;
-    this.trafficLightRedEllapsedTime = 0;
+    this.trafficLightGreenElapsedTime = 0;
+    this.trafficLightRedElapsedTime = 0;
     this.notify();
+  }
+
+  private isAuto() {
+    return this.trafficLightState === 'auto';
   }
 
   private cycle = () => {
@@ -138,12 +146,18 @@ export class Engine {
     if (this.playTime > 0) {
       const diffTime = (this.config.timeFactor * (this.nextTime - this.previousTime)) / 1000.0;
 
-      this.ellapsedTime += diffTime;
+      this.elapsedTime += diffTime;
 
       if (this.trafficLightColor === 'green') {
-        this.trafficLightGreenEllapsedTime += diffTime;
+        this.trafficLightGreenElapsedTime += diffTime;
+        if(this.isAuto() && this.trafficLightGreenElapsedTime >= this.trafficLightGreenAutoTime) {
+          this.red();
+        }
       } else {
-        this.trafficLightRedEllapsedTime += diffTime;
+        this.trafficLightRedElapsedTime += diffTime;
+        if(this.isAuto() && this.trafficLightRedElapsedTime >= this.trafficLightRedAutoTime) {
+          this.green();
+        }
       }
 
       // Move cars
@@ -238,10 +252,10 @@ export class Engine {
   private notifySubscriber(subscriber: EngineSubscriber) {
     subscriber({
       playing: this.playTime > 0,
-      ellapsedTime: this.ellapsedTime,
+      ellapsedTime: this.elapsedTime,
       trafficLightColor: this.trafficLightColor,
-      trafficLightGreenEllapsedTime: this.trafficLightGreenEllapsedTime,
-      trafficLightRedEllapsedTime: this.trafficLightRedEllapsedTime,
+      trafficLightGreenEllapsedTime: this.trafficLightGreenElapsedTime,
+      trafficLightRedEllapsedTime: this.trafficLightRedElapsedTime,
       trafficLightState: this.trafficLightState,
       cars: this.cars
     });

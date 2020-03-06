@@ -134,7 +134,7 @@ export const Board = (props: {}) => {
             fontSize={14}
             fontFamily="digital"
             fill={data.trafficLightState === 'auto' ? 'black' : 'lightgrey'} />
-      <TrafficLight x={240} y={428} />
+      <TrafficLight x={240} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
     </React.Fragment>
