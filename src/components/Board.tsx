@@ -28,7 +28,12 @@ export const Board = (props: {}) => {
   };
 
   const handleChangeTrafficLightState = () => {
-    engine.zero();
+    engine.zero(); // TODO Sure we need that ?
+    if (data.trafficLightState === 'auto') {
+      engine.manual();
+    } else {
+      engine.auto();
+    }
   };
 
   return (
@@ -101,6 +106,15 @@ export const Board = (props: {}) => {
         onClick={handleResetClick}
       />
       <Text x={270} y={330} text="FEU" fontSize={28} fontFamily="digital" />
+      <Text
+          x={261}
+          y={380}
+          width={60}
+          align="center"
+          text="MANUEL"
+          fontSize={14}
+          fontFamily="digital"
+          fill={data.trafficLightState === 'manual' ? 'black' : 'lightgrey'} />
       <RectBtn
         x={264}
         y={395}
@@ -112,6 +126,14 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleChangeTrafficLightState}
       />
+      <Text x={266}
+            y={428}
+            width={60}
+            align="left"
+            text="AUTO"
+            fontSize={14}
+            fontFamily="digital"
+            fill={data.trafficLightState === 'auto' ? 'black' : 'lightgrey'} />
       <TrafficLight x={240} y={428} />
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
