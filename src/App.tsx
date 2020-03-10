@@ -40,12 +40,14 @@ const GlobalStyle = createGlobalStyle`
 export const App = (props: {}) => {
   const [data, setData] = React.useState<IData>({
     playing: false,
-    ellapsedTime: 0,
+    elapsedTime: 0,
     cars: [],
     trafficLightColor: 'green',
-    trafficLightGreenEllapsedTime: 0,
-    trafficLightRedEllapsedTime: 0,
-    trafficLightState: 'manual'
+    trafficLightGreenElapsedTime: 0,
+    trafficLightRedElapsedTime: 0,
+    trafficLightState: 'manual',
+    trafficLightGreenAutoTime: 10.0,
+    trafficLightRedAutoTime: 10.0
   });
   const [fontLoaded, setFontLoaded] = React.useState<Boolean>(false);
 

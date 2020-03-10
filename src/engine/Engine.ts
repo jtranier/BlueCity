@@ -252,12 +252,14 @@ export class Engine {
   private notifySubscriber(subscriber: EngineSubscriber) {
     subscriber({
       playing: this.playTime > 0,
-      ellapsedTime: this.elapsedTime,
+      elapsedTime: this.elapsedTime,
       trafficLightColor: this.trafficLightColor,
-      trafficLightGreenEllapsedTime: this.trafficLightGreenElapsedTime,
-      trafficLightRedEllapsedTime: this.trafficLightRedElapsedTime,
+      trafficLightGreenElapsedTime: this.trafficLightGreenElapsedTime,
+      trafficLightRedElapsedTime: this.trafficLightRedElapsedTime,
       trafficLightState: this.trafficLightState,
-      cars: this.cars
+      cars: this.cars,
+      trafficLightGreenAutoTime: this.trafficLightGreenAutoTime,
+      trafficLightRedAutoTime: this.trafficLightRedAutoTime
     });
   }
 }

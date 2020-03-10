@@ -56,7 +56,7 @@ export const Board = (props: {}) => {
       <Text
         x={160}
         y={400}
-        text={(Math.round(data.ellapsedTime * 10) / 10).toString()}
+        text={(Math.round(data.elapsedTime * 10) / 10).toString()}
         fontSize={22}
         fontFamily="digital"
         onClick={handleStartClick}
@@ -137,6 +137,56 @@ export const Board = (props: {}) => {
       <TrafficLight x={240} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
+
+      <Text x={200}
+            y={455}
+            width={150}
+            align="right"
+            text="TEMPS VERT :"
+            fontSize={22}
+            fontFamily="digital" />
+      <Text x={200}
+            y={475}
+            width={130}
+            align="right"
+            text="SECONDES"
+            fontSize={14}
+            fontFamily="digital" />
+      <Rect x={330} y={450} width={50} height={30} fill="black" />
+      <Text x={335}
+            y={455}
+            fontSize={22}
+            fontFamily="digital"
+            text={data.trafficLightGreenAutoTime?.toString()}
+            fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
+            align="right"
+            width={40} />
+
+      <Text x={150}
+            y={495}
+            width={200}
+            align="right"
+            text="TEMPS ROUGE :"
+            fontSize={22}
+            fontFamily="digital" />
+      <Text x={200}
+            y={515}
+            width={130}
+            align="right"
+            text="SECONDES"
+            fontSize={14}
+            fontFamily="digital" />
+            <Rect x={330} y={490} width={50} height={30} fill="black" />
+      <Text x={335}
+            y={495}
+            fontSize={22}
+            fontFamily="digital"
+            text={data.trafficLightRedAutoTime?.toString()}
+            fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
+            align="right"
+            width={40} />
     </React.Fragment>
   );
+
+
 };
