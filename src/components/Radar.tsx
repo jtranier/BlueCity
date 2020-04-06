@@ -17,7 +17,7 @@ export const Radar = (props: {}) => {
 
   const handleDragEnd = () => {
     engine.setRadarPosition(Math.round(x * config.resolution));
-  }
+  };
 
   const dragFunc = (pos: konva.Vector2d): konva.Vector2d => {
     setX(pos.x);
@@ -25,7 +25,7 @@ export const Radar = (props: {}) => {
       x: pos.x,
       y: 280 - config.radarHeight / config.resolution
     };
-  }
+  };
 
   return (
     <React.Fragment>
