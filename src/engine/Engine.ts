@@ -1,6 +1,7 @@
 import { ICar } from './ICar';
 import { IData } from './IData';
 import { IConfig } from './IConfig';
+import { IRadar } from './IRadar';
 
 let globalId = 1;
 
@@ -10,6 +11,10 @@ export class Engine {
   private config: IConfig;
 
   private cars: ICar[] = [];
+
+  private radar: IRadar = {
+    pos: 0
+  };
 
   private subscribers: EngineSubscriber[] = [];
 
@@ -37,6 +42,7 @@ export class Engine {
 
   constructor(config: IConfig) {
     this.config = config;
+    this.radar.pos = config.radarInitialPosition;
     this.generateCars();
     setInterval(this.cycle, this.config.refresh);
   }
@@ -258,6 +264,7 @@ export class Engine {
       trafficLightRedElapsedTime: this.trafficLightRedElapsedTime,
       trafficLightState: this.trafficLightState,
       cars: this.cars,
+      radar: this.radar,
       trafficLightGreenAutoTime: this.trafficLightGreenAutoTime,
       trafficLightRedAutoTime: this.trafficLightRedAutoTime
     });

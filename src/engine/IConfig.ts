@@ -25,4 +25,10 @@ export interface IConfig {
   trafficLightPosition: number;
   // Time factor
   timeFactor: number;
+  // Radar initial position
+  radarInitialPosition: number;
+  // Radar width in meters
+  radarWidth: number;
+  // Radar height in meters
+  radarHeight: number;
 }

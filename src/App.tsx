@@ -9,6 +9,7 @@ import { appContext } from './AppContext';
 import { TrafficLight } from './components/TrafficLight';
 import { City } from './components/City';
 import { Board } from './components/Board';
+import { Radar } from './components/Radar';
 
 const config: IConfig = {
   refresh: 50,
@@ -23,7 +24,10 @@ const config: IConfig = {
   brakeCarDist: 12,
   addCarDist: 16,
   trafficLightPosition: 280,
-  timeFactor: 2
+  timeFactor: 2,
+  radarInitialPosition: 200,
+  radarWidth: 3,
+  radarHeight: 6
 };
 
 const engine = new Engine(config);
@@ -47,7 +51,8 @@ export const App = (props: {}) => {
     trafficLightRedElapsedTime: 0,
     trafficLightState: 'manual',
     trafficLightGreenAutoTime: 10.0,
-    trafficLightRedAutoTime: 10.0
+    trafficLightRedAutoTime: 10.0,
+    radar: { pos: config.radarInitialPosition }
   });
   const [fontLoaded, setFontLoaded] = React.useState<Boolean>(false);
 
@@ -76,6 +81,7 @@ export const App = (props: {}) => {
                             y={256}
                             state={data.trafficLightState === 'auto' ? 'display-only' : 'active'} />
               <Route />
+              <Radar />
             </Layer>
           </appContext.Provider>
         </Stage>

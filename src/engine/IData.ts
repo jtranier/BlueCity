@@ -1,4 +1,5 @@
 import { ICar } from './ICar';
+import { IRadar } from './IRadar';
 
 export interface IData {
   // Is playing ?
@@ -19,4 +20,6 @@ export interface IData {
   trafficLightRedAutoTime: number;
   // Cars
   cars: ICar[];
+  // Radar
+  radar: IRadar;
 }
