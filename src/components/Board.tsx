@@ -107,14 +107,15 @@ export const Board = (props: {}) => {
       />
       <Text x={270} y={330} text="FEU" fontSize={28} fontFamily="digital" />
       <Text
-          x={261}
-          y={380}
-          width={60}
-          align="center"
-          text="MANUEL"
-          fontSize={14}
-          fontFamily="digital"
-          fill={data.trafficLightState === 'manual' ? 'black' : 'lightgrey'} />
+        x={261}
+        y={380}
+        width={60}
+        align="center"
+        text="MANUEL"
+        fontSize={14}
+        fontFamily="digital"
+        fill={data.trafficLightState === 'manual' ? 'black' : 'lightgrey'}
+      />
       <RectBtn
         x={264}
         y={395}
@@ -126,67 +127,47 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleChangeTrafficLightState}
       />
-      <Text x={266}
-            y={428}
-            width={60}
-            align="left"
-            text="AUTO"
-            fontSize={14}
-            fontFamily="digital"
-            fill={data.trafficLightState === 'auto' ? 'black' : 'lightgrey'} />
+      <Text
+        x={266}
+        y={428}
+        width={60}
+        align="left"
+        text="AUTO"
+        fontSize={14}
+        fontFamily="digital"
+        fill={data.trafficLightState === 'auto' ? 'black' : 'lightgrey'}
+      />
       <TrafficLight x={240} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
 
-      <Text x={200}
-            y={455}
-            width={150}
-            align="right"
-            text="TEMPS VERT :"
-            fontSize={22}
-            fontFamily="digital" />
-      <Text x={200}
-            y={475}
-            width={130}
-            align="right"
-            text="SECONDES"
-            fontSize={14}
-            fontFamily="digital" />
+      <Text x={200} y={455} width={150} align="right" text="TEMPS VERT :" fontSize={22} fontFamily="digital" />
+      <Text x={200} y={475} width={130} align="right" text="SECONDES" fontSize={14} fontFamily="digital" />
       <Rect x={330} y={450} width={50} height={30} fill="black" />
-      <Text x={335}
-            y={455}
-            fontSize={22}
-            fontFamily="digital"
-            text={data.trafficLightGreenAutoTime?.toString()}
-            fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
-            align="right"
-            width={40} />
+      <Text
+        x={335}
+        y={455}
+        fontSize={22}
+        fontFamily="digital"
+        text={data.trafficLightGreenAutoTime?.toString()}
+        fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
+        align="right"
+        width={40}
+      />
 
-      <Text x={150}
-            y={495}
-            width={200}
-            align="right"
-            text="TEMPS ROUGE :"
-            fontSize={22}
-            fontFamily="digital" />
-      <Text x={200}
-            y={515}
-            width={130}
-            align="right"
-            text="SECONDES"
-            fontSize={14}
-            fontFamily="digital" />
-            <Rect x={330} y={490} width={50} height={30} fill="black" />
-      <Text x={335}
-            y={495}
-            fontSize={22}
-            fontFamily="digital"
-            text={data.trafficLightRedAutoTime?.toString()}
-            fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
-            align="right"
-            width={40} />
+      <Text x={150} y={495} width={200} align="right" text="TEMPS ROUGE :" fontSize={22} fontFamily="digital" />
+      <Text x={200} y={515} width={130} align="right" text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Rect x={330} y={490} width={50} height={30} fill="black" />
+      <Text
+        x={335}
+        y={495}
+        fontSize={22}
+        fontFamily="digital"
+        text={data.trafficLightRedAutoTime?.toString()}
+        fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
+        align="right"
+        width={40}
+      />
     </React.Fragment>
   );
-
-
 };

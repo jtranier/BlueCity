@@ -3,7 +3,6 @@ import { useConfig } from '../hooks/useConfig';
 import { useData } from '../hooks/useData';
 import { Rect } from 'react-konva';
 
-
 export const Radar = (props: {}) => {
   const config = useConfig();
   const data = useData();

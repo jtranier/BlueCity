@@ -156,12 +156,12 @@ export class Engine {
 
       if (this.trafficLightColor === 'green') {
         this.trafficLightGreenElapsedTime += diffTime;
-        if(this.isAuto() && this.trafficLightGreenElapsedTime >= this.trafficLightGreenAutoTime) {
+        if (this.isAuto() && this.trafficLightGreenElapsedTime >= this.trafficLightGreenAutoTime) {
           this.red();
         }
       } else {
         this.trafficLightRedElapsedTime += diffTime;
-        if(this.isAuto() && this.trafficLightRedElapsedTime >= this.trafficLightRedAutoTime) {
+        if (this.isAuto() && this.trafficLightRedElapsedTime >= this.trafficLightRedAutoTime) {
           this.green();
         }
       }

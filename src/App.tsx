@@ -77,9 +77,11 @@ export const App = (props: {}) => {
             <Layer>
               <City />
               <Board />
-              <TrafficLight x={config.trafficLightPosition / config.resolution}
-                            y={256}
-                            state={data.trafficLightState === 'auto' ? 'display-only' : 'active'} />
+              <TrafficLight
+                x={config.trafficLightPosition / config.resolution}
+                y={256}
+                state={data.trafficLightState === 'auto' ? 'display-only' : 'active'}
+              />
               <Route />
               <Radar />
             </Layer>
