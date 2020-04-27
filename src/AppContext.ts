@@ -8,11 +8,13 @@ export interface IAppContext {
   engine: Engine;
   config: IConfig;
   data: IData;
+  openNumberModal: (label: string, num: number, onChange: (num: number) => void) => void;
 }
 
 // App context
 export const appContext = React.createContext<IAppContext>({
   engine: null,
   config: null,
-  data: null
+  data: null,
+  openNumberModal: null
 });

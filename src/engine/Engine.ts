@@ -139,6 +139,17 @@ export class Engine {
 
   public setRadarPosition(x: number) {
     this.radar.pos = Math.round(x);
+    this.notify();
+  }
+
+  public setTrafficLightGreenAutoTime(time: number) {
+    this.trafficLightGreenAutoTime = time;
+    this.notify();
+  }
+
+  public setTrafficLightRedAutoTime(time: number) {
+    this.trafficLightRedAutoTime = time;
+    this.notify();
   }
 
   private isAuto() {

@@ -5,6 +5,7 @@ import { useConfig } from '../hooks/useConfig';
 import { useData } from '../hooks/useData';
 import { TrafficLight } from './TrafficLight';
 import { RectBtn } from './RectBtn';
+import { EditableNumber } from './EditableNumber';
 
 export const Board = (props: {}) => {
   const engine = useEngine();
@@ -36,12 +37,21 @@ export const Board = (props: {}) => {
     }
   };
 
+  const handleChangeGreenTime = (num: number) => {
+    engine.setTrafficLightGreenAutoTime(num);
+  };
+
+  const handleChangeRedTime = (num: number) => {
+    engine.setTrafficLightRedAutoTime(num);
+  };
+
   return (
     <React.Fragment>
       <Rect x={0} y={330} width={980} height={210} fill={'#777'} />
+
       <Text x={30} y={330} text="CONTROLE" fontSize={28} fontFamily="digital" />
-      <Text x={10} y={400} text="TEMPS :" fontSize={22} fontFamily="digital" />
-      <Text x={30} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={10} y={400} text="    TEMPS :" fontSize={22} fontFamily="digital" />
+      <Text x={60} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
       <RectBtn
         x={120}
         y={395}
@@ -53,17 +63,21 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleZeroClick}
       />
-      <Text
+      <EditableNumber
         x={160}
-        y={400}
-        text={(Math.round(data.elapsedTime * 10) / 10).toString()}
+        y={395}
+        width={60}
+        height={30}
+        num={data.elapsedTime < 1000 ? (Math.round(data.elapsedTime * 10) / 10) : Math.round(data.elapsedTime)}
+        textOffsetX={5}
+        textOffsetY={5}
         fontSize={22}
-        fontFamily="digital"
-        onClick={handleStartClick}
+        fill="lightgrey"
+        onChange={handleStartClick}
       />
       {data.playing && (
         <React.Fragment>
-          <Text x={10} y={455} text="PAUSE :" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={455} text="    PAUSE :" fontSize={22} fontFamily="digital" />
           <RectBtn
             x={120}
             y={450}
@@ -79,7 +93,7 @@ export const Board = (props: {}) => {
       )}
       {!data.playing && (
         <React.Fragment>
-          <Text x={10} y={455} text="START :" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={455} text="    START :" fontSize={22} fontFamily="digital" />
           <RectBtn
             x={120}
             y={450}
@@ -105,19 +119,19 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleResetClick}
       />
-      <Text x={270} y={330} text="FEU" fontSize={28} fontFamily="digital" />
+
+      <Text x={290} y={330} text="FEU" fontSize={28} fontFamily="digital" />
       <Text
-        x={261}
+        x={291}
         y={380}
         width={60}
-        align="center"
         text="MANUEL"
         fontSize={14}
         fontFamily="digital"
-        fill={data.trafficLightState === 'manual' ? 'black' : 'lightgrey'}
+        fill={data.trafficLightState === 'manual' ? 'cyan' : 'lightgrey'}
       />
       <RectBtn
-        x={264}
+        x={294}
         y={395}
         width={30}
         height={30}
@@ -128,45 +142,50 @@ export const Board = (props: {}) => {
         onClick={handleChangeTrafficLightState}
       />
       <Text
-        x={266}
+        x={296}
         y={428}
         width={60}
-        align="left"
         text="AUTO"
         fontSize={14}
         fontFamily="digital"
-        fill={data.trafficLightState === 'auto' ? 'black' : 'lightgrey'}
+        fill={data.trafficLightState === 'auto' ? 'cyan' : 'lightgrey'}
       />
-      <TrafficLight x={240} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
+      <TrafficLight x={270} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
       <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
 
-      <Text x={200} y={455} width={150} align="right" text="TEMPS VERT :" fontSize={22} fontFamily="digital" />
-      <Text x={200} y={475} width={130} align="right" text="SECONDES" fontSize={14} fontFamily="digital" />
-      <Rect x={330} y={450} width={50} height={30} fill="black" />
-      <Text
-        x={335}
-        y={455}
+      <Text x={230} y={455} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
+      <Text x={300} y={475} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <EditableNumber
+        x={360}
+        y={450}
+        width={50}
+        height={30}
+        editLabel="TEMPS VERT EN SECONDES :"
+        num={data.trafficLightGreenAutoTime}
+        textOffsetX={5}
+        textOffsetY={5}
         fontSize={22}
-        fontFamily="digital"
-        text={data.trafficLightGreenAutoTime?.toString()}
         fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
-        align="right"
-        width={40}
+        editable={true}
+        onChange={handleChangeGreenTime}
       />
 
-      <Text x={150} y={495} width={200} align="right" text="TEMPS ROUGE :" fontSize={22} fontFamily="digital" />
-      <Text x={200} y={515} width={130} align="right" text="SECONDES" fontSize={14} fontFamily="digital" />
-      <Rect x={330} y={490} width={50} height={30} fill="black" />
-      <Text
-        x={335}
-        y={495}
+      <Text x={230} y={495} width={200} text="TEMPS ROUGE :" fontSize={22} fontFamily="digital" />
+      <Text x={300} y={515} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <EditableNumber
+        x={360}
+        y={490}
+        width={50}
+        height={30}
+        editLabel="TEMPS ROUGER EN SECONDES :"
+        num={data.trafficLightRedAutoTime}
+        textOffsetX={5}
+        textOffsetY={5}
         fontSize={22}
-        fontFamily="digital"
-        text={data.trafficLightRedAutoTime?.toString()}
         fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
-        align="right"
-        width={40}
+        editable={true}
+        onChange={handleChangeRedTime}
       />
     </React.Fragment>
   );
