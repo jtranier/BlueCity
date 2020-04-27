@@ -16,5 +16,5 @@ export const appContext = React.createContext<IAppContext>({
   engine: null,
   config: null,
   data: null,
-  openNumberModal: null
+  openNumberModal: null,
 });

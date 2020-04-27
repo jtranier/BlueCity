@@ -30,14 +30,7 @@ export const EditableNumber = (props: {
   };
   return (
     <React.Fragment>
-      <Rect
-        x={props.x}
-        y={props.y}
-        width={props.width}
-        height={props.height}
-        fill="black"
-        onClick={handleClick}
-      />
+      <Rect x={props.x} y={props.y} width={props.width} height={props.height} fill="black" onClick={handleClick} />
       <Text
         x={props.x + props.textOffsetX}
         y={props.y + props.textOffsetY}

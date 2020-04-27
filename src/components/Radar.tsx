@@ -23,7 +23,7 @@ export const Radar = (props: {}) => {
     setX(pos.x);
     return {
       x: pos.x,
-      y: 280 - config.radarHeight / config.resolution
+      y: 280 - config.radarHeight / config.resolution,
     };
   };
 

@@ -13,7 +13,7 @@ export class Engine {
   private cars: ICar[] = [];
 
   private radar: IRadar = {
-    pos: 0
+    pos: 0,
   };
 
   private subscribers: EngineSubscriber[] = [];
@@ -260,7 +260,7 @@ export class Engine {
     this.cars.push({
       id: globalId++,
       pos,
-      speed: this.config.carMaxSpeed
+      speed: this.config.carMaxSpeed,
     });
   }
 
@@ -281,7 +281,7 @@ export class Engine {
       cars: this.cars,
       radar: this.radar,
       trafficLightGreenAutoTime: this.trafficLightGreenAutoTime,
-      trafficLightRedAutoTime: this.trafficLightRedAutoTime
+      trafficLightRedAutoTime: this.trafficLightRedAutoTime,
     });
   }
 }

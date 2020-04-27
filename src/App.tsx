@@ -11,7 +11,7 @@ import { City } from './components/City';
 import { Board } from './components/Board';
 import { Radar } from './components/Radar';
 
-import ReactModal = require('react-modal')
+import ReactModal = require('react-modal');
 
 const config: IConfig = {
   refresh: 50,
@@ -29,7 +29,7 @@ const config: IConfig = {
   timeFactor: 2,
   radarInitialPosition: 200,
   radarWidth: 3,
-  radarHeight: 6
+  radarHeight: 6,
 };
 
 const engine = new Engine(config);
@@ -54,11 +54,15 @@ export const App = (props: {}) => {
     trafficLightState: 'manual',
     trafficLightGreenAutoTime: 10.0,
     trafficLightRedAutoTime: 10.0,
-    radar: { pos: config.radarInitialPosition }
+    radar: { pos: config.radarInitialPosition },
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);
   const [numberModalOpen, setNumberModalOpen] = React.useState<boolean>(false);
-  const [numberModalData, setNumberModalData] = React.useState<{ label: string, num: number, onChange: (num: number) => void }>({ label: '', num: 0, onChange: null });
+  const [numberModalData, setNumberModalData] = React.useState<{
+    label: string;
+    num: number;
+    onChange: (num: number) => void;
+  }>({ label: '', num: 0, onChange: null });
 
   const openNumberModal = (label: string, num: number, onChange: (num: number) => void) => {
     setNumberModalData({ label, num, onChange: onChange });
@@ -77,21 +81,19 @@ export const App = (props: {}) => {
     }, 1000);
   }, []); // ✅ OK - This effect never re-runs
 
-
   const handleChangeModalNum = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setNumberModalData({ ...numberModalData, num: +evt.target.value });
   };
-
 
   const handleValidate = (evt: any) => {
     evt.preventDefault();
     numberModalData.onChange(numberModalData.num);
     setNumberModalOpen(false);
-  }
+  };
 
   const handleCancel = () => {
     setNumberModalOpen(false);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -112,31 +114,35 @@ export const App = (props: {}) => {
             </Layer>
           </appContext.Provider>
         </Stage>
-
       )}
       <ReactModal
         isOpen={numberModalOpen}
-        onRequestClose={() => { handleCancel() }}
+        onRequestClose={() => {
+          handleCancel();
+        }}
         style={{
           content: {
             top: '50%',
             left: '50%',
             right: 'auto',
             bottom: 'auto',
-            transform: 'translate(-50%, -50%)'
-          }
+            transform: 'translate(-50%, -50%)',
+          },
         }}
       >
         <form onSubmit={handleValidate}>
           <h3>{numberModalData.label}</h3>
           <div>
-            <input type='number' value={numberModalData.num} onChange={handleChangeModalNum} autoFocus />
+            <input type="number" value={numberModalData.num} onChange={handleChangeModalNum} autoFocus />
           </div>
           <div>
-            <button type="submit" onClick={handleValidate}>Valider</button><button onClick={handleCancel}>Annuler</button>
+            <button type="submit" onClick={handleValidate}>
+              Valider
+            </button>
+            <button onClick={handleCancel}>Annuler</button>
           </div>
         </form>
       </ReactModal>
-    </React.Fragment >
+    </React.Fragment>
   );
 };

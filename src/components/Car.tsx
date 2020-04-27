@@ -15,7 +15,7 @@ export const Car = (props: { x: number; y: number; width: number; height: number
           props.x - 0.5 * props.width,
           props.y - props.height,
           props.x,
-          props.y - 0.6 * props.height
+          props.y - 0.6 * props.height,
         ]}
         closed
         fill={'#44C'}
@@ -29,7 +29,7 @@ export const Car = (props: { x: number; y: number; width: number; height: number
           props.x - 0.7 * props.width,
           props.y - 0.95 * props.height,
           props.x - 0.45 * props.width,
-          props.y - 0.95 * props.height
+          props.y - 0.95 * props.height,
         ]}
         closed
         fill={'#BBF'}
