@@ -29,7 +29,6 @@ export const Board = (props: {}) => {
   };
 
   const handleChangeTrafficLightState = () => {
-    engine.zero(); // TODO Sure we need that ?
     if (data.trafficLightState === 'auto') {
       engine.manual();
     } else {
@@ -50,10 +49,10 @@ export const Board = (props: {}) => {
       <Rect x={0} y={330} width={980} height={210} fill={'#777'} />
 
       <Text x={30} y={330} text="CONTROLE" fontSize={28} fontFamily="digital" />
-      <Text x={10} y={400} text="    TEMPS :" fontSize={22} fontFamily="digital" />
-      <Text x={60} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={10} y={400} text="   TEMPS :" fontSize={22} fontFamily="digital" />
+      <Text x={50} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
       <RectBtn
-        x={120}
+        x={110}
         y={395}
         width={30}
         height={30}
@@ -64,7 +63,7 @@ export const Board = (props: {}) => {
         onClick={handleZeroClick}
       />
       <EditableNumber
-        x={160}
+        x={140}
         y={395}
         width={60}
         height={30}
@@ -77,9 +76,9 @@ export const Board = (props: {}) => {
       />
       {data.playing && (
         <React.Fragment>
-          <Text x={10} y={455} text="    PAUSE :" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={455} text="    PAUSE" fontSize={22} fontFamily="digital" />
           <RectBtn
-            x={120}
+            x={110}
             y={450}
             width={30}
             height={30}
@@ -93,9 +92,9 @@ export const Board = (props: {}) => {
       )}
       {!data.playing && (
         <React.Fragment>
-          <Text x={10} y={455} text="    START :" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={455} text="    START" fontSize={22} fontFamily="digital" />
           <RectBtn
-            x={120}
+            x={110}
             y={450}
             width={30}
             height={30}
@@ -107,9 +106,9 @@ export const Board = (props: {}) => {
           />
         </React.Fragment>
       )}
-      <Text x={10} y={495} text="RECHARGER :" fontSize={22} fontFamily="digital" />
+      <Text x={10} y={495} text="RECHARGER" fontSize={22} fontFamily="digital" />
       <RectBtn
-        x={120}
+        x={110}
         y={490}
         width={30}
         height={30}
@@ -151,8 +150,8 @@ export const Board = (props: {}) => {
         fill={data.trafficLightState === 'auto' ? 'cyan' : 'lightgrey'}
       />
       <TrafficLight x={270} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
-      <Text x={500} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
-      <Text x={750} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
+      <Text x={580} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
+      <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
 
       <Text x={230} y={455} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
       <Text x={300} y={475} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />

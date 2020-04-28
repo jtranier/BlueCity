@@ -188,48 +188,49 @@ export class Engine {
           frontCar = this.cars[i - 1];
         }
         const car = this.cars[i];
-        let oldSpeed = car.speed;
+        let treated = false;
         // Near front car
-        if (oldSpeed === car.speed && frontCar != null) {
+        if (frontCar != null) {
           const carDist = frontCar.pos - car.pos;
           if (carDist <= this.config.carWidth + car.speed * diffTime + this.config.stopDistance) {
             car.speed = 0;
             car.pos = frontCar.pos - this.config.carWidth - this.config.stopDistance;
+            treated = true;
           } else if (
             carDist <= (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
-            /* frontCar.speed < car.speed && */
             car.speed > 0.1 * this.config.carMaxSpeed
           ) {
             car.speed -= this.config.carDeceleration * diffTime;
+            treated = true;
           }
         }
         // Red traffic light
         let stoppedInRedTrafficLight = false;
-        if (oldSpeed === car.speed) {
-          const trafficLightDist = this.config.trafficLightPosition - car.pos;
-          if (
-            this.trafficLightColor === 'red' &&
-            trafficLightDist >= -car.speed * diffTime &&
-            trafficLightDist <= 3 * this.config.carWidth
+        const trafficLightDist = this.config.trafficLightPosition - car.pos;
+        if (
+          this.trafficLightColor === 'red' &&
+          trafficLightDist >= -car.speed * diffTime &&
+          trafficLightDist <= 3 * this.config.carWidth
+        ) {
+          if (trafficLightDist <= car.speed * diffTime) {
+            car.speed = 0;
+            car.pos = this.config.trafficLightPosition;
+            stoppedInRedTrafficLight = true;
+            treated = true;
+          } else if (
+            trafficLightDist <=
+            (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
+            car.speed > 0.1 * this.config.carMaxSpeed
           ) {
-            if (trafficLightDist <= car.speed * diffTime) {
-              car.speed = 0;
-              car.pos = this.config.trafficLightPosition;
-              stoppedInRedTrafficLight = true;
-            } else if (
-              trafficLightDist <=
-                (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
-              car.speed > 0.1 * this.config.carMaxSpeed
-            ) {
-              car.speed -= this.config.carDeceleration * diffTime;
-            }
+            car.speed -= this.config.carDeceleration * diffTime;
+            treated = true;
           }
         }
         if (car.speed < 0) {
           car.speed = 0;
         }
         // Acceleration
-        if (oldSpeed === car.speed && stoppedInRedTrafficLight === false) {
+        if (stoppedInRedTrafficLight === false && treated === false) {
           if (frontCar == null || frontCar.pos - car.pos > 2 * this.config.carWidth) {
             car.speed += this.config.carAcceleration * diffTime;
           }
