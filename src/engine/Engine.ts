@@ -219,7 +219,7 @@ export class Engine {
             treated = true;
           } else if (
             trafficLightDist <=
-            (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
+              (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
             car.speed > 0.1 * this.config.carMaxSpeed
           ) {
             car.speed -= this.config.carDeceleration * diffTime;
