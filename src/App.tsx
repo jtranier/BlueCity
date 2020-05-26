@@ -32,7 +32,7 @@ const config: IConfig = {
   radarHeight: 6,
   densityResolution: 1.1,
   densityOrdinate: 5,
-  densityOrdinateResolution: 0.035
+  densityOrdinateResolution: 0.035,
 };
 
 const engine = new Engine(config);

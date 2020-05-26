@@ -34,7 +34,7 @@ export interface IConfig {
   // Density resolution
   densityResolution: number;
   // Density ordinate
-  densityOrdinate: number
+  densityOrdinate: number;
   // Density ordinate resolution
-  densityOrdinateResolution: number
+  densityOrdinateResolution: number;
 }

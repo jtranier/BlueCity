@@ -190,8 +190,6 @@ export const Board = (props: {}) => {
       <Density x={440} y={365} />
 
       <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
-
- 
     </React.Fragment>
   );
 };

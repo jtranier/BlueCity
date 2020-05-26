@@ -7,17 +7,20 @@ import { TrafficLight } from './TrafficLight';
 import { RectBtn } from './RectBtn';
 import { EditableNumber } from './EditableNumber';
 
-export const Density = (props: {
-  x: number;
-  y: number;
-}) => {
+export const Density = (props: { x: number; y: number }) => {
   const engine = useEngine();
   const config = useConfig();
   const data = useData();
 
   return (
     <React.Fragment>
-      <Rect x={props.x} y={props.y} width={config.routeLen / config.densityResolution} height={(config.densityOrdinate + 0.5) / config.densityOrdinateResolution} fill="black" />
+      <Rect
+        x={props.x}
+        y={props.y}
+        width={config.routeLen / config.densityResolution}
+        height={(config.densityOrdinate + 0.5) / config.densityOrdinateResolution}
+        fill="black"
+      />
     </React.Fragment>
   );
 };
