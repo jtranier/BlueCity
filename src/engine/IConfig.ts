@@ -31,4 +31,10 @@ export interface IConfig {
   radarWidth: number;
   // Radar height in meters
   radarHeight: number;
+  // Density resolution
+  densityResolution: number;
+  // Density ordinate
+  densityOrdinate: number
+  // Density ordinate resolution
+  densityOrdinateResolution: number
 }

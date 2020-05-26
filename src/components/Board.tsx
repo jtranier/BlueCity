@@ -6,6 +6,7 @@ import { useData } from '../hooks/useData';
 import { TrafficLight } from './TrafficLight';
 import { RectBtn } from './RectBtn';
 import { EditableNumber } from './EditableNumber';
+import { Density } from './Density';
 
 export const Board = (props: {}) => {
   const engine = useEngine();
@@ -150,8 +151,6 @@ export const Board = (props: {}) => {
         fill={data.trafficLightState === 'auto' ? 'cyan' : 'lightgrey'}
       />
       <TrafficLight x={270} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
-      <Text x={580} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
-      <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
 
       <Text x={230} y={455} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
       <Text x={300} y={475} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
@@ -186,6 +185,13 @@ export const Board = (props: {}) => {
         editable={true}
         onChange={handleChangeRedTime}
       />
+
+      <Text x={580} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
+      <Density x={440} y={365} />
+
+      <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
+
+ 
     </React.Fragment>
   );
 };
