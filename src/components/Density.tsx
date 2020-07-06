@@ -27,7 +27,7 @@ export const Density = (props: { x: number; y: number }) => {
   _.times(9, (i) =>
     grid.push(
       <Rect key={'line-vert-' + i}
-            x={props.x + (config.routeLen / config.densityResolution) / 9 * (i+0.5)}
+            x={props.x + (config.routeLen / config.densityResolution) / 9 * (i + 0.5)}
             y={props.y}
             width={1}
             height={(config.densityOrdinate + 0.5) / config.densityOrdinateResolution}
@@ -72,6 +72,21 @@ export const Density = (props: { x: number; y: number }) => {
         width={config.routeLen / config.densityResolution}
         height={3}
         fill="green"
+      />
+
+      <Line x={props.x}
+            y={props.y}
+            points={[0, 0,
+                     20 / config.densityResolution, 3 / config.densityOrdinateResolution,
+                     40 / config.densityResolution, 2 / config.densityOrdinateResolution,
+                     60 / config.densityResolution, 4 / config.densityOrdinateResolution,
+                     80 / config.densityResolution, 5 / config.densityOrdinateResolution,
+                     100 / config.densityResolution, 2 / config.densityOrdinateResolution,
+                     120 / config.densityResolution, 1 / config.densityOrdinateResolution
+            ]}
+            stroke="cyan"
+            bezier={true}
+            width={5}
       />
 
     </React.Fragment>
