@@ -37,4 +37,6 @@ export interface IConfig {
   densityOrdinate: number;
   // Density ordinate resolution
   densityOrdinateResolution: number;
+  // Radar sensibility
+  radarSensibility: number;
 }

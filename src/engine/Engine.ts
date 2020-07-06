@@ -243,8 +243,8 @@ export class Engine {
         // Change car position
         car.pos += car.speed * diffTime;
 
-        // TODO Handle Radar here
-        if(!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < 2) { // TODO define a config here
+        // Handle Radar
+        if(!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
           this.radar.lastSpeed = car.speed;
           this.radar.nbCars++;
           car.hasSpeedMeasure = true;
