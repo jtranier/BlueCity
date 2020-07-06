@@ -14,6 +14,7 @@ export class Engine {
 
   private radar: IRadar = {
     pos: 0,
+    lastSpeed: 0
   };
 
   private subscribers: EngineSubscriber[] = [];
@@ -241,6 +242,8 @@ export class Engine {
         // Change car position
         car.pos += car.speed * diffTime;
       }
+
+      // TODO Handle Radar here
 
       // Add car ?
       if (this.cars.length === 0) {

@@ -190,6 +190,18 @@ export const Board = (props: {}) => {
       <Density x={440} y={365} />
 
       <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
+      <Text x={810} y={400} width={200} text="VITESSE :" fontSize={22} fontFamily="digital" />
+      <EditableNumber
+        x={900}
+        y={395}
+        width={60}
+        height={30}
+        num={data.radar.lastSpeed}
+        textOffsetX={5}
+        textOffsetY={5}
+        fontSize={22}
+        fill="lightgrey"
+      />
     </React.Fragment>
   );
 };

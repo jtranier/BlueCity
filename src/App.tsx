@@ -57,7 +57,10 @@ export const App = (props: {}) => {
     trafficLightState: 'manual',
     trafficLightGreenAutoTime: 10.0,
     trafficLightRedAutoTime: 10.0,
-    radar: { pos: config.radarInitialPosition },
+    radar: {
+      pos: config.radarInitialPosition,
+      lastSpeed: 0
+    },
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);
   const [numberModalOpen, setNumberModalOpen] = React.useState<boolean>(false);
