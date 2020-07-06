@@ -242,9 +242,15 @@ export class Engine {
         }
         // Change car position
         car.pos += car.speed * diffTime;
-      }
 
-      // TODO Handle Radar here
+        // TODO Handle Radar here
+        if(!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < 2) { // TODO define a config here
+          this.radar.lastSpeed = car.speed;
+          this.radar.nbCars++;
+          car.hasSpeedMeasure = true;
+          // TODO handle radar recording
+        }
+      }
 
       // Add car ?
       if (this.cars.length === 0) {
@@ -266,6 +272,7 @@ export class Engine {
       id: globalId++,
       pos,
       speed: this.config.carMaxSpeed,
+      hasSpeedMeasure: false
     });
   }
 

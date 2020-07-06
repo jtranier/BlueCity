@@ -196,7 +196,7 @@ export const Board = (props: {}) => {
         y={395}
         width={60}
         height={30}
-        num={data.radar.lastSpeed}
+        num={Math.round(data.radar.lastSpeed*100) / 100}
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
