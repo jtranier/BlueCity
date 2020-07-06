@@ -14,7 +14,8 @@ export class Engine {
 
   private radar: IRadar = {
     pos: 0,
-    lastSpeed: 0
+    lastSpeed: 0,
+    nbCars: 0
   };
 
   private subscribers: EngineSubscriber[] = [];

@@ -202,6 +202,18 @@ export const Board = (props: {}) => {
         fontSize={22}
         fill="lightgrey"
       />
+      <Text x={810} y={455} width={200} text="NOMBRE :" fontSize={22} fontFamily="digital" />
+      <EditableNumber
+        x={900}
+        y={450}
+        width={60}
+        height={30}
+        num={data.radar.nbCars}
+        textOffsetX={5}
+        textOffsetY={5}
+        fontSize={22}
+        fill="lightgrey"
+      />
     </React.Fragment>
   );
 };

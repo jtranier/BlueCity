@@ -59,7 +59,8 @@ export const App = (props: {}) => {
     trafficLightRedAutoTime: 10.0,
     radar: {
       pos: config.radarInitialPosition,
-      lastSpeed: 0
+      lastSpeed: 0,
+      nbCars: 0
     },
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);
