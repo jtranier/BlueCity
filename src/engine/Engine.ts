@@ -154,6 +154,7 @@ export class Engine {
 
   public setRadarPosition(x: number) {
     this.radar.pos = Math.round(x);
+    this.resetRadar();
     this.notify();
   }
 
