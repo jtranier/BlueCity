@@ -61,7 +61,9 @@ export const App = (props: {}) => {
     radar: {
       pos: config.radarInitialPosition,
       lastSpeed: 0,
-      nbCars: 0
+      nbCars: 0,
+      data: [],
+      isRecording: false,
     },
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);

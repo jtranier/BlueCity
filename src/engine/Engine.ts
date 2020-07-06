@@ -1,7 +1,7 @@
-import { ICar } from './ICar';
-import { IData } from './IData';
-import { IConfig } from './IConfig';
-import { IRadar } from './IRadar';
+import {ICar} from './ICar';
+import {IData} from './IData';
+import {IConfig} from './IConfig';
+import {IRadar} from './IRadar';
 
 let globalId = 1;
 
@@ -15,7 +15,9 @@ export class Engine {
   private radar: IRadar = {
     pos: 0,
     lastSpeed: 0,
-    nbCars: 0
+    nbCars: 0,
+    data: [],
+    isRecording: false
   };
 
   private subscribers: EngineSubscriber[] = [];
@@ -55,7 +57,7 @@ export class Engine {
   }
 
   public un(subscriber: EngineSubscriber) {
-    var index = this.subscribers.indexOf(subscriber);
+    const index = this.subscribers.indexOf(subscriber);
     if (index >= 0) {
       this.subscribers = this.subscribers.splice(index, 1);
     }
@@ -64,6 +66,17 @@ export class Engine {
   public zero() {
     this.elapsedTime = 0;
     this.notify();
+  }
+
+  public resetRadar() {
+    const radar = this.radar
+    radar.data = [];
+    radar.nbCars = 0;
+    radar.lastSpeed = 0;
+  }
+
+  public recordRadar() {
+    this.radar.isRecording = true;
   }
 
   public play() {
@@ -176,7 +189,8 @@ export class Engine {
         if (this.isAuto() && this.trafficLightGreenElapsedTime >= this.trafficLightGreenAutoTime) {
           this.red();
         }
-      } else {
+      }
+      else {
         this.trafficLightRedElapsedTime += diffTime;
         if (this.isAuto() && this.trafficLightRedElapsedTime >= this.trafficLightRedAutoTime) {
           this.green();
@@ -198,7 +212,8 @@ export class Engine {
             car.speed = 0;
             car.pos = frontCar.pos - this.config.carWidth - this.config.stopDistance;
             treated = true;
-          } else if (
+          }
+          else if (
             carDist <= (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
             car.speed > 0.1 * this.config.carMaxSpeed
           ) {
@@ -219,9 +234,10 @@ export class Engine {
             car.pos = this.config.trafficLightPosition;
             stoppedInRedTrafficLight = true;
             treated = true;
-          } else if (
+          }
+          else if (
             trafficLightDist <=
-              (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
+            (car.speed * this.config.brakeCarDist) / this.config.carMaxSpeed + car.speed * diffTime &&
             car.speed > 0.1 * this.config.carMaxSpeed
           ) {
             car.speed -= this.config.carDeceleration * diffTime;
@@ -244,18 +260,22 @@ export class Engine {
         car.pos += car.speed * diffTime;
 
         // Handle Radar
-        if(!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
+        if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
           this.radar.lastSpeed = car.speed;
           this.radar.nbCars++;
           car.hasSpeedMeasure = true;
-          // TODO handle radar recording
+
+          if(this.radar.isRecording) {
+            this.radar.data.push([this.elapsedTime, car.speed]);
+          }
         }
       }
 
       // Add car ?
       if (this.cars.length === 0) {
         this.addCar(0);
-      } else if (this.cars[this.cars.length - 1].pos > this.config.addCarDist) {
+      }
+      else if (this.cars[this.cars.length - 1].pos > this.config.addCarDist) {
         this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist);
       }
 

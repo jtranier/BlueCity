@@ -17,6 +17,14 @@ export const Board = (props: {}) => {
     engine.zero();
   };
 
+  const handleResetRadar = () => {
+    engine.resetRadar();
+  }
+
+  const handleRecordRadar = () => {
+
+  }
+
   const handleStartClick = () => {
     engine.play();
   };
@@ -213,6 +221,28 @@ export const Board = (props: {}) => {
         textOffsetY={5}
         fontSize={22}
         fill="lightgrey"
+      />
+      <RectBtn
+        x={850}
+        y={480}
+        width={30}
+        height={30}
+        text="o"
+        fontSize={26}
+        textOffsetX={3}
+        textOffsetY={3}
+        onClick={handleRecordRadar}
+      />
+      <RectBtn
+        x={900}
+        y={480}
+        width={30}
+        height={30}
+        text="⭯"
+        fontSize={26}
+        textOffsetX={3}
+        textOffsetY={3}
+        onClick={handleResetRadar}
       />
     </React.Fragment>
   );

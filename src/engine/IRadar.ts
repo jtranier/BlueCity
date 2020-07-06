@@ -7,4 +7,9 @@ export interface IRadar {
 
   // nb of cars flashed by the radar
   nbCars: number;
+
+  // data associates timestamps to measured speed
+  data: [number, number][]
+
+  isRecording: boolean
 }
