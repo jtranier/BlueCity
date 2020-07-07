@@ -11,14 +11,6 @@ export interface IConfig {
   carHeight: number;
   // Car max speed in meters/seconds
   carMaxSpeed: number;
-  // Car acceleration in meters/seconds²
-  carAcceleration: number;
-  // Car deceleration in meters/seconds²
-  carDeceleration: number;
-  // Stop distance between two cars
-  stopDistance: number;
-  // Break car dist in meters
-  brakeCarDist: number;
   // Add car dist in meters
   addCarDist: number;
   // Traffic light position in meters
