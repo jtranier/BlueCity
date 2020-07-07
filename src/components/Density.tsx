@@ -35,6 +35,13 @@ export const Density = (props: { x: number; y: number }) => {
     )
   )
 
+  const curvePoints: number[] = [];
+  _.each(data.cars, (car, index) => {
+    const distanceToPrevious = index > 0 ? Math.abs(car.pos - data.cars[index-1].pos) : Infinity;
+    curvePoints.push(car.pos / config.densityResolution, 10 * (1 / distanceToPrevious) / config.densityOrdinateResolution)
+
+  });
+
   return (
     <React.Fragment>
       <Rect
@@ -76,14 +83,7 @@ export const Density = (props: { x: number; y: number }) => {
 
       <Line x={props.x}
             y={props.y}
-            points={[0, 0,
-                     20 / config.densityResolution, 3 / config.densityOrdinateResolution,
-                     40 / config.densityResolution, 2 / config.densityOrdinateResolution,
-                     60 / config.densityResolution, 4 / config.densityOrdinateResolution,
-                     80 / config.densityResolution, 5 / config.densityOrdinateResolution,
-                     100 / config.densityResolution, 2 / config.densityOrdinateResolution,
-                     120 / config.densityResolution, 1 / config.densityOrdinateResolution
-            ]}
+            points={curvePoints}
             stroke="cyan"
             bezier={true}
             width={5}
