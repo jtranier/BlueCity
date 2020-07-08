@@ -13,12 +13,20 @@ export const Density = (props: { x: number; y: number }) => {
 
   const grid: React.ReactFragment[] = [];
 
+  const densityXResolution = config.routeLen / config.densityWidth;
+  const densityYResolution = (config.densityMaxY - config.densityMinY) / config.densityHeight;
+
+  // Convert an density y value to its ordinate on the screen
+  const fy = (y: number) =>  {
+    return (config.densityMaxY - y) / densityYResolution
+  }
+
   _.times(5, (i) =>
     grid.push(
       <Rect key={'line-horiz-' + i}
             x={props.x}
-            y={props.y + (config.densityOrdinate / config.densityOrdinateResolution) / 5 * (i + 1)}
-            width={config.routeLen / config.densityResolution}
+            y={props.y + fy(config.densityMaxY / 5 * (i + 1))}
+            width={config.routeLen / densityXResolution}
             height={1}
             fill="green"/>
     )
@@ -27,56 +35,66 @@ export const Density = (props: { x: number; y: number }) => {
   _.times(9, (i) =>
     grid.push(
       <Rect key={'line-vert-' + i}
-            x={props.x + (config.routeLen / config.densityResolution) / 9 * (i + 0.5)}
+            x={props.x + (config.routeLen / densityXResolution) / 9 * (i + 0.5)}
             y={props.y}
             width={1}
-            height={(config.densityOrdinate + 0.5) / config.densityOrdinateResolution}
+            height={(config.densityMaxY - config.densityMinY) / densityYResolution}
             fill="green"/>
     )
   )
 
   const curvePoints: number[] = [];
-  _.each(data.cars, (car, index) => {
-    const distanceToPrevious = index > 0 ? Math.abs(car.pos - data.cars[index-1].pos) : Infinity;
-    curvePoints.push(car.pos / config.densityResolution, 10 * (1 / distanceToPrevious) / config.densityOrdinateResolution)
+  _.each(
+    _.filter(data.cars, (car) => { return car.pos < config.routeLen + config.addCarDist}),
+    (car) => {
+    const distanceToPrevious = car.precedingCar ? Math.abs(car.pos - car.precedingCar.pos) : Infinity;
 
+    const x = Math.max(
+      0,
+      Math.min(
+        config.routeLen / densityXResolution,
+        car.pos / densityXResolution
+      )
+    );
+
+    curvePoints.push(x,  fy(1 / distanceToPrevious))
   });
 
   return (
     <React.Fragment>
+      {/* Density screen */}
       <Rect
         x={props.x}
         y={props.y}
-        width={config.routeLen / config.densityResolution}
-        height={(config.densityOrdinate + 0.5) / config.densityOrdinateResolution}
+        width={config.densityWidth}
+        height={config.densityHeight}
         fill="black"
       />
       {grid}
 
       {/* Radar */}
       <Rect
-        x={props.x + (data.radar.pos) / config.densityResolution}
-        y={props.y + 3 / config.densityOrdinateResolution}
+        x={props.x + (data.radar.pos) / densityXResolution}
+        y={props.y + fy(2 * 1/16)}
         width={3}
-        height={(config.densityOrdinate - 3) / config.densityOrdinateResolution}
+        height={2 * 1/16 / densityYResolution}
         fill="red"
       />
 
       {/* Traffic light */}
-      {/* TODO : the traffic light pos should be a param */}
       <Rect
-        x={props.x + 280 / config.densityResolution}
+        x={props.x + config.trafficLightPosition / densityXResolution}
         y={props.y}
         width={3}
-        height={(config.densityOrdinate + 0.5) / config.densityOrdinateResolution}
+        height={(config.densityMaxY - config.densityMinY) / densityYResolution}
         fill="green"
       />
 
       {/* Density origin */}
       <Rect
         x={props.x}
-        y={props.y + 5 / config.densityOrdinateResolution}
-        width={config.routeLen / config.densityResolution}
+        y={props.y + config.densityMaxY / densityYResolution}
+        width={config.routeLen / densityXResolution}
         height={3}
         fill="green"
       />
@@ -85,7 +103,6 @@ export const Density = (props: { x: number; y: number }) => {
             y={props.y}
             points={curvePoints}
             stroke="cyan"
-            bezier={true}
             width={5}
       />
 

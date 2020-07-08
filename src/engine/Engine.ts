@@ -103,7 +103,7 @@ export class Engine {
     globalId = 1;
     this.cars = [];
     let previousCar: ICar;
-    for (let pos = this.config.routeLen - 5; pos >= 0; pos -= this.config.addCarDist) {
+    for (let pos = this.config.routeLen + 2 * this.config.addCarDist; pos >= - 2 * this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
@@ -237,12 +237,12 @@ export class Engine {
       if (this.cars.length === 0) {
         this.addCar(0, undefined);
       }
-      else if (this.cars[this.cars.length - 1].pos > this.config.addCarDist) {
+      else if (this.cars[this.cars.length - 1].pos > - 2 * this.config.addCarDist) {
         this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
       }
 
       // Remove old car
-      const maxPos = this.config.routeLen + 2 * this.config.carWidth;
+      const maxPos = this.config.routeLen + 2 * this.config.addCarDist;
       _.map(this.cars, (car) => {
         if (car.pos >= maxPos) car.pos = Infinity
       })
