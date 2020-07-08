@@ -4,6 +4,7 @@ import {IConfig} from './IConfig';
 import {IRadar} from './IRadar';
 import * as R from 'ramda';
 import * as _ from 'underscore'
+import {IMeasuringTape} from "./IMeasuringTape"
 
 let globalId = 1;
 
@@ -21,6 +22,11 @@ export class Engine {
     data: [],
     isRecording: false
   };
+
+  private measuringTape: IMeasuringTape = {
+    x1: 200, // TODO ***
+    x2: 300 // TODO ***
+  }
 
   private subscribers: EngineSubscriber[] = [];
 
@@ -161,6 +167,18 @@ export class Engine {
     this.notify();
   }
 
+  public setMeasuringTapeX1(x1: number) {
+    this.measuringTape.x1 = Math.round(x1);
+
+    console.log(x1) // TODO ***
+    this.notify()
+  }
+  public setMeasuringTapeX2(x2: number) {
+    this.measuringTape.x2 = Math.round(x2);
+    this.notify()
+  }
+
+
   public setTrafficLightGreenAutoTime(time: number) {
     this.trafficLightGreenAutoTime = time;
     this.notify();
@@ -285,6 +303,7 @@ export class Engine {
       radar: this.radar,
       trafficLightGreenAutoTime: this.trafficLightGreenAutoTime,
       trafficLightRedAutoTime: this.trafficLightRedAutoTime,
+      measuringTape: this.measuringTape
     });
   }
 }

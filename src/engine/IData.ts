@@ -1,5 +1,6 @@
 import { ICar } from './ICar';
 import { IRadar } from './IRadar';
+import {IMeasuringTape} from './IMeasuringTape'
 
 export interface IData {
   // Is playing ?
@@ -22,4 +23,5 @@ export interface IData {
   cars: ICar[];
   // Radar
   radar: IRadar;
+  measuringTape: IMeasuringTape;
 }

@@ -62,6 +62,10 @@ export const App = (props: {}) => {
       data: [],
       isRecording: false,
     },
+    measuringTape: {
+      x1: 200, // TODO ***
+      x2: 300, // TODO ***
+    }
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);
   const [numberModalOpen, setNumberModalOpen] = React.useState<boolean>(false);
