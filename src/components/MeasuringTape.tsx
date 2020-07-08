@@ -5,7 +5,7 @@ import {useConfig} from '../hooks/useConfig'
 import {useEngine} from '../hooks/useEngine'
 import konva from "konva"
 
-export const MeasuringTape = (props: {y: number }) => {
+export const MeasuringTape = (props: { y: number }) => {
 
   const topRule = 20;
   const bottomRule = 70;
@@ -26,9 +26,9 @@ export const MeasuringTape = (props: {y: number }) => {
   };
 
   const dragFuncX1 = (pos: konva.Vector2d): konva.Vector2d => {
-    setX1(x1 + pos.x * config.resolution);
+    setX1(pos.x);
     return {
-      x: x1 + pos.x * config.resolution,
+      x: pos.x,
       y: 0,
     };
   };
