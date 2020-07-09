@@ -22,7 +22,7 @@ const config: IConfig = {
   carMaxSpeed: 20.0,
   addCarDist: 16,
   trafficLightPosition: 280,
-  timeFactor: 1.5,
+  timeFactor: 5,
   radarInitialPosition: 200,
   radarWidth: 3,
   radarHeight: 6,

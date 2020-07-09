@@ -17,7 +17,7 @@ export const Density = (props: { x: number; y: number }) => {
   const densityYResolution = (config.densityMaxY - config.densityMinY) / config.densityHeight;
 
   // Convert an density y value to its ordinate on the screen
-  const fy = (y: number) =>  {
+  const fy = (y: number) => {
     return (config.densityMaxY - y) / densityYResolution
   }
 
@@ -45,20 +45,22 @@ export const Density = (props: { x: number; y: number }) => {
 
   const curvePoints: number[] = [];
   _.each(
-    _.filter(data.cars, (car) => { return car.pos < config.routeLen + config.addCarDist}),
+    _.filter(data.cars, (car) => {
+      return car.pos < config.routeLen + config.addCarDist
+    }),
     (car) => {
-    const distanceToPrevious = car.precedingCar ? Math.abs(car.pos - car.precedingCar.pos) : Infinity;
+      const distanceToPrevious = car.precedingCar ? Math.abs(car.pos - car.precedingCar.pos) : Infinity;
 
-    const x = Math.max(
-      0,
-      Math.min(
-        config.routeLen / densityXResolution,
-        car.pos / densityXResolution
-      )
-    );
+      const x = Math.max(
+        0,
+        Math.min(
+          config.routeLen / densityXResolution,
+          car.pos / densityXResolution
+        )
+      );
 
-    curvePoints.push(x,  fy(1 / distanceToPrevious))
-  });
+      curvePoints.push(x, fy(1 / distanceToPrevious));
+    });
 
   return (
     <React.Fragment>
@@ -75,9 +77,9 @@ export const Density = (props: { x: number; y: number }) => {
       {/* Radar */}
       <Rect
         x={props.x + (data.radar.pos) / densityXResolution}
-        y={props.y + fy(2 * 1/16)}
+        y={props.y + fy(2 * 1 / 16)}
         width={3}
-        height={2 * 1/16 / densityYResolution}
+        height={2 * 1 / 16 / densityYResolution}
         fill="red"
       />
 

@@ -170,7 +170,6 @@ export class Engine {
   public setMeasuringTapeX1(x1: number) {
     this.measuringTape.x1 = Math.round(x1);
 
-    console.log(x1) // TODO ***
     this.notify()
   }
 
@@ -234,12 +233,16 @@ export class Engine {
         const dObstacle = Math.min(dRed, dNextCar)
 
         // Compute new speed
-        car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / dObstacle)
+        car.speed = Math.max(0, this.config.carMaxSpeed * (1 - this.config.carWidth / dObstacle))
       });
 
       // Move car
       _.each(this.cars, (car) => {
         car.pos += car.speed * dt
+
+        if(car.precedingCar && car.pos > car.precedingCar.pos) {
+          console.log('ALARM: '+car.id+'-'+Math.round(car.pos)+', '+car.precedingCar.id+'-'+Math.round(car.precedingCar.pos))
+        }
 
         // Handle Radar
         if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
@@ -251,7 +254,8 @@ export class Engine {
             this.radar.data.push([this.elapsedTime, car.speed]);
           }
         }
-      })
+      });
+
 
       // Add car ?
       if (this.cars.length === 0) {
@@ -262,11 +266,13 @@ export class Engine {
       }
 
       // Remove old car
+
       const maxPos = this.config.routeLen + 2 * this.config.addCarDist;
       _.map(this.cars, (car) => {
         if (car.pos >= maxPos) car.pos = Infinity
       })
       this.cars = this.cars.filter((car: ICar) => car.pos !== Infinity);
+
 
       // Notify
       this.notify();
