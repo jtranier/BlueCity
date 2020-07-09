@@ -195,7 +195,7 @@ export const Board = (props: {}) => {
       />
 
       <Text x={580} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
-      <Density x={440} y={365} />
+      <Density x={440} y={360} />
 
       <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
       <Text x={810} y={400} width={200} text="VITESSE :" fontSize={22} fontFamily="digital" />

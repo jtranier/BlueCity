@@ -32,10 +32,10 @@ export const Density = (props: { x: number; y: number }) => {
     )
   )
 
-  _.times(9, (i) =>
+  _.times(10, (i) =>
     grid.push(
       <Rect key={'line-vert-' + i}
-            x={props.x + (config.routeLen / densityXResolution) / 9 * (i + 0.5)}
+            x={props.x + (config.routeLen / densityXResolution) / 10 * i}
             y={props.y}
             width={1}
             height={(config.densityMaxY - config.densityMinY) / densityYResolution}
@@ -74,15 +74,6 @@ export const Density = (props: { x: number; y: number }) => {
       />
       {grid}
 
-      {/* Radar */}
-      <Rect
-        x={props.x + (data.radar.pos) / densityXResolution}
-        y={props.y + fy(2 * 1 / 16)}
-        width={3}
-        height={2 * 1 / 16 / densityYResolution}
-        fill="red"
-      />
-
       {/* Traffic light */}
       <Rect
         x={props.x + config.trafficLightPosition / densityXResolution}
@@ -106,6 +97,15 @@ export const Density = (props: { x: number; y: number }) => {
             points={curvePoints}
             stroke="cyan"
             width={5}
+      />
+
+      {/* Radar */}
+      <Rect
+        x={props.x + (data.radar.pos) / densityXResolution}
+        y={props.y + fy(2 * 1 / 16)}
+        width={3}
+        height={2 * 1 / 16 / densityYResolution}
+        fill="red"
       />
 
     </React.Fragment>
