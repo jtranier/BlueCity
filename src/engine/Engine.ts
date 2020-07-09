@@ -4,7 +4,7 @@ import {IConfig} from './IConfig';
 import {IRadar} from './IRadar';
 import * as R from 'ramda';
 import * as _ from 'underscore'
-import {IMeasuringTape} from "./IMeasuringTape"
+import {IMeasuringTape} from './IMeasuringTape'
 
 let globalId = 1;
 
@@ -109,7 +109,7 @@ export class Engine {
     globalId = 1;
     this.cars = [];
     let previousCar: ICar;
-    for (let pos = this.config.routeLen + 2 * this.config.addCarDist; pos >= - 2 * this.config.addCarDist; pos -= this.config.addCarDist) {
+    for (let pos = this.config.routeLen + 2 * this.config.addCarDist; pos >= -2 * this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
@@ -173,6 +173,7 @@ export class Engine {
     console.log(x1) // TODO ***
     this.notify()
   }
+
   public setMeasuringTapeX2(x2: number) {
     this.measuringTape.x2 = Math.round(x2);
     this.notify()
@@ -219,13 +220,12 @@ export class Engine {
         }
       }
 
-      // Move cars
+      // Update cars speed
       _.each(this.cars, (car) => {
         // Distance to red traffic light
         const dRed = (this.trafficLightColor === 'red' && car.pos < this.config.trafficLightPosition) ?
           Math.abs(car.pos - this.config.trafficLightPosition) :
           Infinity
-
 
         // Distance to next car
         const dNextCar = car.precedingCar ? Math.abs(car.pos - car.precedingCar.pos) : Infinity
@@ -235,8 +235,10 @@ export class Engine {
 
         // Compute new speed
         car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / dObstacle)
+      });
 
-        // Move car
+      // Move car
+      _.each(this.cars, (car) => {
         car.pos += car.speed * dt
 
         // Handle Radar
@@ -255,7 +257,7 @@ export class Engine {
       if (this.cars.length === 0) {
         this.addCar(0, undefined);
       }
-      else if (this.cars[this.cars.length - 1].pos > - 2 * this.config.addCarDist) {
+      else if (this.cars[this.cars.length - 1].pos > -2 * this.config.addCarDist) {
         this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
       }
 
@@ -264,7 +266,7 @@ export class Engine {
       _.map(this.cars, (car) => {
         if (car.pos >= maxPos) car.pos = Infinity
       })
-      this.cars = this.cars.filter((car: ICar) => car.pos < maxPos);
+      this.cars = this.cars.filter((car: ICar) => car.pos !== Infinity);
 
       // Notify
       this.notify();
