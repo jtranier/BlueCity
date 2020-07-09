@@ -227,22 +227,19 @@ export class Engine {
           Infinity
 
         // Distance to next car
-        const dNextCar = car.precedingCar ? Math.abs(car.pos - car.precedingCar.pos) : Infinity
+        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos - this.config.carWidth : Infinity
+        if (dNextCar < 0) dNextCar = Infinity
 
         // Compute distance to next obstacle
         const dObstacle = Math.min(dRed, dNextCar)
 
         // Compute new speed
-        car.speed = Math.max(0, this.config.carMaxSpeed * (1 - this.config.carWidth / dObstacle))
+        car.speed = Math.max(0, this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle+this.config.carWidth)))
       });
 
       // Move car
       _.each(this.cars, (car) => {
         car.pos += car.speed * dt
-
-        if(car.precedingCar && car.pos > car.precedingCar.pos) {
-          console.log('ALARM: '+car.id+'-'+Math.round(car.pos)+', '+car.precedingCar.id+'-'+Math.round(car.precedingCar.pos))
-        }
 
         // Handle Radar
         if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
