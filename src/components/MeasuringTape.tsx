@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Line, Rect} from 'react-konva';
+import {Line, Rect, Text} from 'react-konva';
 import {useData} from '../hooks/useData'
 import {useConfig} from '../hooks/useConfig'
 import {useEngine} from '../hooks/useEngine'
@@ -29,13 +29,22 @@ export const MeasuringTape = (props: { y: number }) => {
     setX1(pos.x);
     return {
       x: pos.x,
-      y: 0,
+      y: props.y,
+    };
+  };
+
+  const dragFuncX2 = (pos: konva.Vector2d): konva.Vector2d => {
+    setX2(pos.x);
+    return {
+      x: pos.x,
+      y: props.y,
     };
   };
 
 
   return (
     <React.Fragment>
+      {/* Left marker */}
       <Rect
         x={x1}
         y={props.y - topRule}
@@ -43,19 +52,47 @@ export const MeasuringTape = (props: { y: number }) => {
         height={bottomRule - topRule}
         fill="grey"
       />
-      <Line points={[
-        x1 - 1,
-        props.y - topRule + bottomRule - markOffset,
-        x1 - markSize - 1,
-        props.y - topRule + bottomRule - 0.5 * markSize - markOffset,
-        x1 - markSize - 1,
-        props.y - topRule + bottomRule + 0.5 * markSize - markOffset
+      <Line
+        x={x1}
+        y={props.y}
+        points={[
+        - 1, - topRule + bottomRule - markOffset,
+        - markSize - 1,  - topRule + bottomRule - 0.5 * markSize - markOffset,
+        - markSize - 1,  - topRule + bottomRule + 0.5 * markSize - markOffset
       ]}
             closed={true}
             stroke="black"
             draggable={true}
             dragBoundFunc={dragFuncX1}
             onDragEnd={handleDragEndX1}
+      />
+      <Text x={x1+2}
+            y={props.y+15}
+            text={(Math.round(10*(x2 - x1) * config.resolution)/10).toString()}
+            fontSize={28}
+            fontFamily="digital" />
+
+      {/* Right marker */}
+      <Rect
+        x={x2}
+        y={props.y - topRule}
+        width={1}
+        height={bottomRule - topRule}
+        fill="grey"
+      />
+      <Line
+        x={x2}
+        y={props.y}
+        points={[
+          1, - topRule + bottomRule - markOffset,
+          markSize + 1,  - topRule + bottomRule - 0.5 * markSize - markOffset,
+          markSize + 1,  - topRule + bottomRule + 0.5 * markSize - markOffset
+        ]}
+        closed={true}
+        stroke="black"
+        draggable={true}
+        dragBoundFunc={dragFuncX2}
+        onDragEnd={handleDragEndX2}
       />
     </React.Fragment>
   )
