@@ -1,12 +1,11 @@
 import * as React from 'react';
-import {Line, Rect, Text} from 'react-konva';
-import {useData} from '../hooks/useData'
-import {useConfig} from '../hooks/useConfig'
-import {useEngine} from '../hooks/useEngine'
-import konva from "konva"
+import { Line, Rect, Text } from 'react-konva';
+import { useData } from '../hooks/useData';
+import { useConfig } from '../hooks/useConfig';
+import { useEngine } from '../hooks/useEngine';
+import konva from 'konva';
 
 export const MeasuringTape = (props: { y: number }) => {
-
   const topRule = 20;
   const bottomRule = 70;
   const markSize = 15;
@@ -41,52 +40,47 @@ export const MeasuringTape = (props: { y: number }) => {
     };
   };
 
-
   return (
     <React.Fragment>
       {/* Left marker */}
-      <Rect
-        x={x1}
-        y={props.y - topRule}
-        width={1}
-        height={bottomRule - topRule}
-        fill="grey"
-      />
+      <Rect x={x1} y={props.y - topRule} width={1} height={bottomRule - topRule} fill="grey" />
       <Line
         x={x1}
         y={props.y}
         points={[
-        - 1, - topRule + bottomRule - markOffset,
-        - markSize - 1,  - topRule + bottomRule - 0.5 * markSize - markOffset,
-        - markSize - 1,  - topRule + bottomRule + 0.5 * markSize - markOffset
-      ]}
-            closed={true}
-            stroke="black"
-            draggable={true}
-            dragBoundFunc={dragFuncX1}
-            onDragEnd={handleDragEndX1}
+          -1,
+          -topRule + bottomRule - markOffset,
+          -markSize - 1,
+          -topRule + bottomRule - 0.5 * markSize - markOffset,
+          -markSize - 1,
+          -topRule + bottomRule + 0.5 * markSize - markOffset,
+        ]}
+        closed={true}
+        stroke="black"
+        draggable={true}
+        dragBoundFunc={dragFuncX1}
+        onDragEnd={handleDragEndX1}
       />
-      <Text x={x1+2}
-            y={props.y+15}
-            text={(Math.round(10*(x2 - x1) * config.resolution)/10).toString()}
-            fontSize={28}
-            fontFamily="digital" />
+      <Text
+        x={x1 + 2}
+        y={props.y + 15}
+        text={(Math.round(10 * (x2 - x1) * config.resolution) / 10).toString()}
+        fontSize={28}
+        fontFamily="digital"
+      />
 
       {/* Right marker */}
-      <Rect
-        x={x2}
-        y={props.y - topRule}
-        width={1}
-        height={bottomRule - topRule}
-        fill="grey"
-      />
+      <Rect x={x2} y={props.y - topRule} width={1} height={bottomRule - topRule} fill="grey" />
       <Line
         x={x2}
         y={props.y}
         points={[
-          1, - topRule + bottomRule - markOffset,
-          markSize + 1,  - topRule + bottomRule - 0.5 * markSize - markOffset,
-          markSize + 1,  - topRule + bottomRule + 0.5 * markSize - markOffset
+          1,
+          -topRule + bottomRule - markOffset,
+          markSize + 1,
+          -topRule + bottomRule - 0.5 * markSize - markOffset,
+          markSize + 1,
+          -topRule + bottomRule + 0.5 * markSize - markOffset,
         ]}
         closed={true}
         stroke="black"
@@ -95,5 +89,5 @@ export const MeasuringTape = (props: { y: number }) => {
         onDragEnd={handleDragEndX2}
       />
     </React.Fragment>
-  )
-}
+  );
+};

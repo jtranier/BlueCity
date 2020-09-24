@@ -1,10 +1,10 @@
-import {ICar} from './ICar';
-import {IData} from './IData';
-import {IConfig} from './IConfig';
-import {IRadar} from './IRadar';
+import { ICar } from './ICar';
+import { IData } from './IData';
+import { IConfig } from './IConfig';
+import { IRadar } from './IRadar';
 import * as R from 'ramda';
-import * as _ from 'underscore'
-import {IMeasuringTape} from './IMeasuringTape'
+import * as _ from 'underscore';
+import { IMeasuringTape } from './IMeasuringTape';
 
 let globalId = 1;
 
@@ -20,13 +20,13 @@ export class Engine {
     lastSpeed: 0,
     nbCars: 0,
     data: [],
-    isRecording: false
+    isRecording: false,
   };
 
   private measuringTape: IMeasuringTape = {
     x1: 200, // TODO ***
-    x2: 300 // TODO ***
-  }
+    x2: 300, // TODO ***
+  };
 
   private subscribers: EngineSubscriber[] = [];
 
@@ -77,7 +77,7 @@ export class Engine {
   }
 
   public resetRadar() {
-    const radar = this.radar
+    const radar = this.radar;
     radar.data = [];
     radar.nbCars = 0;
     radar.lastSpeed = 0;
@@ -109,7 +109,11 @@ export class Engine {
     globalId = 1;
     this.cars = [];
     let previousCar: ICar;
-    for (let pos = this.config.routeLen + 2 * this.config.addCarDist; pos >= -2 * this.config.addCarDist; pos -= this.config.addCarDist) {
+    for (
+      let pos = this.config.routeLen + 2 * this.config.addCarDist;
+      pos >= -2 * this.config.addCarDist;
+      pos -= this.config.addCarDist
+    ) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
@@ -170,14 +174,13 @@ export class Engine {
   public setMeasuringTapeX1(x1: number) {
     this.measuringTape.x1 = Math.round(x1);
 
-    this.notify()
+    this.notify();
   }
 
   public setMeasuringTapeX2(x2: number) {
     this.measuringTape.x2 = Math.round(x2);
-    this.notify()
+    this.notify();
   }
-
 
   public setTrafficLightGreenAutoTime(time: number) {
     this.trafficLightGreenAutoTime = time;
@@ -215,8 +218,7 @@ export class Engine {
         if (this.isAuto() && this.trafficLightGreenElapsedTime >= this.trafficLightGreenAutoTime) {
           this.red();
         }
-      }
-      else {
+      } else {
         this.trafficLightRedElapsedTime += dt;
         if (this.isAuto() && this.trafficLightRedElapsedTime >= this.trafficLightRedAutoTime) {
           this.green();
@@ -226,24 +228,28 @@ export class Engine {
       // Update cars speed
       _.each(this.cars, (car) => {
         // Distance to red traffic light
-        const dRed = (this.trafficLightColor === 'red' && car.pos < this.config.trafficLightPosition) ?
-          Math.abs(car.pos - this.config.trafficLightPosition) :
-          Infinity
+        const dRed =
+          this.trafficLightColor === 'red' && car.pos < this.config.trafficLightPosition
+            ? Math.abs(car.pos - this.config.trafficLightPosition)
+            : Infinity;
 
         // Distance to next car
-        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos - this.config.carWidth : Infinity
-        if (dNextCar < 0) dNextCar = Infinity
+        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos - this.config.carWidth : Infinity;
+        if (dNextCar < 0) dNextCar = Infinity;
 
         // Compute distance to next obstacle
-        const dObstacle = Math.min(dRed, dNextCar)
+        const dObstacle = Math.min(dRed, dNextCar);
 
         // Compute new speed
-        car.speed = Math.max(0, this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle+this.config.carWidth)))
+        car.speed = Math.max(
+          0,
+          this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle + this.config.carWidth))
+        );
       });
 
       // Move car
       _.each(this.cars, (car) => {
-        car.pos += car.speed * dt
+        car.pos += car.speed * dt;
 
         // Handle Radar
         if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
@@ -257,12 +263,10 @@ export class Engine {
         }
       });
 
-
       // Add car ?
       if (this.cars.length === 0) {
         this.addCar(0, undefined);
-      }
-      else if (this.cars[this.cars.length - 1].pos > -2 * this.config.addCarDist) {
+      } else if (this.cars[this.cars.length - 1].pos > -2 * this.config.addCarDist) {
         this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
       }
 
@@ -270,10 +274,9 @@ export class Engine {
 
       const maxPos = this.config.routeLen + 2 * this.config.addCarDist;
       _.map(this.cars, (car) => {
-        if (car.pos >= maxPos) car.pos = Infinity
-      })
+        if (car.pos >= maxPos) car.pos = Infinity;
+      });
       this.cars = this.cars.filter((car: ICar) => car.pos !== Infinity);
-
 
       // Notify
       this.notify();
@@ -286,8 +289,8 @@ export class Engine {
       pos,
       speed: this.config.carMaxSpeed,
       hasSpeedMeasure: false,
-      precedingCar
-    }
+      precedingCar,
+    };
 
     this.cars.push(car);
 
@@ -312,7 +315,7 @@ export class Engine {
       radar: this.radar,
       trafficLightGreenAutoTime: this.trafficLightGreenAutoTime,
       trafficLightRedAutoTime: this.trafficLightRedAutoTime,
-      measuringTape: this.measuringTape
+      measuringTape: this.measuringTape,
     });
   }
 }

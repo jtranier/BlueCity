@@ -9,7 +9,7 @@ export interface IRadar {
   nbCars: number;
 
   // data associates timestamps to measured speed
-  data: [number, number][]
+  data: [number, number][];
 
-  isRecording: boolean
+  isRecording: boolean;
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {useConfig} from '../hooks/useConfig';
-import {useData} from '../hooks/useData';
-import {Line, Rect} from 'react-konva';
+import { useConfig } from '../hooks/useConfig';
+import { useData } from '../hooks/useData';
+import { Line, Rect } from 'react-konva';
 import konva from 'konva';
-import {useEngine} from '../hooks/useEngine';
+import { useEngine } from '../hooks/useEngine';
 
 export const Radar = (props: {}) => {
   const config = useConfig();
@@ -30,21 +30,19 @@ export const Radar = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect
-        x={x}
-        y={255}
-        width={2}
-        height={yOffset-255}
-        fill={'#733'}
-      />
+      <Rect x={x} y={255} width={2} height={yOffset - 255} fill={'#733'} />
       <Line
-        x={x - (config.radarWidth / 2) / config.resolution}
+        x={x - config.radarWidth / 2 / config.resolution}
         y={yOffset}
         points={[
-          0, 0,
-          config.radarWidth / config.resolution, 0,
-          config.radarWidth / config.resolution, config.radarHeight / config.resolution,
-          0, config.radarHeight / config.resolution
+          0,
+          0,
+          config.radarWidth / config.resolution,
+          0,
+          config.radarWidth / config.resolution,
+          config.radarHeight / config.resolution,
+          0,
+          config.radarHeight / config.resolution,
         ]}
         closed={true}
         stroke="black"

@@ -1,6 +1,6 @@
 import { ICar } from './ICar';
 import { IRadar } from './IRadar';
-import {IMeasuringTape} from './IMeasuringTape'
+import { IMeasuringTape } from './IMeasuringTape';
 
 export interface IData {
   // Is playing ?

@@ -21,15 +21,15 @@ const config: IConfig = {
   carHeight: 2.7,
   carMaxSpeed: 20.0,
   addCarDist: 16,
-  trafficLightPosition: 400-120,
+  trafficLightPosition: 400 - 120,
   timeFactor: 1,
   radarInitialPosition: 120,
   radarWidth: 8,
   radarHeight: 15,
   densityWidth: 350,
   densityHeight: 175,
-  densityMinY: -(1/16)/2,
-  densityMaxY: 5*(1/16),
+  densityMinY: -(1 / 16) / 2,
+  densityMaxY: 5 * (1 / 16),
   radarSensibility: 2,
 };
 
@@ -65,7 +65,7 @@ export const App = (props: {}) => {
     measuringTape: {
       x1: 200, // TODO ***
       x2: 300, // TODO ***
-    }
+    },
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);
   const [numberModalOpen, setNumberModalOpen] = React.useState<boolean>(false);

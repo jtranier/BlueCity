@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Car } from './Car';
 import { useConfig } from '../hooks/useConfig';
 import { useData } from '../hooks/useData';
-import {MeasuringTape} from "./MeasuringTape"
+import { MeasuringTape } from './MeasuringTape';
 
 export const Route = (props: {}) => {
   const config = useConfig();
@@ -26,8 +26,10 @@ export const Route = (props: {}) => {
       );
     }
   }
-  return <React.Fragment>
-    <MeasuringTape y={routeY}/>
-    {cars}
-  </React.Fragment>;
+  return (
+    <React.Fragment>
+      <MeasuringTape y={routeY} />
+      {cars}
+    </React.Fragment>
+  );
 };

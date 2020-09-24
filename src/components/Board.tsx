@@ -19,11 +19,9 @@ export const Board = (props: {}) => {
 
   const handleResetRadar = () => {
     engine.resetRadar();
-  }
+  };
 
-  const handleRecordRadar = () => {
-
-  }
+  const handleRecordRadar = () => {};
 
   const handleStartClick = () => {
     engine.play();
@@ -204,7 +202,7 @@ export const Board = (props: {}) => {
         y={395}
         width={60}
         height={30}
-        num={Math.round(data.radar.lastSpeed*100) / 100}
+        num={Math.round(data.radar.lastSpeed * 100) / 100}
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
