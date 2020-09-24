@@ -202,6 +202,10 @@ export class Engine {
     }
 
     if (this.playTime > 0) {
+      if (this.nextTime - this.previousTime > 1.5 * this.config.refresh) {
+        // time lag -> correction
+        this.nextTime = this.previousTime + this.config.refresh;
+      }
       const dt = (this.config.timeFactor * (this.nextTime - this.previousTime)) / 1000.0;
       this.elapsedTime += dt;
 
