@@ -47,7 +47,6 @@ export const Density = (props: { x: number; y: number }) => {
   );
 
   const curvePoints: number[] = [];
-  let first = true;
   _.each(
     _.filter(data.cars, (car) => {
       return car.pos < config.routeLen + config.addCarDist;
@@ -60,13 +59,6 @@ export const Density = (props: { x: number; y: number }) => {
       }
 
       const x = Math.max(0, Math.min(config.routeLen / densityXResolution, car.pos / densityXResolution));
-
-      if (first) {
-        if (car.pos < config.routeLen) {
-          curvePoints.push(config.routeLen / densityXResolution, config.densityMaxY / densityYResolution);
-        }
-        first = false;
-      }
 
       curvePoints.push(x, fy(1 / dNextCar));
     }
