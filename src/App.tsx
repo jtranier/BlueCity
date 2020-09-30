@@ -13,6 +13,8 @@ import { Radar } from './components/Radar';
 
 import ReactModal = require('react-modal');
 
+import './assets/main.css'
+
 const config: IConfig = {
   refresh: 50,
   resolution: 0.4,
@@ -142,12 +144,22 @@ export const App = (props: {}) => {
           },
         }}
       >
-        <form onSubmit={handleValidate}>
+        <form onSubmit={handleValidate} style={{
+          backgroundColor: '#777'
+        }}>
           <h3>{numberModalData.label}</h3>
           <div>
-            <input type="number" value={numberModalData.num} onChange={handleChangeModalNum} autoFocus />
+            <input type="number" value={numberModalData.num}  onChange={handleChangeModalNum} autoFocus style={{
+              fontFamily: 'digital',
+              fontSize: 28,
+              width: '4em',
+              backgroundColor: 'black',
+              color: 'darkgrey'
+            }}  />
           </div>
-          <div>
+          <div style={{
+            marginTop: '2em'
+          }}>
             <button type="submit" onClick={handleValidate}>
               Valider
             </button>
