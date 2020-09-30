@@ -85,13 +85,15 @@ export class Engine {
   }
 
   public startRecordingRadar() {
+    this.radar.data = [];
     this.radar.isRecording = true;
     this.notify();
   }
 
   public stopRecordingRadar() {
     this.radar.isRecording = false;
-    this.notify();
+    // this.notify();
+    this.pause();
   }
 
   public play() {

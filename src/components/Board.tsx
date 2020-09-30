@@ -28,6 +28,7 @@ export const Board = (props: {}) => {
 
   const handleStopRecordingRadar = () => {
     engine.stopRecordingRadar()
+    handleDownloadRadarClick();
   };
 
   const handleStartClick = () => {
@@ -70,6 +71,22 @@ export const Board = (props: {}) => {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(csv));
     element.setAttribute('download', 'positions.csv');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
+  const handleDownloadRadarClick = () => {
+    const lines: string[] = [];
+    lines.push('time;speed');
+    for (const d of data.radar.data) {
+      lines.push(truncFixed(d[0],1).replace(',', '.') + ';' +truncFixed(d[1],2).replace(',', '.'))
+    }
+    const csv = lines.join('\n');
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(csv));
+    element.setAttribute('download', 'radar.csv');
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
