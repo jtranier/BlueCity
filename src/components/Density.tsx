@@ -47,16 +47,30 @@ export const Density = (props: { x: number; y: number }) => {
   );
 
   const curvePoints: number[] = [];
+  let first = true;
   _.each(
     _.filter(data.cars, (car) => {
       return car.pos < config.routeLen + config.addCarDist;
     }),
     (car) => {
-      const distanceToPrevious = car.precedingCar ? Math.abs(car.pos - car.precedingCar.pos) : Infinity;
+      // Distance to next car
+      let dNextCar = car.precedingCar
+        ? car.precedingCar.pos - car.pos
+        : config.addCarDist;
+      if (dNextCar < 0) {
+        dNextCar = config.addCarDist;
+      }
 
       const x = Math.max(0, Math.min(config.routeLen / densityXResolution, car.pos / densityXResolution));
 
-      curvePoints.push(x, fy(1 / distanceToPrevious));
+      if (first) {
+        if (car.pos < config.routeLen) {
+          curvePoints.push(config.routeLen / densityXResolution, config.densityMaxY / densityYResolution);
+        }
+        first = false;
+      }
+
+      curvePoints.push(x, fy(1 / dNextCar));
     }
   );
 

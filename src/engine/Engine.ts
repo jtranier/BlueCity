@@ -110,7 +110,7 @@ export class Engine {
     this.cars = [];
     let previousCar: ICar;
     for (
-      let pos = this.config.routeLen - 2 * this.config.carWidth;
+      let pos = 2 * this.config.routeLen;
       pos >= -2 * this.config.addCarDist;
       pos -= this.config.addCarDist
     ) {
@@ -279,7 +279,7 @@ export class Engine {
       }
 
       // Remove old car
-      const maxPos = this.config.routeLen + 2 * this.config.carWidth;
+      const maxPos = 2 * this.config.routeLen;
       this.cars = this.cars.filter((car: ICar) => {
         if (car.pos > maxPos) {
           car.pos = this.config.distanceObstacleMaxSpeed;
