@@ -108,10 +108,10 @@ export const Board = (props: {}) => {
             y={450}
             width={30}
             height={30}
-            text="⏸"
+            text="&#10074;&#10074;"
             fontSize={28}
-            textOffsetX={5}
-            textOffsetY={-2}
+            textOffsetX={3}
+            textOffsetY={3}
             onClick={handlePauseClick}
           />
         </React.Fragment>
@@ -127,7 +127,7 @@ export const Board = (props: {}) => {
             text="▶"
             fontSize={28}
             textOffsetX={5}
-            textOffsetY={0}
+            textOffsetY={2}
             onClick={handleStartClick}
           />
         </React.Fragment>
