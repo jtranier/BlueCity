@@ -21,7 +21,7 @@ export const Board = (props: {}) => {
     engine.resetRadar();
   };
 
-  const handleRecordRadar = () => {};
+  const handleRecordRadar = () => { };
 
   const handleStartClick = () => {
     engine.play();
@@ -49,6 +49,10 @@ export const Board = (props: {}) => {
 
   const handleChangeRedTime = (num: number) => {
     engine.setTrafficLightRedAutoTime(num);
+  };
+
+  const handleDownloadClick = () => {
+    // engine.generateCars();
   };
 
   return (
@@ -130,7 +134,7 @@ export const Board = (props: {}) => {
       <Text
         x={291}
         y={380}
-        width={60}
+        width={65}
         text="MANUEL"
         fontSize={14}
         fontFamily="digital"
@@ -192,6 +196,18 @@ export const Board = (props: {}) => {
         onChange={handleChangeRedTime}
       />
 
+      <RectBtn
+        x={405}
+        y={395}
+        width={30}
+        height={30}
+        text="🗎"
+        fontSize={28}
+        textOffsetX={5}
+        textOffsetY={5}
+        onClick={handleDownloadClick}
+      />
+
       <Text x={580} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
       <Density x={440} y={360} />
 
@@ -222,10 +238,10 @@ export const Board = (props: {}) => {
       />
       <RectBtn
         x={850}
-        y={480}
+        y={485}
         width={30}
         height={30}
-        text="o"
+        text="⏺"
         fontSize={26}
         textOffsetX={3}
         textOffsetY={3}
@@ -233,7 +249,7 @@ export const Board = (props: {}) => {
       />
       <RectBtn
         x={900}
-        y={480}
+        y={485}
         width={30}
         height={30}
         text="⭯"
