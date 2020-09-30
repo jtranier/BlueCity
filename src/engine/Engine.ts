@@ -234,7 +234,9 @@ export class Engine {
             : this.config.distanceObstacleMaxSpeed;
 
         // Distance to next car
-        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos - this.config.carWidth : this.config.distanceObstacleMaxSpeed;
+        let dNextCar = car.precedingCar
+          ? car.precedingCar.pos - car.pos - this.config.carWidth
+          : this.config.distanceObstacleMaxSpeed;
         if (dNextCar < 0) {
           dNextCar = this.config.distanceObstacleMaxSpeed;
         }
