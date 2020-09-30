@@ -84,8 +84,14 @@ export class Engine {
     this.notify();
   }
 
-  public recordRadar() {
+  public startRecordingRadar() {
     this.radar.isRecording = true;
+    this.notify();
+  }
+
+  public stopRecordingRadar() {
+    this.radar.isRecording = false;
+    this.notify();
   }
 
   public play() {

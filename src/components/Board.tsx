@@ -22,7 +22,13 @@ export const Board = (props: {}) => {
     engine.resetRadar();
   };
 
-  const handleRecordRadar = () => {};
+  const handleStartRecordingRadar = () => {
+    engine.startRecordingRadar()
+  };
+
+  const handleStopRecordingRadar = () => {
+    engine.stopRecordingRadar()
+  };
 
   const handleStartClick = () => {
     engine.play();
@@ -251,17 +257,32 @@ export const Board = (props: {}) => {
         fontSize={22}
         fill="lightgrey"
       />
-      <RectBtn
-        x={850}
-        y={485}
-        width={30}
-        height={30}
-        text="⏺"
-        fontSize={26}
-        textOffsetX={3}
-        textOffsetY={3}
-        onClick={handleRecordRadar}
-      />
+      {data.radar.isRecording && (
+        <RectBtn
+          x={850}
+          y={485}
+          width={30}
+          height={30}
+          text="&#9635;"
+          fontSize={26}
+          textOffsetX={4}
+          textOffsetY={3}
+          onClick={handleStopRecordingRadar}
+        />
+      )}
+      {!data.radar.isRecording && (
+        <RectBtn
+          x={850}
+          y={485}
+          width={30}
+          height={30}
+          text="&#9673;"
+          fontSize={26}
+          textOffsetX={4}
+          textOffsetY={3}
+          onClick={handleStartRecordingRadar}
+        />
+      )}
       <RectBtn
         x={900}
         y={485}
