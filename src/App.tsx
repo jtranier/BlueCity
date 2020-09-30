@@ -24,7 +24,7 @@ const config: IConfig = {
   addCarDist: 16,
   trafficLightPosition: 400 - 120,
   timeFactor: 1,
-  radarInitialPosition: 120,
+  radarInitialPosition: 160,
   radarWidth: 8,
   radarHeight: 15,
   densityWidth: 350,
