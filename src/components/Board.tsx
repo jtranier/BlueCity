@@ -54,10 +54,10 @@ export const Board = (props: {}) => {
 
   const handleDownloadClick = () => {
     const lines: string[] = [];
-    lines.push('id;pos;speed');
+    lines.push('pos;speed');
     for (const car of data.cars) {
       if (car.pos >= 0 && car.pos < config.routeLen + config.carWidth) {
-        lines.push(car.id + ';' + truncFixed(car.pos, 1) + ';' + truncFixed(car.speed, 1));
+        lines.push(truncFixed(car.pos, 1) + ';' + truncFixed(car.speed, 1));
       }
     }
     const csv = lines.join('\n');
