@@ -54,9 +54,7 @@ export const Density = (props: { x: number; y: number }) => {
     }),
     (car) => {
       // Distance to next car
-      let dNextCar = car.precedingCar
-        ? car.precedingCar.pos - car.pos
-        : config.addCarDist;
+      let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : config.addCarDist;
       if (dNextCar < 0) {
         dNextCar = config.addCarDist;
       }

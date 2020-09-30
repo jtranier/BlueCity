@@ -109,11 +109,7 @@ export class Engine {
     globalId = 1;
     this.cars = [];
     let previousCar: ICar;
-    for (
-      let pos = 2 * this.config.routeLen;
-      pos >= -2 * this.config.addCarDist;
-      pos -= this.config.addCarDist
-    ) {
+    for (let pos = 2 * this.config.routeLen; pos >= -2 * this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
