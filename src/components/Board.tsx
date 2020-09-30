@@ -7,6 +7,7 @@ import { TrafficLight } from './TrafficLight';
 import { RectBtn } from './RectBtn';
 import { EditableNumber } from './EditableNumber';
 import { Density } from './Density';
+import { truncFixed } from '../utils';
 
 export const Board = (props: {}) => {
   const engine = useEngine();
@@ -21,7 +22,7 @@ export const Board = (props: {}) => {
     engine.resetRadar();
   };
 
-  const handleRecordRadar = () => {};
+  const handleRecordRadar = () => { };
 
   const handleStartClick = () => {
     engine.play();
@@ -52,7 +53,21 @@ export const Board = (props: {}) => {
   };
 
   const handleDownloadClick = () => {
-    // engine.generateCars();
+    const lines: string[] = [];
+    lines.push('id;pos;speed');
+    for (const car of data.cars) {
+      if (car.pos >= 0 && car.pos < config.routeLen + config.carWidth) {
+        lines.push(car.id + ';' + truncFixed(car.pos, 1) + ';' + truncFixed(car.speed, 1));
+      }
+    }
+    const csv = lines.join('\n');
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(csv));
+    element.setAttribute('download', 'positions.csv');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   };
 
   return (
@@ -186,7 +201,7 @@ export const Board = (props: {}) => {
         y={490}
         width={50}
         height={30}
-        editLabel="TEMPS ROUGER EN SECONDES :"
+        editLabel="TEMPS ROUGE EN SECONDES :"
         num={data.trafficLightRedAutoTime}
         textOffsetX={5}
         textOffsetY={5}

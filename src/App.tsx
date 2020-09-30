@@ -20,6 +20,7 @@ const config: IConfig = {
   carWidth: 4,
   carHeight: 2.7,
   carMaxSpeed: 20.0,
+  distanceObstacleMaxSpeed: 15,
   addCarDist: 16,
   trafficLightPosition: 400 - 120,
   timeFactor: 1,

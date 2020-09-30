@@ -110,7 +110,7 @@ export class Engine {
     this.cars = [];
     let previousCar: ICar;
     for (
-      let pos = this.config.routeLen + 2 * this.config.addCarDist;
+      let pos = this.config.routeLen - 2 * this.config.carWidth;
       pos >= -2 * this.config.addCarDist;
       pos -= this.config.addCarDist
     ) {
@@ -226,29 +226,35 @@ export class Engine {
       }
 
       // Update cars speed
-      _.each(this.cars, (car) => {
+      for (const car of this.cars) {
         // Distance to red traffic light
         const dRed =
           this.trafficLightColor === 'red' && car.pos < this.config.trafficLightPosition
             ? Math.abs(car.pos - this.config.trafficLightPosition)
-            : Infinity;
+            : this.config.distanceObstacleMaxSpeed;
 
         // Distance to next car
-        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos - this.config.carWidth : Infinity;
-        if (dNextCar < 0) dNextCar = Infinity;
+        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos - this.config.carWidth : this.config.distanceObstacleMaxSpeed;
+        if (dNextCar < 0) {
+          dNextCar = this.config.distanceObstacleMaxSpeed;
+        }
 
         // Compute distance to next obstacle
         const dObstacle = Math.min(dRed, dNextCar);
 
         // Compute new speed
-        car.speed = Math.max(
-          0,
-          this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle + this.config.carWidth))
-        );
-      });
+        car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle + this.config.carWidth));
+        const tol = 0.01;
+        if (car.speed < tol) {
+          car.speed = 0;
+        }
+        if (car.speed + tol > this.config.carMaxSpeed) {
+          car.speed = this.config.carMaxSpeed;
+        }
+      }
 
       // Move car
-      _.each(this.cars, (car) => {
+      for (const car of this.cars) {
         car.pos += car.speed * dt;
 
         // Handle Radar
@@ -261,7 +267,7 @@ export class Engine {
             this.radar.data.push([this.elapsedTime, car.speed]);
           }
         }
-      });
+      }
 
       // Add car ?
       if (this.cars.length === 0) {
@@ -271,12 +277,14 @@ export class Engine {
       }
 
       // Remove old car
-
-      const maxPos = this.config.routeLen + 2 * this.config.addCarDist;
-      _.map(this.cars, (car) => {
-        if (car.pos >= maxPos) car.pos = Infinity;
+      const maxPos = this.config.routeLen + 2 * this.config.carWidth;
+      this.cars = this.cars.filter((car: ICar) => {
+        if (car.pos > maxPos) {
+          car.pos = this.config.distanceObstacleMaxSpeed;
+          return false;
+        }
+        return true;
       });
-      this.cars = this.cars.filter((car: ICar) => car.pos !== Infinity);
 
       // Notify
       this.notify();
