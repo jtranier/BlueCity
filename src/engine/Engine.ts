@@ -81,6 +81,7 @@ export class Engine {
     radar.data = [];
     radar.nbCars = 0;
     radar.lastSpeed = 0;
+    this.notify();
   }
 
   public recordRadar() {
