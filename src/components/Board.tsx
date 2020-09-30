@@ -21,7 +21,7 @@ export const Board = (props: {}) => {
     engine.resetRadar();
   };
 
-  const handleRecordRadar = () => { };
+  const handleRecordRadar = () => {};
 
   const handleStartClick = () => {
     engine.play();
