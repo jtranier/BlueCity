@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useConfig} from '../hooks/useConfig';
 import {useData} from '../hooks/useData';
-import {Line, Rect} from 'react-konva';
+import {Line, Rect, Text} from 'react-konva';
 import konva from 'konva';
 import {useEngine} from '../hooks/useEngine';
 
@@ -65,6 +65,13 @@ export const Radar = (props: {}) => {
         draggable
         dragBoundFunc={dragFunc}
         onDragEnd={handleDragEnd}
+      />
+      <Text
+        x={x + 5 / config.resolution}
+        y={yOffset + (config.radarHeight - 6) / config.resolution}
+        text={data.radar.pos.toString()}
+        fontSize={16}
+        fontFamily="digital"
       />
     </React.Fragment>
   );
