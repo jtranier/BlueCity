@@ -67,8 +67,8 @@ export const Board = (props: {}) => {
     for (const car of data.cars.slice().reverse()) {
       if (car.pos >= 0 && car.pos < config.routeLen + config.carWidth) {
         lines.push(
-          truncFixed(engine.convertPos(car.pos), 1).replace(',', '.') + ';' +
-          truncFixed(car.speed, 1).replace(',', '.')
+          engine.convertPos(car.pos).toString().replace(',', '.') + ';' +
+          car.speed.toString().replace(',', '.')
         );
       }
     }
