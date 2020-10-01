@@ -64,9 +64,12 @@ export const Board = (props: {}) => {
   const handleDownloadClick = () => {
     const lines: string[] = [];
     lines.push('pos;speed');
-    for (const car of data.cars) {
+    for (const car of data.cars.slice().reverse()) {
       if (car.pos >= 0 && car.pos < config.routeLen + config.carWidth) {
-        lines.push(truncFixed(car.pos, 1).replace(',', '.') + ';' + truncFixed(car.speed, 1).replace(',', '.'));
+        lines.push(
+          truncFixed(engine.convertPos(car.pos), 1).replace(',', '.') + ';' +
+          truncFixed(car.speed, 1).replace(',', '.')
+        );
       }
     }
     const csv = lines.join('\n');

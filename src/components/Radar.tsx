@@ -70,7 +70,7 @@ export const Radar = (props: {}) => {
       <Text
         x={x + 5 / config.resolution}
         y={yOffset + (config.radarHeight - 6) / config.resolution}
-        text={data.radar.pos.toString()}
+        text={engine.convertPos(data.radar.pos).toString()}
         fontSize={16}
         fontFamily="digital"
       />
