@@ -130,7 +130,7 @@ export const Board = (props: {}) => {
       />
       {data.playing && (
         <React.Fragment>
-          <Text x={10} y={455} text="    PAUSE" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={yOffset + 125} text="    PAUSE" fontSize={22} fontFamily="digital" />
           <RectBtn
             x={110}
             y={yOffset + 120}
