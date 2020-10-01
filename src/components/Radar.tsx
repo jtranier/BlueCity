@@ -17,12 +17,12 @@ export const Radar = (props: {}) => {
   }
 
   const handleDragEnd = () => {
-    engine.setRadarPosition(Math.round(x * config.resolution));
+    engine.setRadarPosition(Math.round(x * config.resolution * 10) / 10);
   };
 
   const dragFunc = (pos: konva.Vector2d): konva.Vector2d => {
     setX(pos.x);
-    engine.setRadarPosition(Math.round(x * config.resolution));
+    engine.setRadarPosition(Math.round(x * config.resolution * 10) / 10);
     return {
       x: pos.x - config.radarWidth / 2 / config.resolution,
       y: yOffset,
@@ -70,7 +70,7 @@ export const Radar = (props: {}) => {
       <Text
         x={x + 5 / config.resolution}
         y={yOffset + (config.radarHeight - 6) / config.resolution}
-        text={engine.convertPos(data.radar.pos).toString()}
+        text={(Math.round(engine.convertPos(data.radar.pos) * 10) / 10).toString()}
         fontSize={16}
         fontFamily="digital"
       />
