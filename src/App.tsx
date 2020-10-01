@@ -16,7 +16,7 @@ import ReactModal = require('react-modal');
 import './assets/main.css';
 
 const config: IConfig = {
-  refresh: 50,
+  refresh: 20,
   resolution: 0.4,
   routeLen: 400,
   carWidth: 4,
