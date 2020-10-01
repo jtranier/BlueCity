@@ -214,7 +214,7 @@ export class Engine {
           this.green();
         }
       }
-      
+
       // Move car
       for (const car of this.cars) {
         car.pos = car.pos + 0.001 * car.speed * dt;
@@ -240,9 +240,7 @@ export class Engine {
             : this.config.defautObstacleDistance;
 
         // Distance to next car
-        let dNextCar = car.precedingCar
-          ? car.precedingCar.pos - car.pos
-          : this.config.defautObstacleDistance;
+        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : this.config.defautObstacleDistance;
         if (dNextCar < 0) {
           dNextCar = this.config.defautObstacleDistance;
         }
@@ -282,7 +280,9 @@ export class Engine {
   };
 
   private addCar(pos: number, precedingCar: ICar) {
-    let speed = precedingCar ? this.config.carMaxSpeed * (1 - this.config.carWidth / (precedingCar.pos - pos)) : this.config.carMaxSpeed;
+    let speed = precedingCar
+      ? this.config.carMaxSpeed * (1 - this.config.carWidth / (precedingCar.pos - pos))
+      : this.config.carMaxSpeed;
     const car = {
       id: globalId++,
       pos,
