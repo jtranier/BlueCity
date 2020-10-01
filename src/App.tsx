@@ -28,7 +28,7 @@ const config: IConfig = {
   timeFactor: 1,
   radarInitialPosition: 160,
   radarWidth: 8,
-  radarHeight: 16,
+  radarHeight: 23,
   densityWidth: 350,
   densityHeight: 175,
   densityMinY: -(1 / 16) / 2,
@@ -113,7 +113,7 @@ export const App = (props: {}) => {
     <React.Fragment>
       <GlobalStyle />
       {fontLoaded && (
-        <Stage width={980} height={540}>
+        <Stage width={980} height={640}>
           <appContext.Provider value={{ engine, config, data, openNumberModal }}>
             <Layer>
               <City />

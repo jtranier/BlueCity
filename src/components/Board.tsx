@@ -14,6 +14,8 @@ export const Board = (props: {}) => {
   const config = useConfig();
   const data = useData();
 
+  const yOffset = 350;
+
   const handleZeroClick = () => {
     engine.zero();
   };
@@ -95,14 +97,14 @@ export const Board = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect x={0} y={330} width={980} height={210} fill={'#777'} />
+      <Rect x={0} y={yOffset} width={980} height={210} fill={'#777'} />
 
-      <Text x={30} y={330} text="CONTROLE" fontSize={28} fontFamily="digital" />
-      <Text x={10} y={400} text="   TEMPS :" fontSize={22} fontFamily="digital" />
-      <Text x={50} y={420} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={30} y={yOffset} text="CONTROLE" fontSize={28} fontFamily="digital" />
+      <Text x={10} y={yOffset + 70} text="   TEMPS :" fontSize={22} fontFamily="digital" />
+      <Text x={50} y={yOffset + 90} text="SECONDES" fontSize={14} fontFamily="digital" />
       <RectBtn
         x={110}
-        y={395}
+        y={yOffset + 65}
         width={30}
         height={30}
         text="⭯"
@@ -113,7 +115,7 @@ export const Board = (props: {}) => {
       />
       <EditableNumber
         x={140}
-        y={395}
+        y={yOffset + 65}
         width={60}
         height={30}
         num={data.elapsedTime < 1000 ? Math.round(data.elapsedTime * 10) / 10 : Math.round(data.elapsedTime)}
@@ -128,7 +130,7 @@ export const Board = (props: {}) => {
           <Text x={10} y={455} text="    PAUSE" fontSize={22} fontFamily="digital" />
           <RectBtn
             x={110}
-            y={450}
+            y={yOffset + 120}
             width={30}
             height={30}
             text="&#10074;&#10074;"
@@ -141,10 +143,10 @@ export const Board = (props: {}) => {
       )}
       {!data.playing && (
         <React.Fragment>
-          <Text x={10} y={455} text="    START" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={yOffset + 125} text="    START" fontSize={22} fontFamily="digital" />
           <RectBtn
             x={110}
-            y={450}
+            y={yOffset + 120}
             width={30}
             height={30}
             text="▶"
@@ -155,10 +157,10 @@ export const Board = (props: {}) => {
           />
         </React.Fragment>
       )}
-      <Text x={10} y={495} text="RECHARGER" fontSize={22} fontFamily="digital" />
+      <Text x={10} y={yOffset + 165} text="RECHARGER" fontSize={22} fontFamily="digital" />
       <RectBtn
         x={110}
-        y={490}
+        y={yOffset + 160}
         width={30}
         height={30}
         text="✖"
@@ -168,10 +170,10 @@ export const Board = (props: {}) => {
         onClick={handleResetClick}
       />
 
-      <Text x={290} y={330} text="FEU" fontSize={28} fontFamily="digital" />
+      <Text x={290} y={yOffset} text="FEU" fontSize={28} fontFamily="digital" />
       <Text
         x={291}
-        y={380}
+        y={yOffset + 50}
         width={65}
         text="MANUEL"
         fontSize={14}
@@ -180,7 +182,7 @@ export const Board = (props: {}) => {
       />
       <RectBtn
         x={294}
-        y={395}
+        y={yOffset + 65}
         width={30}
         height={30}
         text="⇋"
@@ -191,20 +193,20 @@ export const Board = (props: {}) => {
       />
       <Text
         x={296}
-        y={428}
+        y={yOffset + 98}
         width={60}
         text="AUTO"
         fontSize={14}
         fontFamily="digital"
         fill={data.trafficLightState === 'auto' ? 'cyan' : 'lightgrey'}
       />
-      <TrafficLight x={270} y={428} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
+      <TrafficLight x={270} y={yOffset + 98} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
 
-      <Text x={230} y={455} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
-      <Text x={300} y={475} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={230} y={yOffset + 125} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
+      <Text x={300} y={yOffset + 145} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
       <EditableNumber
         x={360}
-        y={450}
+        y={yOffset + 120}
         width={50}
         height={30}
         editLabel="TEMPS VERT EN SECONDES :"
@@ -217,11 +219,11 @@ export const Board = (props: {}) => {
         onChange={handleChangeGreenTime}
       />
 
-      <Text x={230} y={495} width={200} text="TEMPS ROUGE :" fontSize={22} fontFamily="digital" />
-      <Text x={300} y={515} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={230} y={yOffset + 165} width={200} text="TEMPS ROUGE :" fontSize={22} fontFamily="digital" />
+      <Text x={300} y={yOffset + 185} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
       <EditableNumber
         x={360}
-        y={490}
+        y={yOffset + 160}
         width={50}
         height={30}
         editLabel="TEMPS ROUGE EN SECONDES :"
@@ -236,7 +238,7 @@ export const Board = (props: {}) => {
 
       <RectBtn
         x={405}
-        y={395}
+        y={yOffset + 65}
         width={30}
         height={30}
         text="🗎"
@@ -246,14 +248,14 @@ export const Board = (props: {}) => {
         onClick={handleDownloadClick}
       />
 
-      <Text x={580} y={330} text="DENSITE" fontSize={28} fontFamily="digital" />
-      <Density x={440} y={360} />
+      <Text x={580} y={yOffset} text="DENSITE" fontSize={28} fontFamily="digital" />
+      <Density x={440} y={yOffset + 30} />
 
-      <Text x={850} y={330} text="RADAR" fontSize={28} fontFamily="digital" />
-      <Text x={810} y={400} width={200} text="VITESSE :" fontSize={22} fontFamily="digital" />
+      <Text x={850} y={yOffset} text="RADAR" fontSize={28} fontFamily="digital" />
+      <Text x={810} y={yOffset + 70} width={200} text="VITESSE :" fontSize={22} fontFamily="digital" />
       <EditableNumber
         x={900}
-        y={395}
+        y={yOffset + 65}
         width={60}
         height={30}
         num={Math.round(data.radar.lastSpeed * 100) / 100}
@@ -262,10 +264,10 @@ export const Board = (props: {}) => {
         fontSize={22}
         fill="lightgrey"
       />
-      <Text x={810} y={455} width={200} text="NOMBRE :" fontSize={22} fontFamily="digital" />
+      <Text x={810} y={yOffset + 125} width={200} text="NOMBRE :" fontSize={22} fontFamily="digital" />
       <EditableNumber
         x={900}
-        y={450}
+        y={yOffset + 120}
         width={60}
         height={30}
         num={data.radar.nbCars}
@@ -277,7 +279,7 @@ export const Board = (props: {}) => {
       {data.radar.isRecording && (
         <RectBtn
           x={850}
-          y={485}
+          y={yOffset + 155}
           width={30}
           height={30}
           text="&#9635;"
@@ -290,7 +292,7 @@ export const Board = (props: {}) => {
       {!data.radar.isRecording && (
         <RectBtn
           x={850}
-          y={485}
+          y={yOffset + 155}
           width={30}
           height={30}
           text="&#9673;"
@@ -302,7 +304,7 @@ export const Board = (props: {}) => {
       )}
       <RectBtn
         x={900}
-        y={485}
+        y={yOffset + 155}
         width={30}
         height={30}
         text="⭯"
