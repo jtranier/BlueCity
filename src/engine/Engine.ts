@@ -208,8 +208,7 @@ export class Engine {
         if (this.isAuto() && this.trafficLightGreenElapsedTime > this.trafficLightGreenAutoTime * 1000) {
           this.red();
         }
-      }
-      else {
+      } else {
         this.trafficLightRedElapsedTime += dt;
         if (this.isAuto() && this.trafficLightRedElapsedTime > this.trafficLightRedAutoTime * 1000) {
           this.green();
@@ -260,8 +259,7 @@ export class Engine {
       // Add car ?
       if (this.cars.length === 0) {
         this.addCar(0, undefined);
-      }
-      else if (this.cars[this.cars.length - 1].pos > -2 * this.config.addCarDist) {
+      } else if (this.cars[this.cars.length - 1].pos > -2 * this.config.addCarDist) {
         this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
       }
 

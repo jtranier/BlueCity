@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {useConfig} from '../hooks/useConfig';
-import {useData} from '../hooks/useData';
-import {Line, Rect, Text} from 'react-konva';
+import { useConfig } from '../hooks/useConfig';
+import { useData } from '../hooks/useData';
+import { Line, Rect, Text } from 'react-konva';
 import konva from 'konva';
-import {useEngine} from '../hooks/useEngine';
+import { useEngine } from '../hooks/useEngine';
 
 export const Radar = (props: {}) => {
   const config = useConfig();
@@ -31,7 +31,7 @@ export const Radar = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect x={x-1} y={256} width={2} height={yOffset - 256} fill={'red'}/>
+      <Rect x={x - 1} y={256} width={2} height={yOffset - 256} fill={'red'} />
       <Line
         x={x - config.radarWidth / 2 / config.resolution}
         y={yOffset}
@@ -40,25 +40,25 @@ export const Radar = (props: {}) => {
           config.radarHeight / config.resolution,
 
           0,
-          (config.radarHeight  * 0.35 ) / config.resolution,
+          (config.radarHeight * 0.35) / config.resolution,
 
-          config.radarWidth * 0.4 / config.resolution,
-          (config.radarHeight  * 0.35 ) / config.resolution,
+          (config.radarWidth * 0.4) / config.resolution,
+          (config.radarHeight * 0.35) / config.resolution,
 
-          config.radarWidth * 0.4 / config.resolution,
+          (config.radarWidth * 0.4) / config.resolution,
           0,
 
-          config.radarWidth * 0.6 / config.resolution,
+          (config.radarWidth * 0.6) / config.resolution,
           0,
 
-          config.radarWidth * 0.6 / config.resolution,
-          (config.radarHeight * 0.35 ) / config.resolution,
+          (config.radarWidth * 0.6) / config.resolution,
+          (config.radarHeight * 0.35) / config.resolution,
 
           config.radarWidth / config.resolution,
-          (config.radarHeight  * 0.35 ) / config.resolution,
+          (config.radarHeight * 0.35) / config.resolution,
 
           config.radarWidth / config.resolution,
-          (config.radarHeight) / config.resolution
+          config.radarHeight / config.resolution,
         ]}
         closed={true}
         stroke="black"
