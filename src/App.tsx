@@ -28,7 +28,7 @@ const config: IConfig = {
   timeFactor: 1,
   radarInitialPosition: 160,
   radarWidth: 8,
-  radarHeight: 15,
+  radarHeight: 16,
   densityWidth: 350,
   densityHeight: 175,
   densityMinY: -(1 / 16) / 2,
