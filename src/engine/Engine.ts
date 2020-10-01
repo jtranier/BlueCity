@@ -252,13 +252,6 @@ export class Engine {
 
         // Compute new speed
         car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle + this.config.carWidth));
-        const tol = 0.01;
-        if (car.speed < tol) {
-          car.speed = 0;
-        }
-        if (car.speed + tol > this.config.carMaxSpeed) {
-          car.speed = this.config.carMaxSpeed;
-        }
       }
 
       // Move car
