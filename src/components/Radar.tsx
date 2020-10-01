@@ -22,6 +22,7 @@ export const Radar = (props: {}) => {
 
   const dragFunc = (pos: konva.Vector2d): konva.Vector2d => {
     setX(pos.x);
+    engine.setRadarPosition(Math.round(x * config.resolution));
     return {
       x: pos.x - config.radarWidth / 2 / config.resolution,
       y: yOffset,
