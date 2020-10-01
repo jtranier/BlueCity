@@ -120,7 +120,7 @@ export const Board = (props: {}) => {
         y={yOffset + 65}
         width={60}
         height={30}
-        num={data.elapsedTime < 1000 ? Math.round(data.elapsedTime * 10) / 10 : Math.round(data.elapsedTime)}
+        num={data.elapsedTime < 1000 * 1000 ? Math.round(data.elapsedTime / 100) / 10 : Math.round(data.elapsedTime / 1000)}
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
