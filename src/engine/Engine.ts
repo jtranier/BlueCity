@@ -37,23 +37,23 @@ export class Engine {
 
   private pauseTime: number = 0;
 
-  private trafficLightColor: 'green' | 'red' = 'green';
+  private trafficLightColor: 'green' | 'red' = 'red'; // 'green';
 
   private trafficLightGreenElapsedTime: number = 0;
 
   private trafficLightRedElapsedTime: number = 0;
 
-  private trafficLightState: 'manual' | 'auto' = 'manual';
+  private trafficLightState: 'manual' | 'auto' = 'auto'; // 'manual';
 
-  private trafficLightGreenAutoTime: number = 10.0;
+  private trafficLightGreenAutoTime: number = 30.0; // 10.0;
 
-  private trafficLightRedAutoTime: number = 10.0;
+  private trafficLightRedAutoTime: number = 8.0; // 10.0;
 
   constructor(config: IConfig) {
     this.config = config;
     this.radar.pos = config.radarInitialPosition;
     this.generateCars();
-    setInterval(this.cycle, this.config.refresh);
+    setInterval(this.cycle, this.config.refresh / 2);
   }
 
   public on(subscriber: EngineSubscriber) {
@@ -120,7 +120,7 @@ export class Engine {
     this.elapsedTime = 0;
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
-    this.trafficLightColor = 'green';
+    this.trafficLightColor = 'red'; // 'green';
     this.pauseTime = Date.now();
     this.playTime = 0;
     this.notify();
@@ -214,32 +214,7 @@ export class Engine {
           this.green();
         }
       }
-
-      // Update cars speed
-      for (const car of this.cars) {
-        // Distance to red traffic light
-        const dRed =
-          this.trafficLightColor === 'red' && car.pos < this.config.trafficLightPosition
-            ? Math.abs(car.pos - this.config.trafficLightPosition)
-            : this.config.defautObstacleDistance;
-
-        // Distance to next car
-        let dNextCar = car.precedingCar
-          ? car.precedingCar.pos - car.pos - this.config.carWidth
-          : this.config.defautObstacleDistance;
-        if (dNextCar < 0) {
-          dNextCar = this.config.defautObstacleDistance;
-        }
-
-        // Compute distance to next obstacle
-        const dObstacle = trunc(Math.min(dRed, dNextCar), 1);
-
-        if (car.pos <= this.config.routeLen) {
-          // Compute new speed
-          car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / (dObstacle + this.config.carWidth));
-        }
-      }
-
+      
       // Move car
       for (const car of this.cars) {
         car.pos = car.pos + 0.001 * car.speed * dt;
@@ -253,6 +228,31 @@ export class Engine {
           if (this.radar.isRecording) {
             this.radar.data.push([this.elapsedTime, car.speed]);
           }
+        }
+      }
+
+      // Update cars speed
+      for (const car of this.cars) {
+        // Distance to red traffic light
+        const dRed =
+          this.trafficLightColor === 'red' && car.pos <= this.config.trafficLightPosition
+            ? Math.abs(car.pos - this.config.carWidth - this.config.trafficLightPosition)
+            : this.config.defautObstacleDistance;
+
+        // Distance to next car
+        let dNextCar = car.precedingCar
+          ? car.precedingCar.pos - car.pos
+          : this.config.defautObstacleDistance;
+        if (dNextCar < 0) {
+          dNextCar = this.config.defautObstacleDistance;
+        }
+
+        // Compute distance to next obstacle
+        const dObstacle = Math.min(dRed, dNextCar);
+
+        if (car.pos <= this.config.routeLen) {
+          // Compute new speed
+          car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / dObstacle);
         }
       }
 
@@ -282,10 +282,11 @@ export class Engine {
   };
 
   private addCar(pos: number, precedingCar: ICar) {
+    let speed = precedingCar ? this.config.carMaxSpeed * (1 - this.config.carWidth / (precedingCar.pos - pos)) : this.config.carMaxSpeed;
     const car = {
       id: globalId++,
       pos,
-      speed: this.config.carMaxSpeed,
+      speed,
       hasSpeedMeasure: false,
       precedingCar,
     };
