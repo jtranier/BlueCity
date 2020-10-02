@@ -237,12 +237,12 @@ export class Engine {
         const dRed =
           this.trafficLightColor === 'red' && car.pos <= this.config.trafficLightPosition
             ? Math.abs(car.pos - this.config.carWidth - this.config.trafficLightPosition)
-            : this.config.defautObstacleDistance;
+            : Infinity
 
         // Distance to next car
-        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : this.config.defautObstacleDistance;
+        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : Infinity;
         if (dNextCar < 0) {
-          dNextCar = this.config.defautObstacleDistance;
+          dNextCar = 0;
         }
 
         // Compute distance to next obstacle
