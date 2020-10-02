@@ -52,7 +52,7 @@ export const Density = (props: { x: number; y: number }) => {
   _.each(
     _.filter(data.cars, (car) => {
       return car.pos < config.routeLen + config.addCarDist &&
-        (data.trafficLightColor === 'green' || engine.convertPos(car.pos) <= 0);
+        (data.trafficLightColor === 'green' || engine.convertPos(car.precedingCar.pos) <= 0);
     }),
     (car) => {
       // Distance to next car
