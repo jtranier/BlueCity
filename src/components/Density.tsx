@@ -61,7 +61,7 @@ export const Density = (props: { x: number; y: number }) => {
         dNextCar = config.addCarDist;
       }
 
-      const x = Math.max(0, Math.min(config.routeLen / densityXResolution, car.pos / densityXResolution));
+      const x = Math.max(0, car.pos / densityXResolution);
 
       curvePointsBeforeTrafficLight.push(x, fy(1 / dNextCar));
     }
@@ -79,7 +79,7 @@ export const Density = (props: { x: number; y: number }) => {
         dNextCar = 0;
       }
 
-      const x = Math.max(0, Math.min(config.routeLen / densityXResolution, car.pos / densityXResolution));
+      const x = Math.max(0, car.pos / densityXResolution);
 
       curvePointsAfterTrafficLight.push(x, fy(1 / dNextCar));
     }
@@ -115,10 +115,19 @@ export const Density = (props: { x: number; y: number }) => {
       {/* Radar */}
       <Rect
         x={props.x + data.radar.pos / densityXResolution}
-        y={props.y + fy((2 * 1) / 16)}
+        y={props.y + fy(2 / 16)}
         width={3}
-        height={(2 * 1) / 16 / densityYResolution}
+        height={2 / 16 / densityYResolution}
         fill="red"
+      />
+
+      {/* Density curve mask */}
+      <Rect
+        x={props.x + config.routeLen / densityXResolution}
+        y={props.y + fy(5 / 16)}
+        width={20}
+        height={config.densityHeight}
+        fill="#777"
       />
     </React.Fragment>
   );
