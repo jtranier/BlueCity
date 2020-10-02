@@ -37,23 +37,23 @@ export class Engine {
 
   private pauseTime: number = 0;
 
-  private trafficLightColor: 'green' | 'red' = 'red'; // 'green';
+  private trafficLightColor: 'green' | 'red' = 'green';
 
   private trafficLightGreenElapsedTime: number = 0;
 
   private trafficLightRedElapsedTime: number = 0;
 
-  private trafficLightState: 'manual' | 'auto' = 'auto'; // 'manual';
+  private trafficLightState: 'manual' | 'auto' =  'manual';
 
-  private trafficLightGreenAutoTime: number = 30.0; // 10.0;
+  private trafficLightGreenAutoTime: number =  10.0;
 
-  private trafficLightRedAutoTime: number = 8.0; // 10.0;
+  private trafficLightRedAutoTime: number =  10.0;
 
   constructor(config: IConfig) {
     this.config = config;
     this.radar.pos = config.radarInitialPosition;
     this.generateCars();
-    setInterval(this.cycle, this.config.refresh / 2);
+    setInterval(this.cycle, this.config.refresh / 2.25);
   }
 
   public on(subscriber: EngineSubscriber) {
@@ -120,7 +120,7 @@ export class Engine {
     this.elapsedTime = 0;
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
-    this.trafficLightColor = 'red'; // 'green';
+    this.trafficLightColor = 'green';
     this.pauseTime = Date.now();
     this.playTime = 0;
     this.notify();
@@ -266,10 +266,6 @@ export class Engine {
       this.cars = this.cars.filter((car: ICar) => {
         return car.pos <= maxPos;
       });
-
-      if (this.elapsedTime >= 28 * 1000) {
-        this.pause();
-      }
 
       // Notify
       this.notify();
