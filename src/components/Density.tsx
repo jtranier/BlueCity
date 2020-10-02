@@ -58,10 +58,10 @@ export const Density = (props: { x: number; y: number }) => {
       // Distance to next car
       let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : config.addCarDist;
       if (dNextCar < 0) {
-        dNextCar = config.addCarDist;
+        dNextCar = 0;
       }
 
-      const x = Math.max(0, car.pos / densityXResolution);
+      const x = car.pos / densityXResolution;
 
       curvePointsBeforeTrafficLight.push(x, fy(1 / dNextCar));
     }
@@ -126,6 +126,14 @@ export const Density = (props: { x: number; y: number }) => {
         x={props.x + config.routeLen / densityXResolution}
         y={props.y + fy(5 / 16)}
         width={20}
+        height={config.densityHeight}
+        fill="#777"
+      />
+
+      <Rect
+        x={props.x - 28 }
+        y={props.y + fy(5 / 16)}
+        width={28}
         height={config.densityHeight}
         fill="#777"
       />

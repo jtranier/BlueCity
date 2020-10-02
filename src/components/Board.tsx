@@ -241,7 +241,7 @@ export const Board = (props: {}) => {
       />
 
       <RectBtn
-        x={405}
+        x={380}
         y={yOffset + 65}
         width={30}
         height={30}
