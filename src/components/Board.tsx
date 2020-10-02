@@ -67,7 +67,7 @@ export const Board = (props: {}) => {
     for (const car of data.cars.slice().reverse()) {
       if (car.pos >= 0 && car.pos < config.routeLen + config.carWidth) {
         lines.push(
-          engine.convertPos(car.pos).toString().replace(',', '.') + ';' + car.speed.toString().replace(',', '.')
+          engine.convertPos(car.pos).toString().replace('.', ',') + ';' + car.speed.toString().replace('.', ',')
         );
       }
     }
@@ -85,7 +85,7 @@ export const Board = (props: {}) => {
     const lines: string[] = [];
     lines.push('time;speed');
     for (const d of data.radar.data) {
-      lines.push(truncFixed(d[0], 1).replace(',', '.') + ';' + truncFixed(d[1], 2).replace(',', '.'));
+      lines.push(truncFixed(d[0], 1).replace('.', ',') + ';' + truncFixed(d[1], 2).replace('.', ','));
     }
     const csv = lines.join('\n');
     var element = document.createElement('a');
