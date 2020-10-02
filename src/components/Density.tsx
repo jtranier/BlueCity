@@ -46,10 +46,13 @@ export const Density = (props: { x: number; y: number }) => {
     )
   );
 
-  const curvePoints: number[] = [];
+  const curvePointsBeforeTrafficLight: number[] = [];
+  const curvePointsAfterTrafficLight: number[] = [];
+
   _.each(
     _.filter(data.cars, (car) => {
-      return car.pos < config.routeLen + config.addCarDist;
+      return car.pos < config.routeLen + config.addCarDist &&
+        (data.trafficLightColor === 'green' || engine.convertPos(car.pos) <= 0);
     }),
     (car) => {
       // Distance to next car
@@ -60,7 +63,25 @@ export const Density = (props: { x: number; y: number }) => {
 
       const x = Math.max(0, Math.min(config.routeLen / densityXResolution, car.pos / densityXResolution));
 
-      curvePoints.push(x, fy(1 / dNextCar));
+      curvePointsBeforeTrafficLight.push(x, fy(1 / dNextCar));
+    }
+  );
+
+  _.each(
+    _.filter(data.cars, (car) => {
+      return car.pos < config.routeLen + config.addCarDist &&
+        (data.trafficLightColor === 'red' && engine.convertPos(car.pos) > 0);
+    }),
+    (car) => {
+      // Distance to next car
+      let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : config.addCarDist;
+      if (dNextCar < 0) {
+        dNextCar = config.addCarDist;
+      }
+
+      const x = Math.max(0, Math.min(config.routeLen / densityXResolution, car.pos / densityXResolution));
+
+      curvePointsAfterTrafficLight.push(x, fy(1 / dNextCar));
     }
   );
 
@@ -88,7 +109,8 @@ export const Density = (props: { x: number; y: number }) => {
         fill="green"
       />
 
-      <Line x={props.x} y={props.y} points={curvePoints} stroke="cyan" width={5} />
+      <Line x={props.x} y={props.y} points={curvePointsBeforeTrafficLight} stroke="cyan" width={5} />
+      <Line x={props.x} y={props.y} points={curvePointsAfterTrafficLight} stroke="cyan" width={5} />
 
       {/* Radar */}
       <Rect
