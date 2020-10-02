@@ -264,10 +264,7 @@ export class Engine {
       // Remove old car
       const maxPos = 2 * this.config.routeLen;
       this.cars = this.cars.filter((car: ICar) => {
-        if (car.pos > maxPos) {
-          return false;
-        }
-        return true;
+        return car.pos <= maxPos;
       });
 
       if (this.elapsedTime >= 28 * 1000) {
