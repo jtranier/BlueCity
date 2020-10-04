@@ -2,10 +2,8 @@ import { ICar } from './ICar';
 import { IData } from './IData';
 import { IConfig } from './IConfig';
 import { IRadar } from './IRadar';
-import * as R from 'ramda';
 import * as _ from 'underscore';
 import { IMeasuringTape } from './IMeasuringTape';
-import { trunc } from '../utils';
 
 let globalId = 1;
 
@@ -33,6 +31,8 @@ export class Engine {
 
   private elapsedTime: number = 0;
 
+  private playing: boolean = false;
+
   private playTime: number = 0;
 
   private pauseTime: number = 0;
@@ -43,11 +43,13 @@ export class Engine {
 
   private trafficLightRedElapsedTime: number = 0;
 
-  private trafficLightState: 'manual' | 'auto' =  'manual';
+  private trafficLightState: 'manual' | 'auto' = 'manual';
 
-  private trafficLightGreenAutoTime: number =  10.0;
+  private trafficLightGreenAutoTime: number = 10.0;
 
-  private trafficLightRedAutoTime: number =  10.0;
+  private trafficLightRedAutoTime: number = 10.0;
+
+  private cycling = false;
 
   constructor(config: IConfig) {
     this.config = config;
@@ -93,19 +95,21 @@ export class Engine {
   }
 
   public play() {
-    if (this.playTime > 0) {
+    if (this.playing) {
       return;
     }
-    this.playTime = Date.now();
+    this.playing = true;
+    this.playTime = this.elapsedTime;
     this.pauseTime = 0;
     this.notify();
   }
 
   public pause() {
-    if (this.pauseTime > 0) {
+    if (!this.playing) {
       return;
     }
-    this.pauseTime = Date.now();
+    this.playing = false;
+    this.pauseTime = this.elapsedTime;
     this.playTime = 0;
     this.notify();
   }
@@ -114,15 +118,21 @@ export class Engine {
     globalId = 1;
     this.cars = [];
     let previousCar: ICar;
-    for (let pos = 2 * this.config.routeLen; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
+    // Condition pour augmentationBouchon
+    // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
+    // Condition pour détente
+    // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
+    // Condition standard
+    for (let pos = this.config.routeLen; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
     this.trafficLightColor = 'green';
-    this.pauseTime = Date.now();
+    this.pauseTime = 0;
     this.playTime = 0;
+    this.computeSpeeds();
     this.notify();
   }
 
@@ -133,6 +143,7 @@ export class Engine {
     this.trafficLightColor = 'green';
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
+    this.computeSpeeds();
     this.notify();
   }
 
@@ -143,6 +154,7 @@ export class Engine {
     this.trafficLightColor = 'red';
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
+    this.computeSpeeds();
     this.notify();
   }
 
@@ -198,95 +210,117 @@ export class Engine {
   }
 
   private cycle = () => {
-    if (this.playTime > 0) {
-      const dt = this.config.refresh;
-      this.elapsedTime += dt;
+    if (this.cycling) {
+      return;
+    }
+    try {
+      this.cycling = true;
+      if (this.playing) {
+        const dt = this.config.refresh;
+        this.elapsedTime += dt;
 
-      // TODO Extract traffic light handling
-      if (this.trafficLightColor === 'green') {
-        this.trafficLightGreenElapsedTime += dt;
-        if (this.isAuto() && this.trafficLightGreenElapsedTime > this.trafficLightGreenAutoTime * 1000) {
-          this.red();
-        }
-      } else {
-        this.trafficLightRedElapsedTime += dt;
-        if (this.isAuto() && this.trafficLightRedElapsedTime > this.trafficLightRedAutoTime * 1000) {
-          this.green();
-        }
-      }
-
-      // Move car
-      for (const car of this.cars) {
-        car.pos = car.pos + 0.001 * car.speed * dt;
-
-        // Handle Radar
-        if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
-          this.radar.lastSpeed = car.speed;
-          this.radar.nbCars++;
-          car.hasSpeedMeasure = true;
-
-          if (this.radar.isRecording) {
-            this.radar.data.push([this.elapsedTime, car.speed]);
+        // TODO Extract traffic light handling
+        if (this.trafficLightColor === 'green') {
+          this.trafficLightGreenElapsedTime += dt;
+          if (this.isAuto() && this.trafficLightGreenElapsedTime > this.trafficLightGreenAutoTime * 1000) {
+            this.red();
+          }
+        } else {
+          this.trafficLightRedElapsedTime += dt;
+          if (this.isAuto() && this.trafficLightRedElapsedTime > this.trafficLightRedAutoTime * 1000) {
+            this.green();
           }
         }
-      }
 
-      // Update cars speed
-      for (const car of this.cars) {
-        // Distance to red traffic light
-        const dRed =
-          this.trafficLightColor === 'red' && car.pos <= this.config.trafficLightPosition
-            ? Math.abs(car.pos - this.config.carWidth - this.config.trafficLightPosition)
-            : Infinity
+        this.moveCars(dt);
 
-        // Distance to next car
-        let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : Infinity;
-        if (dNextCar < 0) {
-          dNextCar = 0;
+        this.computeSpeeds();
+
+        // Add car ?
+        if (this.cars.length === 0) {
+          this.addCar(0, undefined);
+        } else if (this.cars[this.cars.length - 1].pos > - this.config.addCarDist) {
+          this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
         }
 
-        // Compute distance to next obstacle
-        const dObstacle = Math.min(dRed, dNextCar);
+        // Remove old car
+        const maxPos = 2* this.config.routeLen;
+        this.cars = this.cars.filter((car: ICar) => {
+          return car.pos <= maxPos;
+        });
 
-        if (car.pos <= this.config.routeLen) {
-          // Compute new speed
-          car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / dObstacle);
-        }
+        /*if (this.elapsedTime >= 4 * 1000) {
+          this.pause();
+        }*/
+
+        // Notify
+        this.notify();
       }
-
-      // Add car ?
-      if (this.cars.length === 0) {
-        this.addCar(0, undefined);
-      } else if (this.cars[this.cars.length - 1].pos > - this.config.addCarDist) {
-        this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
-      }
-
-      // Remove old car
-      const maxPos = 2 * this.config.routeLen;
-      this.cars = this.cars.filter((car: ICar) => {
-        return car.pos <= maxPos;
-      });
-
-      // Notify
-      this.notify();
+    } finally {
+      this.cycling = false;
     }
   };
 
   private addCar(pos: number, precedingCar: ICar) {
-    let speed = precedingCar
-      ? this.config.carMaxSpeed * (1 - this.config.carWidth / (precedingCar.pos - pos))
-      : this.config.carMaxSpeed;
     const car = {
       id: globalId++,
       pos,
-      speed,
+      speed: 0,
       hasSpeedMeasure: false,
       precedingCar,
     };
+    car.speed = precedingCar
+      ? this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car))
+      : this.config.carMaxSpeed;
 
     this.cars.push(car);
 
     return car;
+  }
+
+  private computeSpeeds() {
+    // Update cars speed
+    for (const car of this.cars) {
+      if (car.pos <= this.config.routeLen) {
+        // Compute new speed
+        car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car));
+      }
+    }
+  }
+
+  private moveCars(dt: number) {
+    // Move car
+    for (const car of this.cars) {
+      car.pos = car.pos + 0.001 * car.speed * dt;
+
+      // Handle Radar
+      if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
+        this.radar.lastSpeed = car.speed;
+        this.radar.nbCars++;
+        car.hasSpeedMeasure = true;
+
+        if (this.radar.isRecording) {
+          this.radar.data.push([this.elapsedTime, car.speed]);
+        }
+      }
+    }
+  }
+
+  private computeDistObs(car: ICar) {
+    // Distance to red traffic light
+    const dRed =
+      this.trafficLightColor === 'red' && car.pos <= this.config.trafficLightPosition
+        ? Math.abs(car.pos - this.config.carWidth - this.config.trafficLightPosition)
+        : Infinity
+
+    // Distance to next car
+    let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : Infinity;
+    if (dNextCar < 0) {
+      dNextCar = 0;
+    }
+
+    // Compute distance to next obstacle
+    return Math.min(dRed, dNextCar);
   }
 
   private notify() {
@@ -297,7 +331,7 @@ export class Engine {
 
   private notifySubscriber(subscriber: EngineSubscriber) {
     subscriber({
-      playing: this.playTime > 0,
+      playing: this.playing,
       elapsedTime: this.elapsedTime,
       trafficLightColor: this.trafficLightColor,
       trafficLightGreenElapsedTime: this.trafficLightGreenElapsedTime,
