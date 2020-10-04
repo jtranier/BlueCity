@@ -37,6 +37,8 @@ export class Engine {
 
   private pauseTime: number = 0;
 
+  private lastNotifyTime: number = 0;
+
   private trafficLightColor: 'green' | 'red' = 'green';
 
   private trafficLightGreenElapsedTime: number = 0;
@@ -118,9 +120,9 @@ export class Engine {
     globalId = 1;
     this.cars = [];
     let previousCar: ICar;
-    // Condition pour augmentationBouchon
+    // Condition pour "augmentationBouchon"
     // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
-    // Condition pour détente
+    // Condition pour "detente"
     // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
     // Condition standard
     for (let pos = this.config.routeLen; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
@@ -253,8 +255,10 @@ export class Engine {
           this.pause();
         }*/
 
-        // Notify
-        this.notify();
+        if (this.elapsedTime - this.lastNotifyTime >= this.config.refreshNotify) {
+          // Notify
+          this.notify();
+        }
       }
     } finally {
       this.cycling = false;
@@ -327,6 +331,7 @@ export class Engine {
     for (const subscriber of this.subscribers) {
       this.notifySubscriber(subscriber);
     }
+    this.lastNotifyTime = this.elapsedTime;
   }
 
   private notifySubscriber(subscriber: EngineSubscriber) {

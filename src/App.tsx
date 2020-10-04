@@ -16,7 +16,8 @@ import ReactModal = require('react-modal');
 import './assets/main.css';
 
 const config: IConfig = {
-  refresh: 200,
+  refresh: 200, // 2 pour Condition pour "augmentationBouchon" et "detente", 200 en condiftion standard
+  refreshNotify: 50, // Do not change (only for perfomance)
   resolution: 0.4,
   routeLen: 400,
   carWidth: 4,

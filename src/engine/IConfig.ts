@@ -1,6 +1,8 @@
 export interface IConfig {
   // Engine refresh in milliseconds
   refresh: number;
+  // Notify refresh in milliseconds (for performance only)
+  refreshNotify: number;
   // Pixel resolution in meters
   resolution: number;
   // Route len in meters
