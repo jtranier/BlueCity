@@ -103,6 +103,7 @@ export class Engine {
     this.playing = true;
     this.playTime = this.elapsedTime;
     this.pauseTime = 0;
+    this.computeSpeeds();
     this.notify();
   }
 
@@ -113,6 +114,7 @@ export class Engine {
     this.playing = false;
     this.pauseTime = this.elapsedTime;
     this.playTime = 0;
+    this.computeSpeeds();
     this.notify();
   }
 
@@ -188,7 +190,6 @@ export class Engine {
 
   public setMeasuringTapeX1(x1: number) {
     this.measuringTape.x1 = Math.round(x1);
-
     this.notify();
   }
 
@@ -251,7 +252,7 @@ export class Engine {
           return car.pos <= maxPos;
         });
 
-        /*if (this.elapsedTime >= 4 * 1000) {
+        /*if (this.elapsedTime >= 40 * 1000) {
           this.pause();
         }*/
 
