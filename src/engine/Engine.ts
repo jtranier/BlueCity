@@ -123,7 +123,7 @@ export class Engine {
     // Condition pour détente
     // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
     // Condition standard
-    for (let pos = this.config.routeLen; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
+    for (let pos = this.config.routeLen; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
@@ -239,12 +239,12 @@ export class Engine {
         // Add car ?
         if (this.cars.length === 0) {
           this.addCar(0, undefined);
-        } else if (this.cars[this.cars.length - 1].pos > - this.config.addCarDist) {
+        } else if (this.cars[this.cars.length - 1].pos > -this.config.addCarDist) {
           this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
         }
 
         // Remove old car
-        const maxPos = 2* this.config.routeLen;
+        const maxPos = 2 * this.config.routeLen;
         this.cars = this.cars.filter((car: ICar) => {
           return car.pos <= maxPos;
         });
@@ -311,7 +311,7 @@ export class Engine {
     const dRed =
       this.trafficLightColor === 'red' && car.pos <= this.config.trafficLightPosition
         ? Math.abs(car.pos - this.config.carWidth - this.config.trafficLightPosition)
-        : Infinity
+        : Infinity;
 
     // Distance to next car
     let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : Infinity;

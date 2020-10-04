@@ -51,8 +51,10 @@ export const Density = (props: { x: number; y: number }) => {
 
   _.each(
     _.filter(data.cars, (car) => {
-      return car.pos < config.routeLen + config.addCarDist &&
-        (data.trafficLightColor === 'green' || car.precedingCar && engine.convertPos(car.precedingCar.pos) <= 0);
+      return (
+        car.pos < config.routeLen + config.addCarDist &&
+        (data.trafficLightColor === 'green' || (car.precedingCar && engine.convertPos(car.precedingCar.pos) <= 0))
+      );
     }),
     (car) => {
       // Distance to next car
@@ -69,13 +71,17 @@ export const Density = (props: { x: number; y: number }) => {
 
   _.each(
     _.filter(data.cars, (car) => {
-      return car.pos < config.routeLen + config.addCarDist &&
-        (data.trafficLightColor === 'red' && engine.convertPos(car.pos) > 0);
+      return (
+        car.pos < config.routeLen + config.addCarDist &&
+        data.trafficLightColor === 'red' &&
+        engine.convertPos(car.pos) > 0
+      );
     }),
     (car) => {
       // Distance to next car
       let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : Infinity;
-      if (dNextCar < 0) { // TODO It should not happen, no?
+      if (dNextCar < 0) {
+        // TODO It should not happen, no?
         dNextCar = 0;
       }
 
@@ -130,13 +136,7 @@ export const Density = (props: { x: number; y: number }) => {
         fill="#777"
       />
 
-      <Rect
-        x={props.x - 28 }
-        y={props.y + fy(5 / 16)}
-        width={28}
-        height={config.densityHeight}
-        fill="#777"
-      />
+      <Rect x={props.x - 28} y={props.y + fy(5 / 16)} width={28} height={config.densityHeight} fill="#777" />
     </React.Fragment>
   );
 };
