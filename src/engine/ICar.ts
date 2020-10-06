@@ -8,5 +8,7 @@ export interface ICar {
   // has the speed been measured by the radar
   hasSpeedMeasure: boolean;
   // reference to the car before me
-  precedingCar: ICar;
+  precedingCar?: ICar;
+  // reference to the car after me
+  followingCar?: ICar;
 }

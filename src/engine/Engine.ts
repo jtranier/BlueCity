@@ -123,11 +123,12 @@ export class Engine {
     this.cars = [];
     let previousCar: ICar;
     // Condition pour "augmentationBouchon"
-    // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
+    //for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
     // Condition pour "detente"
-    // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
+    //for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
     // Condition standard
-    for (let pos = this.config.routeLen; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
+    const initPos = this.config.trafficLightPosition + this.config.addCarDist * (1 + Math.floor((this.config.routeLen - this.config.trafficLightPosition) / this.config.addCarDist));
+    for (let pos = initPos; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
@@ -241,7 +242,7 @@ export class Engine {
 
         // Add car ?
         if (this.cars.length === 0) {
-          this.addCar(0, undefined);
+          this.addCar(0, null);
         } else if (this.cars[this.cars.length - 1].pos > -this.config.addCarDist) {
           this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
         }
@@ -249,10 +250,20 @@ export class Engine {
         // Remove old car
         const maxPos = 2 * this.config.routeLen;
         this.cars = this.cars.filter((car: ICar) => {
-          return car.pos <= maxPos;
+          if (car.pos <= maxPos) {
+            return true;
+          }
+          if (car.followingCar) {
+            car.followingCar.precedingCar = null;
+          }
+          return false;
         });
 
-        /*if (this.elapsedTime >= 40 * 1000) {
+        /*if (this.elapsedTime === 8000) {
+          this.pause();
+        }
+
+        if (this.elapsedTime >= 32000) {
           this.pause();
         }*/
 
@@ -267,16 +278,20 @@ export class Engine {
   };
 
   private addCar(pos: number, precedingCar: ICar) {
-    const car = {
+    const car: ICar = {
       id: globalId++,
       pos,
       speed: 0,
       hasSpeedMeasure: false,
       precedingCar,
+      followingCar: null,
     };
-    car.speed = precedingCar
-      ? this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car))
-      : this.config.carMaxSpeed;
+    if (precedingCar) {
+      car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car));
+      precedingCar.followingCar = car;
+    } else {
+      car.speed = this.config.carMaxSpeed;
+    }
 
     this.cars.push(car);
 
@@ -284,12 +299,11 @@ export class Engine {
   }
 
   private computeSpeeds() {
+    console.log("computeSpeeds");
     // Update cars speed
     for (const car of this.cars) {
-      if (car.pos <= this.config.routeLen) {
-        // Compute new speed
-        car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car));
-      }
+      // Compute new speed
+      car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car));
     }
   }
 

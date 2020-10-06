@@ -65,11 +65,9 @@ export const Board = (props: {}) => {
     const lines: string[] = [];
     lines.push('pos;speed');
     for (const car of data.cars.slice().reverse()) {
-      if (car.pos >= 0 && car.pos < config.routeLen + config.carWidth) {
-        lines.push(
-          engine.convertPos(car.pos).toString().replace('.', ',') + ';' + car.speed.toString().replace('.', ',')
-        );
-      }
+      lines.push(
+        engine.convertPos(car.pos).toString().replace('.', ',') + ';' + car.speed.toString().replace('.', ',')
+      );
     }
     const csv = lines.join('\n');
     var element = document.createElement('a');
