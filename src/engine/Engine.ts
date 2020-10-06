@@ -127,7 +127,10 @@ export class Engine {
     // Condition pour "detente"
     //for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
     // Condition standard
-    const initPos = this.config.trafficLightPosition + this.config.addCarDist * (1 + Math.floor((this.config.routeLen - this.config.trafficLightPosition) / this.config.addCarDist));
+    const initPos =
+      this.config.trafficLightPosition +
+      this.config.addCarDist *
+        (1 + Math.floor((this.config.routeLen - this.config.trafficLightPosition) / this.config.addCarDist));
     for (let pos = initPos; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
@@ -299,7 +302,7 @@ export class Engine {
   }
 
   private computeSpeeds() {
-    console.log("computeSpeeds");
+    console.log('computeSpeeds');
     // Update cars speed
     for (const car of this.cars) {
       // Compute new speed
