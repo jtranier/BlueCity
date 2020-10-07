@@ -52,7 +52,7 @@ export const Density = (props: { x: number; y: number }) => {
   _.each(
     _.filter(data.cars, (car) => {
       return (
-        car.pos < config.routeLen + config.addCarDist &&
+        car.pos < config.routeLen * 2 &&
         (data.trafficLightColor === 'green' || (car.precedingCar && engine.convertPos(car.precedingCar.pos) <= 0))
       );
     }),
@@ -131,7 +131,7 @@ export const Density = (props: { x: number; y: number }) => {
       <Rect
         x={props.x + config.routeLen / densityXResolution}
         y={props.y + fy(5 / 16)}
-        width={20}
+        width={200}
         height={config.densityHeight}
         fill="#777"
       />
