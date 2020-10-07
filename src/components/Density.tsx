@@ -53,7 +53,7 @@ export const Density = (props: { x: number; y: number }) => {
     _.filter(data.cars, (car) => {
       return (
         car.pos < config.routeLen * 2 &&
-        (data.trafficLightColor === 'green' || (car.precedingCar && engine.convertPos(car.precedingCar.pos) <= 0))
+        (data.trafficLightColor === 'green' || engine.convertPos(car.pos) <= 0)
       );
     }),
     (car) => {
@@ -64,8 +64,9 @@ export const Density = (props: { x: number; y: number }) => {
       }
 
       const x = car.pos / densityXResolution;
+      const density = (data.trafficLightColor === 'red' && engine.convertPos(car.pos) > -config.carWidth) ? 1 / config.carWidth : 1 / dNextCar
 
-      curvePointsBeforeTrafficLight.push(x, fy(1 / dNextCar));
+      curvePointsBeforeTrafficLight.push(x, fy(density));
     }
   );
 
