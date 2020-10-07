@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { Image as KonvaImage } from 'react-konva';
-import { Rect, Text } from 'react-konva';
-import { useEngine } from '../hooks/useEngine';
-import { useConfig } from '../hooks/useConfig';
-import { useData } from '../hooks/useData';
-import { TrafficLight } from './TrafficLight';
-import { RectBtn } from './RectBtn';
-import { EditableNumber } from './EditableNumber';
-import { Density } from './Density';
-import { truncFixed } from '../utils';
+import {Image as KonvaImage, Rect, Text} from 'react-konva';
+import {useEngine} from '../hooks/useEngine';
+import {useConfig} from '../hooks/useConfig';
+import {useData} from '../hooks/useData';
+import {TrafficLight} from './TrafficLight';
+import {RectBtn} from './RectBtn';
+import {EditableNumber} from './EditableNumber';
+import {Density} from './Density';
+import {truncFixed} from '../utils';
 
 export const Board = (props: {}) => {
   const [imagePlay, setImagePlay] = React.useState<HTMLImageElement>(null);
@@ -16,6 +15,10 @@ export const Board = (props: {}) => {
   const [imageResetTime, setImageResetTime] = React.useState<HTMLImageElement>(null);
   const [imageSwapTrafficLightMode, setImageSwapTrafficLightMode] = React.useState<HTMLImageElement>(null);
   const [imageReset, setImageReset] = React.useState<HTMLImageElement>(null);
+  const [imageDownloadPos, setImageDownloadPos] = React.useState<HTMLImageElement>(null);
+  const [imageResetRadar, setImageResetRadar] = React.useState<HTMLImageElement>(null);
+  const [imageStartRecordingRadar, setImageStartRecordingRadar] = React.useState<HTMLImageElement>(null);
+  const [imageStopRecordingRadar, setImageStopRecordingRadar] = React.useState<HTMLImageElement>(null);
 
   React.useEffect(() => {
     var imageElement = new Image();
@@ -55,6 +58,38 @@ export const Board = (props: {}) => {
       setImageReset(imageElement);
     };
     imageElement.src = require('../assets/flip_camera_android-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageDownloadPos(imageElement);
+    };
+    imageElement.src = require('../assets/assignment_returned-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageResetRadar(imageElement);
+    };
+    imageElement.src = require('../assets/loop-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageStartRecordingRadar(imageElement);
+    };
+    imageElement.src = require('../assets/videocam-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageStopRecordingRadar(imageElement);
+    };
+    imageElement.src = require('../assets/stop-24px.svg').default;
   }, []); // ✅ OK - This effect never re-runs
 
   const engine = useEngine();
@@ -322,12 +357,18 @@ export const Board = (props: {}) => {
         y={yOffset + 65}
         width={30}
         height={30}
-        text="🗎"
+        text=""
         fontSize={28}
         textOffsetX={5}
         textOffsetY={5}
         onClick={handleDownloadClick}
       />
+      <KonvaImage x={379}
+                  y={yOffset + 64}
+                  image={imageDownloadPos}
+                  height={32}
+                  width={32}
+                  onClick={handleDownloadClick} />
 
       <Text x={580} y={yOffset} text="DENSITE" fontSize={28} fontFamily="digital" />
       {/* Density is here */}
@@ -358,42 +399,64 @@ export const Board = (props: {}) => {
         fill="lightgrey"
       />
       {data.radar.isRecording && (
-        <RectBtn
-          x={850}
-          y={yOffset + 155}
-          width={30}
-          height={30}
-          text="&#9635;"
-          fontSize={26}
-          textOffsetX={4}
-          textOffsetY={3}
-          onClick={handleStopRecordingRadar}
-        />
+        <React.Fragment>
+          <RectBtn
+            x={850}
+            y={yOffset + 155}
+            width={30}
+            height={30}
+            text=""
+            fontSize={26}
+            textOffsetX={4}
+            textOffsetY={3}
+            onClick={handleStopRecordingRadar}
+          />
+          <KonvaImage x={849}
+                      y={yOffset + 154}
+                      image={imageStopRecordingRadar}
+                      height={32}
+                      width={32}
+                      onClick={handleStopRecordingRadar} />
+        </React.Fragment>
       )}
       {!data.radar.isRecording && (
-        <RectBtn
-          x={850}
-          y={yOffset + 155}
-          width={30}
-          height={30}
-          text="&#9673;"
-          fontSize={26}
-          textOffsetX={4}
-          textOffsetY={3}
-          onClick={handleStartRecordingRadar}
-        />
+        <React.Fragment>
+          <RectBtn
+            x={850}
+            y={yOffset + 155}
+            width={30}
+            height={30}
+            text=""
+            fontSize={26}
+            textOffsetX={4}
+            textOffsetY={3}
+            onClick={handleStartRecordingRadar}
+          />
+          <KonvaImage x={849}
+          y={yOffset + 154}
+          image={imageStartRecordingRadar}
+          height={32}
+          width={32}
+          onClick={handleStartRecordingRadar} />
+        </React.Fragment>
       )}
       <RectBtn
         x={900}
         y={yOffset + 155}
         width={30}
         height={30}
-        text="⭯"
+        text=""
         fontSize={26}
         textOffsetX={3}
         textOffsetY={3}
         onClick={handleResetRadar}
       />
+      <KonvaImage x={899}
+                  y={yOffset + 154}
+                  image={imageResetRadar}
+                  height={32}
+                  width={32}
+                  onClick={handleResetRadar} />
     </React.Fragment>
   );
 };

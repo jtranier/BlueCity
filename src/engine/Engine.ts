@@ -101,6 +101,7 @@ export class Engine {
   public stopRecordingRadar() {
     this.radar.isRecording = false;
     this.pause();
+    this.notify();
   }
 
   public play() {
