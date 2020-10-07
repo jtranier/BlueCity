@@ -3,10 +3,10 @@ export interface ICar {
   id: number;
   // position in meters
   pos: number;
+  // record of the previous pos (at current time - dt)
+  previousPos: number;
   // speed in meters/sec
   speed: number;
-  // has the speed been measured by the radar
-  hasSpeedMeasure: boolean;
   // reference to the car before me
   precedingCar?: ICar;
   // reference to the car after me

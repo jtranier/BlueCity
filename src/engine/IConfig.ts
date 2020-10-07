@@ -38,6 +38,4 @@ export interface IConfig {
   densityHeight: number;
   densityMinY: number;
   densityMaxY: number;
-  // Radar sensibility
-  radarSensibility: number;
 }

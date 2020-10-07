@@ -37,8 +37,7 @@ const config: IConfig = {
   densityWidth: 350,
   densityHeight: 175,
   densityMinY: -(1 / 16) / 2,
-  densityMaxY: 5 * (1 / 16),
-  radarSensibility: 2,
+  densityMaxY: 5 * (1 / 16)
 };
 
 const engine = new Engine(config);

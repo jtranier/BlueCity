@@ -290,9 +290,9 @@ export class Engine {
   private addCar(pos: number, precedingCar: ICar) {
     const car: ICar = {
       id: globalId++,
+      previousPos: null,
       pos,
       speed: 0,
-      hasSpeedMeasure: false,
       precedingCar,
       followingCar: null,
     };
@@ -319,13 +319,13 @@ export class Engine {
   private moveCars(dt: number) {
     // Move car
     for (const car of this.cars) {
+      car.previousPos = car.pos;
       car.pos = car.pos + 0.001 * car.speed * dt;
 
       // Handle Radar
-      if (!car.hasSpeedMeasure && Math.abs(this.radar.pos - car.pos) < this.config.radarSensibility) {
+      if(car.pos >= this.radar.pos && car.previousPos < this.radar.pos) {
         this.radar.lastSpeed = car.speed;
         this.radar.nbCars++;
-        car.hasSpeedMeasure = true;
 
         if (this.radar.isRecording) {
           this.radar.data.push([this.elapsedTime, car.speed]);
