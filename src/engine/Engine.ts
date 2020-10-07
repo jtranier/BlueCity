@@ -134,7 +134,7 @@ export class Engine {
     const initPos =
       this.config.trafficLightPosition +
       this.config.addCarDist *
-        (1 + Math.floor((this.config.routeLen - this.config.trafficLightPosition) / this.config.addCarDist));
+        (1 + Math.floor((2 * this.config.routeLen - this.config.trafficLightPosition) / this.config.addCarDist));
     for (let pos = initPos; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
