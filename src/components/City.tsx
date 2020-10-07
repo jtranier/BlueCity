@@ -12,5 +12,5 @@ export const City = (props: {}) => {
     imageElement.src = require('../assets/city.png').default;
   }, []); // ✅ OK - This effect never re-runs
 
-  return <KonvaImage x={0} y={0} image={image} />;
+  return <KonvaImage x={0} y={0} image={image} width={1200} height={315} />;
 };

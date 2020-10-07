@@ -96,7 +96,7 @@ export const Board = (props: {}) => {
   const config = useConfig();
   const data = useData();
 
-  const yOffset = 350;
+  const yOffset = 350+58;
 
   const handleZeroClick = () => {
     engine.zero();
@@ -179,7 +179,7 @@ export const Board = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect x={0} y={yOffset} width={980} height={210} fill={'#667788'} />
+      <Rect x={0} y={yOffset} width={1200} height={250} fill={'#667788'} />
 
       <Density x={440} y={yOffset + 30} />
 

@@ -132,7 +132,7 @@ export const Density = (props: { x: number; y: number }) => {
       <Rect
         x={props.x + config.routeLen / densityXResolution}
         y={props.y + fy(5 / 16)}
-        width={200}
+        width={400}
         height={config.densityHeight}
         fill="#667788"
       />

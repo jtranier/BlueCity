@@ -117,14 +117,14 @@ export const App = (props: {}) => {
     <React.Fragment>
       <GlobalStyle />
       {fontLoaded && (
-        <Stage width={980} height={640}>
+        <Stage width={1200} height={800}>
           <appContext.Provider value={{ engine, config, data, openNumberModal }}>
             <Layer>
               <City />
               <Board />
               <TrafficLight
                 x={config.trafficLightPosition / config.resolution}
-                y={256}
+                y={256+58}
                 state={data.trafficLightMode === 'auto' ? 'display-only' : 'active'}
               />
               <Route />
