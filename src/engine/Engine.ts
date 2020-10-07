@@ -53,6 +53,8 @@ export class Engine {
 
   private cycling = false;
 
+  private readonly minPos: number;
+
   constructor(config: IConfig) {
     this.config = config;
     this.radar.pos = config.radarInitialPosition;
@@ -60,6 +62,7 @@ export class Engine {
     this.trafficLightMode = config.trafficLightDefaultMode;
     this.trafficLightGreenAutoTime = config.trafficLightGreenAutoTime;
     this.trafficLightRedAutoTime = config.trafficLightRedAutoTime;
+    this.minPos = - this.config.routeLen;
     this.generateCars();
     setInterval(this.cycle, this.config.refresh / 2.25);
   }
@@ -135,7 +138,7 @@ export class Engine {
       this.config.trafficLightPosition +
       this.config.addCarDist *
         (1 + Math.floor((2 * this.config.routeLen - this.config.trafficLightPosition) / this.config.addCarDist));
-    for (let pos = initPos; pos >= -this.config.addCarDist; pos -= this.config.addCarDist) {
+    for (let pos = initPos; pos >= this.minPos; pos -= this.config.addCarDist) {
       previousCar = this.addCar(pos, previousCar);
     }
     this.elapsedTime = 0;
@@ -220,6 +223,7 @@ export class Engine {
   }
 
   private cycle = () => {
+
     if (this.cycling) {
       return;
     }
@@ -249,7 +253,7 @@ export class Engine {
         // Add car ?
         if (this.cars.length === 0) {
           this.addCar(0, null);
-        } else if (this.cars[this.cars.length - 1].pos > -this.config.addCarDist) {
+        } else if (this.cars[this.cars.length - 1].pos > this.minPos) {
           this.addCar(this.cars[this.cars.length - 1].pos - this.config.addCarDist, this.cars[this.cars.length - 1]);
         }
 

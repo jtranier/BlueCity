@@ -99,6 +99,8 @@ export const Board = (props: {}) => {
     <React.Fragment>
       <Rect x={0} y={yOffset} width={980} height={210} fill={'#777'} />
 
+      <Density x={440} y={yOffset + 30} />
+
       <Text x={30} y={yOffset} text="CONTROLE" fontSize={28} fontFamily="digital" />
       <Text x={10} y={yOffset + 70} text="   TEMPS :" fontSize={22} fontFamily="digital" />
       <Text x={50} y={yOffset + 90} text="SECONDES" fontSize={14} fontFamily="digital" />
@@ -251,7 +253,7 @@ export const Board = (props: {}) => {
       />
 
       <Text x={580} y={yOffset} text="DENSITE" fontSize={28} fontFamily="digital" />
-      <Density x={440} y={yOffset + 30} />
+      {/* Density is here */}
 
       <Text x={850} y={yOffset} text="RADAR" fontSize={28} fontFamily="digital" />
       <Text x={810} y={yOffset + 70} width={200} text="VITESSE :" fontSize={22} fontFamily="digital" />
