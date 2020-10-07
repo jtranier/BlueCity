@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Image as KonvaImage } from 'react-konva';
 import { Rect, Text } from 'react-konva';
 import { useEngine } from '../hooks/useEngine';
 import { useConfig } from '../hooks/useConfig';
@@ -10,6 +11,52 @@ import { Density } from './Density';
 import { truncFixed } from '../utils';
 
 export const Board = (props: {}) => {
+  const [imagePlay, setImagePlay] = React.useState<HTMLImageElement>(null);
+  const [imagePause, setImagePause] = React.useState<HTMLImageElement>(null);
+  const [imageResetTime, setImageResetTime] = React.useState<HTMLImageElement>(null);
+  const [imageSwapTrafficLightMode, setImageSwapTrafficLightMode] = React.useState<HTMLImageElement>(null);
+  const [imageReset, setImageReset] = React.useState<HTMLImageElement>(null);
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImagePlay(imageElement);
+    };
+    imageElement.src = require('../assets/play_arrow-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImagePause(imageElement);
+    };
+    imageElement.src = require('../assets/pause-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageResetTime(imageElement);
+    };
+    imageElement.src = require('../assets/restore-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageSwapTrafficLightMode(imageElement);
+    };
+    imageElement.src = require('../assets/multiple_stop-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImageReset(imageElement);
+    };
+    imageElement.src = require('../assets/flip_camera_android-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
   const engine = useEngine();
   const config = useConfig();
   const data = useData();
@@ -109,12 +156,18 @@ export const Board = (props: {}) => {
         y={yOffset + 65}
         width={30}
         height={30}
-        text="⭯"
+        text=""
         fontSize={26}
         textOffsetX={3}
         textOffsetY={3}
         onClick={handleZeroClick}
       />
+      <KonvaImage x={108}
+                  y={yOffset + 65}
+                  image={imageResetTime}
+                  height={32}
+                  width={32}
+                  onClick={handleZeroClick} />
       <EditableNumber
         x={140}
         y={yOffset + 65}
@@ -137,12 +190,18 @@ export const Board = (props: {}) => {
             y={yOffset + 120}
             width={30}
             height={30}
-            text="&#10074;&#10074;"
+            text=""
             fontSize={28}
             textOffsetX={3}
             textOffsetY={3}
             onClick={handlePauseClick}
           />
+          <KonvaImage x={109}
+                      y={yOffset + 119}
+                      image={imagePause}
+                      height={32}
+                      width={32}
+                      onClick={handlePauseClick} />
         </React.Fragment>
       )}
       {!data.playing && (
@@ -153,12 +212,18 @@ export const Board = (props: {}) => {
             y={yOffset + 120}
             width={30}
             height={30}
-            text="▶"
+            text=""
             fontSize={28}
             textOffsetX={5}
             textOffsetY={2}
             onClick={handleStartClick}
           />
+          <KonvaImage x={109}
+                      y={yOffset + 119}
+                      image={imagePlay}
+                      height={32}
+                      width={32}
+                      onClick={handleStartClick} />
         </React.Fragment>
       )}
       <Text x={10} y={yOffset + 165} text="RECHARGER" fontSize={22} fontFamily="digital" />
@@ -167,12 +232,18 @@ export const Board = (props: {}) => {
         y={yOffset + 160}
         width={30}
         height={30}
-        text="✖"
+        text=""
         fontSize={26}
         textOffsetX={5}
         textOffsetY={3}
         onClick={handleResetClick}
       />
+      <KonvaImage x={109}
+                  y={yOffset + 159}
+                  image={imageReset}
+                  height={32}
+                  width={32}
+                  onClick={handleResetClick} />
 
       <Text x={290} y={yOffset} text="FEU" fontSize={28} fontFamily="digital" />
       <Text
@@ -189,12 +260,18 @@ export const Board = (props: {}) => {
         y={yOffset + 65}
         width={30}
         height={30}
-        text="⇋"
+        text=""
         fontSize={26}
         textOffsetX={4}
         textOffsetY={3}
         onClick={handleChangeTrafficLightMode}
       />
+      <KonvaImage x={294}
+                  y={yOffset + 65}
+                  image={imageSwapTrafficLightMode}
+                  height={32}
+                  width={32}
+                  onClick={handleChangeTrafficLightMode} />
       <Text
         x={296}
         y={yOffset + 98}
