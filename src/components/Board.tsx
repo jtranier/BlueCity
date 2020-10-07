@@ -179,7 +179,7 @@ export const Board = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect x={0} y={yOffset} width={980} height={210} fill={'#777'} />
+      <Rect x={0} y={yOffset} width={980} height={210} fill={'#667788'} />
 
       <Density x={440} y={yOffset + 30} />
 

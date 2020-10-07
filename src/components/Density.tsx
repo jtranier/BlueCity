@@ -134,10 +134,10 @@ export const Density = (props: { x: number; y: number }) => {
         y={props.y + fy(5 / 16)}
         width={200}
         height={config.densityHeight}
-        fill="#777"
+        fill="#667788"
       />
 
-      <Rect x={props.x - 400} y={props.y + fy(5 / 16)} width={400} height={config.densityHeight} fill="#777" />
+      <Rect x={props.x - 400} y={props.y + fy(5 / 16)} width={400} height={config.densityHeight} fill="#667788" />
     </React.Fragment>
   );
 };
