@@ -79,7 +79,7 @@ export const Density = (props: { x: number; y: number }) => {
     }),
     (car) => {
       // Distance to next car
-      let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : Infinity;
+      let dNextCar = car.precedingCar ? car.precedingCar.pos - car.pos : config.addCarDist;
       if (dNextCar < 0) {
         // TODO It should not happen, no?
         dNextCar = 0;
