@@ -45,8 +45,8 @@ export const Board = (props: {}) => {
     engine.generateCars();
   };
 
-  const handleChangeTrafficLightState = () => {
-    if (data.trafficLightState === 'auto') {
+  const handleChangeTrafficLightMode = () => {
+    if (data.trafficLightMode === 'auto') {
       engine.manual();
     } else {
       engine.auto();
@@ -180,7 +180,7 @@ export const Board = (props: {}) => {
         text="MANUEL"
         fontSize={14}
         fontFamily="digital"
-        fill={data.trafficLightState === 'manual' ? 'cyan' : 'lightgrey'}
+        fill={data.trafficLightMode === 'manual' ? 'cyan' : 'lightgrey'}
       />
       <RectBtn
         x={294}
@@ -191,7 +191,7 @@ export const Board = (props: {}) => {
         fontSize={26}
         textOffsetX={4}
         textOffsetY={3}
-        onClick={handleChangeTrafficLightState}
+        onClick={handleChangeTrafficLightMode}
       />
       <Text
         x={296}
@@ -200,9 +200,9 @@ export const Board = (props: {}) => {
         text="AUTO"
         fontSize={14}
         fontFamily="digital"
-        fill={data.trafficLightState === 'auto' ? 'cyan' : 'lightgrey'}
+        fill={data.trafficLightMode === 'auto' ? 'cyan' : 'lightgrey'}
       />
-      <TrafficLight x={270} y={yOffset + 98} state={data.trafficLightState === 'auto' ? 'disabled' : 'active'} />
+      <TrafficLight x={270} y={yOffset + 98} state={data.trafficLightMode === 'auto' ? 'disabled' : 'active'} />
 
       <Text x={230} y={yOffset + 125} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
       <Text x={300} y={yOffset + 145} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
@@ -216,7 +216,7 @@ export const Board = (props: {}) => {
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
-        fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
+        fill={data.trafficLightMode === 'auto' ? 'cyan' : 'darkgrey'}
         editable={true}
         onChange={handleChangeGreenTime}
       />
@@ -233,7 +233,7 @@ export const Board = (props: {}) => {
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
-        fill={data.trafficLightState === 'auto' ? 'cyan' : 'darkgrey'}
+        fill={data.trafficLightMode === 'auto' ? 'cyan' : 'darkgrey'}
         editable={true}
         onChange={handleChangeRedTime}
       />

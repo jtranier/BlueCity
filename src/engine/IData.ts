@@ -13,8 +13,8 @@ export interface IData {
   trafficLightGreenElapsedTime: number;
   // Traffic light Red elapsed time in seconds
   trafficLightRedElapsedTime: number;
-  // Traffic light state
-  trafficLightState: 'manual' | 'auto';
+  // Traffic light mode
+  trafficLightMode: 'manual' | 'auto';
   // Traffic light Green duration in auto mode
   trafficLightGreenAutoTime: number;
   // Traffic light Red duration in auto mode

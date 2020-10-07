@@ -26,6 +26,10 @@ const config: IConfig = {
   defautObstacleDistance: 16,
   addCarDist: 16,
   trafficLightPosition: 400 - 120,
+  trafficLightDefaultMode: 'manual',
+  trafficLightInitialColor: 'green',
+  trafficLightGreenAutoTime: 10.0,
+  trafficLightRedAutoTime: 10.0,
   timeFactor: 1,
   radarInitialPosition: 160,
   radarWidth: 8,
@@ -53,12 +57,12 @@ export const App = (props: {}) => {
     playing: false,
     elapsedTime: 0,
     cars: [],
-    trafficLightColor: 'green',
+    trafficLightColor: config.trafficLightInitialColor,
     trafficLightGreenElapsedTime: 0,
     trafficLightRedElapsedTime: 0,
-    trafficLightState: 'manual',
-    trafficLightGreenAutoTime: 10.0,
-    trafficLightRedAutoTime: 10.0,
+    trafficLightMode: config.trafficLightDefaultMode,
+    trafficLightGreenAutoTime: config.trafficLightGreenAutoTime,
+    trafficLightRedAutoTime: config.trafficLightRedAutoTime,
     radar: {
       pos: config.radarInitialPosition,
       lastSpeed: 0,
@@ -67,8 +71,8 @@ export const App = (props: {}) => {
       isRecording: false,
     },
     measuringTape: {
-      x1: 200, // TODO ***
-      x2: 300, // TODO ***
+      x1: 200,
+      x2: 300,
     },
   });
   const [fontLoaded, setFontLoaded] = React.useState<boolean>(false);
@@ -122,7 +126,7 @@ export const App = (props: {}) => {
               <TrafficLight
                 x={config.trafficLightPosition / config.resolution}
                 y={256}
-                state={data.trafficLightState === 'auto' ? 'display-only' : 'active'}
+                state={data.trafficLightMode === 'auto' ? 'display-only' : 'active'}
               />
               <Route />
               <Radar />

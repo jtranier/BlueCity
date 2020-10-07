@@ -39,23 +39,27 @@ export class Engine {
 
   private lastNotifyTime: number = 0;
 
-  private trafficLightColor: 'green' | 'red' = 'green';
+  private trafficLightColor: 'green' | 'red';
 
   private trafficLightGreenElapsedTime: number = 0;
 
   private trafficLightRedElapsedTime: number = 0;
 
-  private trafficLightState: 'manual' | 'auto' = 'manual';
+  private trafficLightMode: 'manual' | 'auto';
 
-  private trafficLightGreenAutoTime: number = 10.0;
+  private trafficLightGreenAutoTime: number;
 
-  private trafficLightRedAutoTime: number = 10.0;
+  private trafficLightRedAutoTime: number;
 
   private cycling = false;
 
   constructor(config: IConfig) {
     this.config = config;
     this.radar.pos = config.radarInitialPosition;
+    this.trafficLightColor = config.trafficLightInitialColor;
+    this.trafficLightMode = config.trafficLightDefaultMode;
+    this.trafficLightGreenAutoTime = config.trafficLightGreenAutoTime;
+    this.trafficLightRedAutoTime = config.trafficLightRedAutoTime;
     this.generateCars();
     setInterval(this.cycle, this.config.refresh / 2.25);
   }
@@ -123,9 +127,9 @@ export class Engine {
     this.cars = [];
     let previousCar: ICar;
     // Condition pour "augmentationBouchon"
-    //for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
+    // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.addCarDist) {
     // Condition pour "detente"
-    //for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
+    // for (let pos = this.config.trafficLightPosition; pos >= - this.config.addCarDist; pos -= this.config.carWidth) {
     // Condition standard
     const initPos =
       this.config.trafficLightPosition +
@@ -137,7 +141,6 @@ export class Engine {
     this.elapsedTime = 0;
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
-    this.trafficLightColor = 'green';
     this.pauseTime = 0;
     this.playTime = 0;
     this.computeSpeeds();
@@ -167,20 +170,20 @@ export class Engine {
   }
 
   public manual() {
-    if (this.trafficLightState === 'manual') {
+    if (this.trafficLightMode === 'manual') {
       return;
     }
-    this.trafficLightState = 'manual';
+    this.trafficLightMode = 'manual';
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
     this.notify();
   }
 
   public auto() {
-    if (this.trafficLightState === 'auto') {
+    if (this.trafficLightMode === 'auto') {
       return;
     }
-    this.trafficLightState = 'auto';
+    this.trafficLightMode = 'auto';
     this.trafficLightGreenElapsedTime = 0;
     this.trafficLightRedElapsedTime = 0;
     this.notify();
@@ -213,7 +216,7 @@ export class Engine {
   }
 
   private isAuto() {
-    return this.trafficLightState === 'auto';
+    return this.trafficLightMode === 'auto';
   }
 
   private cycle = () => {
@@ -302,7 +305,6 @@ export class Engine {
   }
 
   private computeSpeeds() {
-    console.log('computeSpeeds');
     // Update cars speed
     for (const car of this.cars) {
       // Compute new speed
@@ -359,7 +361,7 @@ export class Engine {
       trafficLightColor: this.trafficLightColor,
       trafficLightGreenElapsedTime: this.trafficLightGreenElapsedTime,
       trafficLightRedElapsedTime: this.trafficLightRedElapsedTime,
-      trafficLightState: this.trafficLightState,
+      trafficLightMode: this.trafficLightMode,
       cars: this.cars,
       radar: this.radar,
       trafficLightGreenAutoTime: this.trafficLightGreenAutoTime,

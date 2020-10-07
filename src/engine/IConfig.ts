@@ -19,6 +19,13 @@ export interface IConfig {
   addCarDist: number;
   // Traffic light position in meters
   trafficLightPosition: number;
+  // Set if the traffic light mode is manual or auto by default
+  trafficLightDefaultMode: 'manual' | 'auto';
+  // Traffic light color at the beginning of the simulation
+  trafficLightInitialColor: 'green' | 'red';
+  // Default duration in second for each state of the traffic light
+  trafficLightGreenAutoTime: number;
+  trafficLightRedAutoTime: number;
   // Time factor
   timeFactor: number;
   // Radar initial position
