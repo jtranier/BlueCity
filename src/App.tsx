@@ -124,7 +124,7 @@ export const App = (props: {}) => {
               <Board />
               <TrafficLight
                 x={config.trafficLightPosition / config.resolution}
-                y={250}
+                y={245}
                 state={data.trafficLightMode === 'auto' ? 'display-only' : 'active'}
               />
               <Route />

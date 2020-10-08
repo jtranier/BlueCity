@@ -27,7 +27,7 @@ export const TrafficLight = (props: { x: number; y: number; state: 'active' | 'd
   return (
     <React.Fragment>
       <Rect x={props.x - 8} y={props.y - 30} width={16} height={30} fill={'#222'} onClick={handleClick} />
-      <Rect x={props.x - 2} y={props.y} width={4} height={14} fill={'#222'} onClick={handleClick} />
+      <Rect x={props.x - 2} y={props.y} width={4} height={20} fill={'#222'} onClick={handleClick} />
       <Circle x={props.x} y={props.y - 22} radius={6} fill={redLightColor} onClick={handleClick} />
       <Circle x={props.x} y={props.y - 8} radius={6} fill={greenLightColor} onClick={handleClick} />
     </React.Fragment>

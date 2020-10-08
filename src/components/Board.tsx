@@ -318,7 +318,7 @@ export const Board = (props: {}) => {
         fontFamily="digital"
         fill={data.trafficLightMode === 'auto' ? 'cyan' : 'lightgrey'}
       />
-      <TrafficLight x={270} y={yOffset + 98} state={data.trafficLightMode === 'auto' ? 'disabled' : 'active'} />
+      <TrafficLight x={270} y={yOffset + 88} state={data.trafficLightMode === 'auto' ? 'disabled' : 'active'} />
 
       <Text x={230} y={yOffset + 125} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
       <Text x={300} y={yOffset + 145} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
