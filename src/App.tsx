@@ -34,8 +34,8 @@ const config: IConfig = {
   radarInitialPosition: 160,
   radarWidth: 8,
   radarHeight: 23,
-  densityWidth: 350,
-  densityHeight: 175,
+  densityWidth: 400,
+  densityHeight: 200,
   densityMinY: -(1 / 16) / 2,
   densityMaxY: 5 * (1 / 16)
 };
