@@ -6,7 +6,7 @@ import { useEngine } from '../hooks/useEngine';
 import konva from 'konva';
 
 export const MeasuringTape = (props: { y: number }) => {
-  const topRule = 20;
+  const topRule = 15;
   const bottomRule = 70;
   const markSize = 15;
   const markOffset = 30;

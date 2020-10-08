@@ -34,8 +34,8 @@ const config: IConfig = {
   radarInitialPosition: 160,
   radarWidth: 8,
   radarHeight: 23,
-  densityWidth: 400,
-  densityHeight: 200,
+  densityWidth: 320,
+  densityHeight: 160,
   densityMinY: -(1 / 16) / 2,
   densityMaxY: 5 * (1 / 16)
 };
@@ -117,14 +117,14 @@ export const App = (props: {}) => {
     <React.Fragment>
       <GlobalStyle />
       {fontLoaded && (
-        <Stage width={1200} height={800}>
+        <Stage width={960} height={640}>
           <appContext.Provider value={{ engine, config, data, openNumberModal }}>
             <Layer>
               <City />
               <Board />
               <TrafficLight
                 x={config.trafficLightPosition / config.resolution}
-                y={256+58}
+                y={250}
                 state={data.trafficLightMode === 'auto' ? 'display-only' : 'active'}
               />
               <Route />

@@ -11,7 +11,7 @@ export const Route = (props: {}) => {
     return null;
   }
   const cars = [];
-  const routeY = 274+58;
+  const routeY = 265;
 
   if (data.cars != null) {
     for (const car of data.cars) {

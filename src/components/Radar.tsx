@@ -10,7 +10,7 @@ export const Radar = (props: {}) => {
   const data = useData();
   const engine = useEngine();
   const [x, setX] = React.useState<number>(data.radar.pos / config.resolution);
-  const yOffset = 290 + 58;
+  const yOffset = 290;
 
   if (data == null) {
     return null;
@@ -31,7 +31,7 @@ export const Radar = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect x={x - 1} y={yOffset - 35} width={2} height={yOffset - 312} fill={'red'} />
+      <Rect x={x - 1} y={yOffset - 38} width={2} height={38} fill={'red'} />
       <Line
         x={x - config.radarWidth / 2 / config.resolution}
         y={yOffset}

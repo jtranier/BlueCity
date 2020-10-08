@@ -96,9 +96,9 @@ export const Board = (props: {}) => {
   const config = useConfig();
   const data = useData();
 
-  const yOffset = 350+58;
-  const radarXOffset = 950;
-  const densityXOffset = 500;
+  const yOffset = 350;
+  const radarXOffset = 750;
+  const densityXOffset = 430;
 
   const handleZeroClick = () => {
     engine.zero();
@@ -181,7 +181,7 @@ export const Board = (props: {}) => {
 
   return (
     <React.Fragment>
-      <Rect x={0} y={yOffset} width={1200} height={250} fill={'#667788'} />
+      <Rect x={0} y={yOffset} width={1200} height={210} fill={'#667788'} />
 
       <Density x={densityXOffset} y={yOffset + 30} />
 
@@ -372,10 +372,10 @@ export const Board = (props: {}) => {
                   width={32}
                   onClick={handleDownloadClick} />
 
-      <Text x={densityXOffset + 160} y={yOffset} text="DENSITE" fontSize={28} fontFamily="digital" />
+      <Text x={densityXOffset + (config.densityWidth / 2) - 50} y={yOffset} text="DENSITE" fontSize={28} fontFamily="digital" />
       {/* Density is here */}
 
-      <Text x={radarXOffset + 100} y={yOffset} text="RADAR" fontSize={28} fontFamily="digital" />
+      <Text x={radarXOffset + 80} y={yOffset} text="RADAR" fontSize={28} fontFamily="digital" />
 
       <Text x={radarXOffset + 25}
             y={yOffset + 66}
@@ -398,7 +398,7 @@ export const Board = (props: {}) => {
       />
 
       <Text x={radarXOffset + 25}
-            y={yOffset + 125}
+            y={yOffset + 115}
             width={120}
             text=" NOMBRE :"
             fontSize={22}
@@ -407,7 +407,7 @@ export const Board = (props: {}) => {
             fontFamily="digital" />
       <EditableNumber
         x={radarXOffset + 125}
-        y={yOffset + 120}
+        y={yOffset + 110}
         width={60}
         height={30}
         num={data.radar.nbCars}
@@ -440,8 +440,8 @@ export const Board = (props: {}) => {
       {!data.radar.isRecording && (
         <React.Fragment>
           <RectBtn
-            x={radarXOffset + 50}
-            y={yOffset + 175}
+            x={radarXOffset + 70}
+            y={yOffset + 155}
             width={30}
             height={30}
             text=""
@@ -450,8 +450,8 @@ export const Board = (props: {}) => {
             textOffsetY={3}
             onClick={handleStartRecordingRadar}
           />
-          <KonvaImage x={radarXOffset + 49}
-          y={yOffset + 174}
+          <KonvaImage x={radarXOffset + 69}
+          y={yOffset + 154}
           image={imageStartRecordingRadar}
           height={32}
           width={32}
@@ -459,8 +459,8 @@ export const Board = (props: {}) => {
         </React.Fragment>
       )}
       <RectBtn
-        x={radarXOffset + 100}
-        y={yOffset + 175}
+        x={radarXOffset + 120}
+        y={yOffset + 155}
         width={30}
         height={30}
         text=""
@@ -469,8 +469,8 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleResetRadar}
       />
-      <KonvaImage x={radarXOffset + 99}
-                  y={yOffset + 174}
+      <KonvaImage x={radarXOffset + 119}
+                  y={yOffset + 154}
                   image={imageResetRadar}
                   height={32}
                   width={32}
