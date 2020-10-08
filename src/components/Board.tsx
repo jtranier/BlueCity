@@ -419,7 +419,7 @@ export const Board = (props: {}) => {
       {data.radar.isRecording && (
         <React.Fragment>
           <RectBtn
-            x={radarXOffset + 125}
+            x={radarXOffset + 70}
             y={yOffset + 155}
             width={30}
             height={30}
@@ -429,7 +429,7 @@ export const Board = (props: {}) => {
             textOffsetY={3}
             onClick={handleStopRecordingRadar}
           />
-          <KonvaImage x={radarXOffset + 124}
+          <KonvaImage x={radarXOffset + 69}
                       y={yOffset + 154}
                       image={imageStopRecordingRadar}
                       height={32}
