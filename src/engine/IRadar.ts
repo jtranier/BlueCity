@@ -1,3 +1,4 @@
+import {IRadarData} from './IRadarData';
 export interface IRadar {
   // position in meters
   pos: number;
@@ -9,7 +10,7 @@ export interface IRadar {
   nbCars: number;
 
   // data associates timestamps to measured speed
-  data: [number, number][];
+  data: IRadarData[];
 
   isRecording: boolean;
 }

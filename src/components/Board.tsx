@@ -167,7 +167,8 @@ export const Board = (props: {}) => {
     const lines: string[] = [];
     lines.push('time;speed');
     for (const d of data.radar.data) {
-      lines.push(truncFixed(d[0] / 1000, 1).replace('.', ',') + ';' + truncFixed(d[1], 2).replace('.', ','));
+      lines.push((d.time / 1000).toString().replace('.', ',')
+        + ';' + (d.speed).toString().replace('.', ','));
     }
     const csv = lines.join('\n');
     var element = document.createElement('a');
