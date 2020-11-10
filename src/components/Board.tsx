@@ -218,7 +218,7 @@ export const Board = (props: {}) => {
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
-        fill="lightgrey"
+        fill="cyan"
         onChange={handleStartClick}
       />
       {data.playing && (
@@ -397,7 +397,7 @@ export const Board = (props: {}) => {
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
-        fill="lightgrey"
+        fill="cyan"
       />
 
       <Text x={radarXOffset + 25}
@@ -417,7 +417,7 @@ export const Board = (props: {}) => {
         textOffsetX={5}
         textOffsetY={5}
         fontSize={22}
-        fill="lightgrey"
+        fill="cyan"
       />
       {data.radar.isRecording && (
         <React.Fragment>
