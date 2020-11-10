@@ -437,6 +437,11 @@ export const Board = (props: {}) => {
                       height={32}
                       width={32}
                       onClick={handleStopRecordingRadar} />
+          <Text x={radarXOffset + 76}
+                y={yOffset + 188}
+                text="REC" fontSize={14}
+                fill="red"
+                fontFamily="digital" />
         </React.Fragment>
       )}
       {!data.radar.isRecording && (
@@ -458,6 +463,11 @@ export const Board = (props: {}) => {
           height={32}
           width={32}
           onClick={handleStartRecordingRadar} />
+          <Text x={radarXOffset + 76}
+                y={yOffset + 188}
+                text="REC" fontSize={14}
+                fill="lightgrey"
+                fontFamily="digital" />
         </React.Fragment>
       )}
       <RectBtn
