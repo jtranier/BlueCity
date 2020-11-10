@@ -187,7 +187,7 @@ export const Board = (props: {}) => {
 
       <Density x={densityXOffset} y={yOffset + 30} />
 
-      <Text x={30} y={yOffset + topPadding} text="CONTROLE" fontSize={22} fontFamily="LCDMono"  />
+      <Text x={70} y={yOffset + topPadding} text="CONTROLE" fontSize={22} fontFamily="LCDMono"  />
       <Text x={10} y={yOffset + 70} width={125} text="TEMPS :" fontSize={20} fontFamily="LCDMono" align="right" />
       <Text x={50 + 25} y={yOffset + 90} text="SECONDES" fontSize={10} fontFamily="LCDMono" />
       <RectBtn
