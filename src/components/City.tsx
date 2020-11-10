@@ -9,8 +9,8 @@ export const City = (props: {}) => {
     imageElement.onload = () => {
       setImage(imageElement);
     };
-    imageElement.src = require('../assets/city.png').default;
+    imageElement.src = require('../assets/city.svg').default;
   }, []); // ✅ OK - This effect never re-runs
 
-  return <KonvaImage x={0} y={0} image={image} width={960} height={252} />;
+  return <KonvaImage x={0} y={0} image={image} width={980} height={257} />;
 };

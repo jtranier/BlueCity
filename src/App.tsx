@@ -117,7 +117,7 @@ export const App = (props: {}) => {
     <React.Fragment>
       <GlobalStyle />
       {fontLoaded && (
-        <Stage width={960} height={640}>
+        <Stage width={980} height={640}>
           <appContext.Provider value={{ engine, config, data, openNumberModal }}>
             <Layer>
               <City />
