@@ -49,6 +49,12 @@ const GlobalStyle = createGlobalStyle`
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'LCDMono';
+  src: url(${require('./assets/2_LCDMono.ttf').default}) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 `;
 
 export const App = (props: {}) => {

@@ -97,6 +97,7 @@ export const Board = (props: {}) => {
   const data = useData();
 
   const yOffset = 350;
+  const topPadding = 7;
   const radarXOffset = 750;
   const densityXOffset = 430;
 
@@ -186,11 +187,11 @@ export const Board = (props: {}) => {
 
       <Density x={densityXOffset} y={yOffset + 30} />
 
-      <Text x={30} y={yOffset} text="CONTROLE" fontSize={28} fontFamily="digital" />
-      <Text x={10} y={yOffset + 70} text="   TEMPS :" fontSize={22} fontFamily="digital" />
-      <Text x={50} y={yOffset + 90} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={30} y={yOffset + topPadding} text="CONTROLE" fontSize={22} fontFamily="LCDMono"  />
+      <Text x={10} y={yOffset + 70} width={125} text="TEMPS :" fontSize={20} fontFamily="LCDMono" align="right" />
+      <Text x={50 + 25} y={yOffset + 90} text="SECONDES" fontSize={10} fontFamily="LCDMono" />
       <RectBtn
-        x={110}
+        x={110 + 25}
         y={yOffset + 65}
         width={30}
         height={30}
@@ -200,14 +201,14 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleZeroClick}
       />
-      <KonvaImage x={108}
+      <KonvaImage x={108 + 25}
                   y={yOffset + 65}
                   image={imageResetTime}
                   height={32}
                   width={32}
                   onClick={handleZeroClick} />
       <EditableNumber
-        x={140}
+        x={140 + 25}
         y={yOffset + 65}
         width={60}
         height={30}
@@ -222,9 +223,9 @@ export const Board = (props: {}) => {
       />
       {data.playing && (
         <React.Fragment>
-          <Text x={10} y={yOffset + 125} text="    PAUSE" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={yOffset + 127} width={125} align="right" text="PAUSE  " fontSize={20} fontFamily="LCDMono" />
           <RectBtn
-            x={110}
+            x={110 + 25}
             y={yOffset + 120}
             width={30}
             height={30}
@@ -234,7 +235,7 @@ export const Board = (props: {}) => {
             textOffsetY={3}
             onClick={handlePauseClick}
           />
-          <KonvaImage x={109}
+          <KonvaImage x={109 + 25}
                       y={yOffset + 119}
                       image={imagePause}
                       height={32}
@@ -244,9 +245,9 @@ export const Board = (props: {}) => {
       )}
       {!data.playing && (
         <React.Fragment>
-          <Text x={10} y={yOffset + 125} text="    START" fontSize={22} fontFamily="digital" />
+          <Text x={10} y={yOffset + 127} width={125} align="right" text="START  " fontSize={20} fontFamily="LCDMono" />
           <RectBtn
-            x={110}
+            x={110 + 25}
             y={yOffset + 120}
             width={30}
             height={30}
@@ -256,7 +257,7 @@ export const Board = (props: {}) => {
             textOffsetY={2}
             onClick={handleStartClick}
           />
-          <KonvaImage x={109}
+          <KonvaImage x={109 + 25}
                       y={yOffset + 119}
                       image={imagePlay}
                       height={32}
@@ -264,9 +265,9 @@ export const Board = (props: {}) => {
                       onClick={handleStartClick} />
         </React.Fragment>
       )}
-      <Text x={10} y={yOffset + 165} text="RECHARGER" fontSize={22} fontFamily="digital" />
+      <Text x={10} y={yOffset + 167} width={125} align="right" text="RECHARGER" fontSize={20} fontFamily="LCDMono" />
       <RectBtn
-        x={110}
+        x={110 + 25}
         y={yOffset + 160}
         width={30}
         height={30}
@@ -276,14 +277,14 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleResetClick}
       />
-      <KonvaImage x={109}
+      <KonvaImage x={109 + 25}
                   y={yOffset + 159}
                   image={imageReset}
                   height={32}
                   width={32}
                   onClick={handleResetClick} />
 
-      <Text x={290} y={yOffset} text="FEU" fontSize={28} fontFamily="digital" />
+      <Text x={290} y={yOffset + topPadding} text="FEU" fontSize={22} fontFamily="LCDMono" />
       <Text
         x={291}
         y={yOffset + 50}
@@ -321,8 +322,8 @@ export const Board = (props: {}) => {
       />
       <TrafficLight x={270} y={yOffset + 88} state={data.trafficLightMode === 'auto' ? 'disabled' : 'active'} />
 
-      <Text x={230} y={yOffset + 125} width={200} text=" TEMPS VERT :" fontSize={22} fontFamily="digital" />
-      <Text x={300} y={yOffset + 145} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={234} y={yOffset + 125} width={200} text=" TEMPS VERT :" fontSize={20} fontFamily="LCDMono" />
+      <Text x={290} y={yOffset + 145} width={130} text="SECONDES" fontSize={10} fontFamily="LCDMono" />
       <EditableNumber
         x={360}
         y={yOffset + 120}
@@ -338,8 +339,8 @@ export const Board = (props: {}) => {
         onChange={handleChangeGreenTime}
       />
 
-      <Text x={230} y={yOffset + 165} width={200} text="TEMPS ROUGE :" fontSize={22} fontFamily="digital" />
-      <Text x={300} y={yOffset + 185} width={130} text="SECONDES" fontSize={14} fontFamily="digital" />
+      <Text x={220} y={yOffset + 165} width={200} text="TEMPS ROUGE :" fontSize={20} fontFamily="LCDMono" />
+      <Text x={290} y={yOffset + 185} width={130} text="SECONDES" fontSize={10} fontFamily="LCDMono" />
       <EditableNumber
         x={360}
         y={yOffset + 160}
@@ -373,19 +374,19 @@ export const Board = (props: {}) => {
                   width={32}
                   onClick={handleDownloadClick} />
 
-      <Text x={densityXOffset + (config.densityWidth / 2) - 50} y={yOffset} text="DENSITE" fontSize={28} fontFamily="digital" />
+      <Text x={densityXOffset + (config.densityWidth / 2) - 50} y={yOffset + topPadding} text="DENSI TE" fontSize={22} fontFamily="LCDMono" />
       {/* Density is here */}
 
-      <Text x={radarXOffset + 80} y={yOffset} text="RADAR" fontSize={28} fontFamily="digital" />
+      <Text x={radarXOffset + 80} y={yOffset + topPadding} text="RADAR" fontSize={22} fontFamily="LCDMono" />
 
       <Text x={radarXOffset + 25}
-            y={yOffset + 66}
-            width={120}
-            text="VITESSE :"
-            align="left"
-            fontSize={22}
-            fontFamily="digital" />
-      <Text x={radarXOffset + 80} y={yOffset + 85} text="M/S" fontSize={14} fontFamily="digital" />
+            y={yOffset + 68}
+            width={100}
+            text="VI TESSE :"
+            align="right"
+            fontSize={20}
+            fontFamily="LCDMono" />
+      <Text x={radarXOffset + 80} y={yOffset + 87} text="M/S" fontSize={14} fontFamily="LCDMono" />
 
       <EditableNumber
         x={radarXOffset + 125}
@@ -401,12 +402,12 @@ export const Board = (props: {}) => {
 
       <Text x={radarXOffset + 25}
             y={yOffset + 115}
-            width={120}
-            text=" NOMBRE :"
-            fontSize={22}
-            align="left"
+            width={100}
+            text="NOMBRE :"
+            fontSize={20}
+            align="right"
             wrap="char"
-            fontFamily="digital" />
+            fontFamily="LCDMono" />
       <EditableNumber
         x={radarXOffset + 125}
         y={yOffset + 110}
