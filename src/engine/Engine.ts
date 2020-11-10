@@ -23,8 +23,8 @@ export class Engine {
   };
 
   private measuringTape: IMeasuringTape = {
-    x1: 200, // TODO ***
-    x2: 300, // TODO ***
+    x1: 200,
+    x2: 300,
   };
 
   private subscribers: EngineSubscriber[] = [];
@@ -257,6 +257,17 @@ export class Engine {
         this.moveCars(dt);
         this.computeSpeeds();
 
+        if (this.radar.isRecording) {
+          for (const car of this.cars) {
+            if(car.flashed) {
+              this.radar.data.push({
+                time: this.elapsedTime,
+                speed: car.speed
+              });
+            }
+          }
+        }
+
         // Add car ?
         if (this.cars.length === 0) {
           this.addCar(0, null);
@@ -306,6 +317,7 @@ export class Engine {
       previousSpeed: null,
       precedingCar,
       followingCar: null,
+      flashed: false
     };
     if (precedingCar) {
       car.speed = this.config.carMaxSpeed * (1 - this.config.carWidth / this.computeDistObs(car));
@@ -334,16 +346,11 @@ export class Engine {
       const nextPos = car.pos + 0.001 * car.speed * dt;
 
       // Handle Radar
+      car.flashed = false;
       if (nextPos >= this.radar.pos  && (car.pos < this.radar.pos)) {
         this.radar.lastSpeed = car.speed;
         this.radar.nbCars++;
-
-        if (this.radar.isRecording) {
-          this.radar.data.push({
-            time: this.elapsedTime,
-            speed: car.speed
-          });
-        }
+        car.flashed = true;
       }
     }
   }

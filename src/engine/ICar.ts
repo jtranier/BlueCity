@@ -14,4 +14,7 @@ export interface ICar {
   precedingCar?: ICar;
   // reference to the car after me
   followingCar?: ICar;
+
+  // True if the radar measured this car during the current cycle
+  flashed: boolean;
 }

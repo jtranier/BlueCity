@@ -36,3 +36,4 @@ dist/
 pilote-admin-root-config.json
 pilote-admin-ou-config.json
 pilote-portal-config.json
+/dist.zip
