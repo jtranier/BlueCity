@@ -385,6 +385,7 @@ export const Board = (props: {}) => {
             align="left"
             fontSize={22}
             fontFamily="digital" />
+      <Text x={radarXOffset + 80} y={yOffset + 85} text="M/S" fontSize={14} fontFamily="digital" />
 
       <EditableNumber
         x={radarXOffset + 125}
