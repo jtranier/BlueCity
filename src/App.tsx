@@ -144,21 +144,10 @@ export const App = (props: {}) => {
         onRequestClose={() => {
           handleCancel();
         }}
-        style={{
-          content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            transform: 'translate(-50%, -50%)',
-          },
-        }}
+        className='modal'
       >
         <form
           onSubmit={handleValidate}
-          style={{
-            backgroundColor: '#777',
-          }}
         >
           <h3>{numberModalData.label}</h3>
           <div>
@@ -167,24 +156,13 @@ export const App = (props: {}) => {
               value={numberModalData.num}
               onChange={handleChangeModalNum}
               autoFocus
-              style={{
-                fontFamily: 'digital',
-                fontSize: 28,
-                width: '4em',
-                backgroundColor: 'black',
-                color: 'darkgrey',
-              }}
             />
           </div>
-          <div
-            style={{
-              marginTop: '2em',
-            }}
-          >
+          <div className="btns">
             <button type="submit" onClick={handleValidate}>
-              Valider
+              VALIDER
             </button>
-            <button onClick={handleCancel}>Annuler</button>
+            <button onClick={handleCancel}>ANNULER</button>
           </div>
         </form>
       </ReactModal>
