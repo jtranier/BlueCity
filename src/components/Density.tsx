@@ -51,10 +51,7 @@ export const Density = (props: { x: number; y: number }) => {
 
   _.each(
     _.filter(data.cars, (car) => {
-      return (
-        car.pos < config.routeLen * 2 &&
-        (data.trafficLightColor === 'green' || engine.convertPos(car.pos) <= 0)
-      );
+      return car.pos < config.routeLen * 2 && (data.trafficLightColor === 'green' || engine.convertPos(car.pos) <= 0);
     }),
     (car) => {
       // Distance to next car
@@ -64,7 +61,10 @@ export const Density = (props: { x: number; y: number }) => {
       }
 
       const x = car.pos / densityXResolution;
-      const density = (data.trafficLightColor === 'red' && engine.convertPos(car.pos) > -config.carWidth) ? 1 / config.carWidth : 1 / dNextCar
+      const density =
+        data.trafficLightColor === 'red' && engine.convertPos(car.pos) > -config.carWidth
+          ? 1 / config.carWidth
+          : 1 / dNextCar;
 
       curvePointsBeforeTrafficLight.push(x, fy(density));
     }

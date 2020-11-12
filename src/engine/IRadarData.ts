@@ -1,4 +1,4 @@
 export interface IRadarData {
-  time: number,
-  speed: number
+  time: number;
+  speed: number;
 }

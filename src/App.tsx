@@ -37,7 +37,7 @@ const config: IConfig = {
   densityWidth: 320,
   densityHeight: 160,
   densityMinY: -(1 / 16) / 2,
-  densityMaxY: 5 * (1 / 16)
+  densityMaxY: 5 * (1 / 16),
 };
 
 const engine = new Engine(config);
@@ -144,19 +144,12 @@ export const App = (props: {}) => {
         onRequestClose={() => {
           handleCancel();
         }}
-        className='modal'
+        className="modal"
       >
-        <form
-          onSubmit={handleValidate}
-        >
+        <form onSubmit={handleValidate}>
           <h3>{numberModalData.label}</h3>
           <div>
-            <input
-              type="number"
-              value={numberModalData.num}
-              onChange={handleChangeModalNum}
-              autoFocus
-            />
+            <input type="number" value={numberModalData.num} onChange={handleChangeModalNum} autoFocus />
           </div>
           <div className="btns">
             <button type="submit" onClick={handleValidate}>

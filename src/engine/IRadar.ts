@@ -1,4 +1,4 @@
-import {IRadarData} from './IRadarData';
+import { IRadarData } from './IRadarData';
 export interface IRadar {
   // position in meters
   pos: number;

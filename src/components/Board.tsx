@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {Image as KonvaImage, Rect, Text} from 'react-konva';
-import {useEngine} from '../hooks/useEngine';
-import {useConfig} from '../hooks/useConfig';
-import {useData} from '../hooks/useData';
-import {TrafficLight} from './TrafficLight';
-import {RectBtn} from './RectBtn';
-import {EditableNumber} from './EditableNumber';
-import {Density} from './Density';
-import {truncFixed} from '../utils';
+import { Image as KonvaImage, Rect, Text } from 'react-konva';
+import { useEngine } from '../hooks/useEngine';
+import { useConfig } from '../hooks/useConfig';
+import { useData } from '../hooks/useData';
+import { TrafficLight } from './TrafficLight';
+import { RectBtn } from './RectBtn';
+import { EditableNumber } from './EditableNumber';
+import { Density } from './Density';
+import { truncFixed } from '../utils';
 
 export const Board = (props: {}) => {
   const [imagePlay, setImagePlay] = React.useState<HTMLImageElement>(null);
@@ -168,8 +168,7 @@ export const Board = (props: {}) => {
     const lines: string[] = [];
     lines.push('time;speed');
     for (const d of data.radar.data) {
-      lines.push((d.time / 1000).toString().replace('.', ',')
-        + ';' + (d.speed).toString().replace('.', ','));
+      lines.push((d.time / 1000).toString().replace('.', ',') + ';' + d.speed.toString().replace('.', ','));
     }
     const csv = lines.join('\n');
     var element = document.createElement('a');
@@ -187,7 +186,7 @@ export const Board = (props: {}) => {
 
       <Density x={densityXOffset} y={yOffset + 30} />
 
-      <Text x={70} y={yOffset + topPadding} text="CONTROLE" fontSize={22} fontFamily="LCDMono"  />
+      <Text x={70} y={yOffset + topPadding} text="CONTROLE" fontSize={22} fontFamily="LCDMono" />
       <Text x={10} y={yOffset + 70} width={125} text="TEMPS :" fontSize={20} fontFamily="LCDMono" align="right" />
       <Text x={50 + 25} y={yOffset + 90} text="SECONDES" fontSize={10} fontFamily="LCDMono" />
       <RectBtn
@@ -201,12 +200,14 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleZeroClick}
       />
-      <KonvaImage x={108 + 25}
-                  y={yOffset + 65}
-                  image={imageResetTime}
-                  height={32}
-                  width={32}
-                  onClick={handleZeroClick} />
+      <KonvaImage
+        x={108 + 25}
+        y={yOffset + 65}
+        image={imageResetTime}
+        height={32}
+        width={32}
+        onClick={handleZeroClick}
+      />
       <EditableNumber
         x={140 + 25}
         y={yOffset + 65}
@@ -235,12 +236,14 @@ export const Board = (props: {}) => {
             textOffsetY={3}
             onClick={handlePauseClick}
           />
-          <KonvaImage x={109 + 25}
-                      y={yOffset + 119}
-                      image={imagePause}
-                      height={32}
-                      width={32}
-                      onClick={handlePauseClick} />
+          <KonvaImage
+            x={109 + 25}
+            y={yOffset + 119}
+            image={imagePause}
+            height={32}
+            width={32}
+            onClick={handlePauseClick}
+          />
         </React.Fragment>
       )}
       {!data.playing && (
@@ -257,12 +260,14 @@ export const Board = (props: {}) => {
             textOffsetY={2}
             onClick={handleStartClick}
           />
-          <KonvaImage x={109 + 25}
-                      y={yOffset + 119}
-                      image={imagePlay}
-                      height={32}
-                      width={32}
-                      onClick={handleStartClick} />
+          <KonvaImage
+            x={109 + 25}
+            y={yOffset + 119}
+            image={imagePlay}
+            height={32}
+            width={32}
+            onClick={handleStartClick}
+          />
         </React.Fragment>
       )}
       <Text x={10} y={yOffset + 167} width={125} align="right" text="RECHARGER" fontSize={20} fontFamily="LCDMono" />
@@ -277,12 +282,7 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleResetClick}
       />
-      <KonvaImage x={109 + 25}
-                  y={yOffset + 159}
-                  image={imageReset}
-                  height={32}
-                  width={32}
-                  onClick={handleResetClick} />
+      <KonvaImage x={109 + 25} y={yOffset + 159} image={imageReset} height={32} width={32} onClick={handleResetClick} />
 
       <Text x={290} y={yOffset + topPadding} text="FEU" fontSize={22} fontFamily="LCDMono" />
       <Text
@@ -305,12 +305,14 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleChangeTrafficLightMode}
       />
-      <KonvaImage x={294}
-                  y={yOffset + 65}
-                  image={imageSwapTrafficLightMode}
-                  height={32}
-                  width={32}
-                  onClick={handleChangeTrafficLightMode} />
+      <KonvaImage
+        x={294}
+        y={yOffset + 65}
+        image={imageSwapTrafficLightMode}
+        height={32}
+        width={32}
+        onClick={handleChangeTrafficLightMode}
+      />
       <Text
         x={296}
         y={yOffset + 98}
@@ -367,25 +369,35 @@ export const Board = (props: {}) => {
         textOffsetY={5}
         onClick={handleDownloadClick}
       />
-      <KonvaImage x={379}
-                  y={yOffset + 64}
-                  image={imageDownloadPos}
-                  height={32}
-                  width={32}
-                  onClick={handleDownloadClick} />
+      <KonvaImage
+        x={379}
+        y={yOffset + 64}
+        image={imageDownloadPos}
+        height={32}
+        width={32}
+        onClick={handleDownloadClick}
+      />
 
-      <Text x={densityXOffset + (config.densityWidth / 2) - 50} y={yOffset + topPadding} text="DENSI TE" fontSize={22} fontFamily="LCDMono" />
+      <Text
+        x={densityXOffset + config.densityWidth / 2 - 50}
+        y={yOffset + topPadding}
+        text="DENSI TE"
+        fontSize={22}
+        fontFamily="LCDMono"
+      />
       {/* Density is here */}
 
       <Text x={radarXOffset + 80} y={yOffset + topPadding} text="RADAR" fontSize={22} fontFamily="LCDMono" />
 
-      <Text x={radarXOffset + 25}
-            y={yOffset + 68}
-            width={100}
-            text="VI TESSE :"
-            align="right"
-            fontSize={20}
-            fontFamily="LCDMono" />
+      <Text
+        x={radarXOffset + 25}
+        y={yOffset + 68}
+        width={100}
+        text="VI TESSE :"
+        align="right"
+        fontSize={20}
+        fontFamily="LCDMono"
+      />
       <Text x={radarXOffset + 80} y={yOffset + 87} text="M/S" fontSize={14} fontFamily="LCDMono" />
 
       <EditableNumber
@@ -400,14 +412,16 @@ export const Board = (props: {}) => {
         fill="cyan"
       />
 
-      <Text x={radarXOffset + 25}
-            y={yOffset + 115}
-            width={100}
-            text="NOMBRE :"
-            fontSize={20}
-            align="right"
-            wrap="char"
-            fontFamily="LCDMono" />
+      <Text
+        x={radarXOffset + 25}
+        y={yOffset + 115}
+        width={100}
+        text="NOMBRE :"
+        fontSize={20}
+        align="right"
+        wrap="char"
+        fontFamily="LCDMono"
+      />
       <EditableNumber
         x={radarXOffset + 125}
         y={yOffset + 110}
@@ -432,17 +446,15 @@ export const Board = (props: {}) => {
             textOffsetY={3}
             onClick={handleStopRecordingRadar}
           />
-          <KonvaImage x={radarXOffset + 69}
-                      y={yOffset + 154}
-                      image={imageStopRecordingRadar}
-                      height={32}
-                      width={32}
-                      onClick={handleStopRecordingRadar} />
-          <Text x={radarXOffset + 76}
-                y={yOffset + 188}
-                text="REC" fontSize={14}
-                fill="red"
-                fontFamily="digital" />
+          <KonvaImage
+            x={radarXOffset + 69}
+            y={yOffset + 154}
+            image={imageStopRecordingRadar}
+            height={32}
+            width={32}
+            onClick={handleStopRecordingRadar}
+          />
+          <Text x={radarXOffset + 76} y={yOffset + 188} text="REC" fontSize={14} fill="red" fontFamily="digital" />
         </React.Fragment>
       )}
       {!data.radar.isRecording && (
@@ -458,17 +470,22 @@ export const Board = (props: {}) => {
             textOffsetY={3}
             onClick={handleStartRecordingRadar}
           />
-          <KonvaImage x={radarXOffset + 69}
-          y={yOffset + 154}
-          image={imageStartRecordingRadar}
-          height={32}
-          width={32}
-          onClick={handleStartRecordingRadar} />
-          <Text x={radarXOffset + 76}
-                y={yOffset + 188}
-                text="REC" fontSize={14}
-                fill="lightgrey"
-                fontFamily="digital" />
+          <KonvaImage
+            x={radarXOffset + 69}
+            y={yOffset + 154}
+            image={imageStartRecordingRadar}
+            height={32}
+            width={32}
+            onClick={handleStartRecordingRadar}
+          />
+          <Text
+            x={radarXOffset + 76}
+            y={yOffset + 188}
+            text="REC"
+            fontSize={14}
+            fill="lightgrey"
+            fontFamily="digital"
+          />
         </React.Fragment>
       )}
       <RectBtn
@@ -482,12 +499,14 @@ export const Board = (props: {}) => {
         textOffsetY={3}
         onClick={handleResetRadar}
       />
-      <KonvaImage x={radarXOffset + 119}
-                  y={yOffset + 154}
-                  image={imageResetRadar}
-                  height={32}
-                  width={32}
-                  onClick={handleResetRadar} />
+      <KonvaImage
+        x={radarXOffset + 119}
+        y={yOffset + 154}
+        image={imageResetRadar}
+        height={32}
+        width={32}
+        onClick={handleResetRadar}
+      />
     </React.Fragment>
   );
 };
