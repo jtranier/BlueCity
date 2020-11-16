@@ -33,6 +33,8 @@ export class Engine {
 
   private playing: boolean = false;
 
+  private playingNextStep: boolean = false;
+
   private playTime: number = 0;
 
   private pauseTime: number = 0;
@@ -114,6 +116,16 @@ export class Engine {
     this.playing = true;
     this.playTime = this.elapsedTime;
     this.pauseTime = 0;
+    this.computeSpeeds();
+    this.notify();
+  }
+
+  public nextStep() {
+    if(this.playing) {
+      return;
+    }
+    this.playTime = this.elapsedTime;
+    this.playingNextStep = true;
     this.computeSpeeds();
     this.notify();
   }
@@ -233,7 +245,7 @@ export class Engine {
     try {
       this.cycling = true;
 
-      if (this.playing) {
+      if (this.playing || this.playingNextStep) {
         const dt = this.config.refresh;
         this.elapsedTime += dt;
         this.handleRadar(dt);
@@ -284,17 +296,13 @@ export class Engine {
           return false;
         });
 
-        /*if (this.elapsedTime === 500) {
-          this.pause();
-        }
-
-        if (this.elapsedTime >= 32000) {
-          this.pause();
-        }*/
-
         if (this.elapsedTime - this.lastNotifyTime >= this.config.refreshNotify) {
           // Notify
           this.notify();
+        }
+
+        if(this.playingNextStep && this.elapsedTime - this.playTime >= 100) {
+          this.playingNextStep = false;
         }
       }
     } finally {

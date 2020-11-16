@@ -11,6 +11,7 @@ import { truncFixed } from '../utils';
 
 export const Board = (props: {}) => {
   const [imagePlay, setImagePlay] = React.useState<HTMLImageElement>(null);
+  const [imagePlayNext, setImagePlayNext] = React.useState<HTMLImageElement>(null);
   const [imagePause, setImagePause] = React.useState<HTMLImageElement>(null);
   const [imageResetTime, setImageResetTime] = React.useState<HTMLImageElement>(null);
   const [imageSwapTrafficLightMode, setImageSwapTrafficLightMode] = React.useState<HTMLImageElement>(null);
@@ -26,6 +27,14 @@ export const Board = (props: {}) => {
       setImagePlay(imageElement);
     };
     imageElement.src = require('../assets/play_arrow-24px.svg').default;
+  }, []); // ✅ OK - This effect never re-runs
+
+  React.useEffect(() => {
+    var imageElement = new Image();
+    imageElement.onload = () => {
+      setImagePlayNext(imageElement);
+    };
+    imageElement.src = require('../assets/skip_next-24px.svg').default;
   }, []); // ✅ OK - This effect never re-runs
 
   React.useEffect(() => {
@@ -120,6 +129,10 @@ export const Board = (props: {}) => {
 
   const handleStartClick = () => {
     engine.play();
+  };
+
+  const handleNextStepClick = () => {
+    engine.nextStep();
   };
 
   const handlePauseClick = () => {
@@ -267,6 +280,26 @@ export const Board = (props: {}) => {
             height={32}
             width={32}
             onClick={handleStartClick}
+          />
+
+          <RectBtn
+            x={150 + 25}
+            y={yOffset + 120}
+            width={30}
+            height={30}
+            text=""
+            fontSize={28}
+            textOffsetX={5}
+            textOffsetY={2}
+            onClick={handleStartClick}
+          />
+          <KonvaImage
+            x={149 + 25}
+            y={yOffset + 119}
+            image={imagePlayNext}
+            height={32}
+            width={32}
+            onClick={handleNextStepClick}
           />
         </React.Fragment>
       )}
