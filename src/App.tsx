@@ -14,6 +14,7 @@ import { Radar } from './components/Radar';
 import ReactModal = require('react-modal');
 
 import './assets/main.css';
+import {Bird} from './components/Bird'
 
 const config: IConfig = {
   refresh: 20, // 20 pour Condition pour "augmentationBouchon" et "detente", 200 en condiftion standard
@@ -127,6 +128,7 @@ export const App = (props: {}) => {
           <appContext.Provider value={{ engine, config, data, openNumberModal }}>
             <Layer>
               <City />
+              <Bird />
               <Board />
               <TrafficLight
                 x={config.trafficLightPosition / config.resolution}
