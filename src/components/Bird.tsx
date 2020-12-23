@@ -11,16 +11,23 @@ export const Bird = (props: {}) => {
   const spriteRef = React.useRef<Konva.Sprite>(null);
   React.useEffect(() => {
     spriteRef.current.start();
-    spriteRef.current.to({
-      x: -500,
-      duration: 20
-    })
+
+    const animateBird = () => {
+      spriteRef.current.x(1200);
+      spriteRef.current.to({
+        x: -500,
+        duration: 20,
+        onFinish: animateBird
+      })
+    }
+
+    animateBird();
   })
 
   // return birdImg;
   const sprite = <Sprite ref={spriteRef}
                          x={1200}
-                         y={10}
+                         y={30}
                          animation="fly"
                          animations={{
                            fly: [
@@ -45,8 +52,10 @@ export const Bird = (props: {}) => {
                            ]
                          }}
                          image={birdImg}
-                         frameRate={12}
+                         frameRate={18}
                          frameIndex={0}
+                         scaleX={0.5}
+                         scaleY={0.5}
   />
 
   return sprite;
