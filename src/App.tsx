@@ -17,7 +17,7 @@ import './assets/main.css';
 import {Bird} from './components/Bird'
 
 const config: IConfig = {
-  refresh: 20, // 20 pour Condition pour "augmentationBouchon" et "detente", 200 en condiftion standard
+  refresh: 200, // 20 pour Condition pour "augmentationBouchon" et "detente", 200 en condition standard
   refreshNotify: 50, // Do not change (only for performance)
   resolution: 0.4,
   routeLen: 400,
