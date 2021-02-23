@@ -1,6 +1,6 @@
 import {Sprite} from 'react-konva/lib/ReactKonvaCore'
 import * as React from 'react'
-import Konva from "konva"
+import Konva from 'konva'
 
 export const Bird = (props: {}) => {
 
@@ -25,7 +25,7 @@ export const Bird = (props: {}) => {
   })
 
   // return birdImg;
-  const sprite = <Sprite ref={spriteRef}
+  return <Sprite ref={spriteRef}
                          x={1200}
                          y={30}
                          animation="fly"
@@ -58,5 +58,4 @@ export const Bird = (props: {}) => {
                          scaleY={0.5}
   />
 
-  return sprite;
 }
