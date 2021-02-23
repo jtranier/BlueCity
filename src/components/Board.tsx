@@ -370,7 +370,7 @@ export const Board = (props: {}) => {
         textOffsetY={5}
         fontSize={22}
         fill={data.trafficLightMode === 'auto' ? 'cyan' : 'darkgrey'}
-        editable={true}
+        editable={data.trafficLightMode === 'auto'}
         onChange={handleChangeGreenTime}
       />
 
@@ -387,7 +387,7 @@ export const Board = (props: {}) => {
         textOffsetY={5}
         fontSize={22}
         fill={data.trafficLightMode === 'auto' ? 'cyan' : 'darkgrey'}
-        editable={true}
+        editable={data.trafficLightMode === 'auto'}
         onChange={handleChangeRedTime}
       />
 
