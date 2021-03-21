@@ -1,5 +1,27 @@
 # Blue City
 
+## Utilisation
+
+### Installer le projet
+```bash
+npm install
+```
+
+
+### Lancer le simulateur localement
+```bash
+npm start
+```
+
+### Construire le package
+```bash
+npm run build
+```
+
+Le package se trouve dans le dossier `dist`.
+
+
+## Licence
 [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
 
 BlueCity de Jean-François Parmentier - Toulouse INP-ENSEEIHT est mis à disposition selon les termes de la
